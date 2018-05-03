@@ -20,9 +20,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.ResourceBundle;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Controller implements Initializable {
     public GridPane calendarGridPane;
@@ -80,9 +79,13 @@ public class Controller implements Initializable {
     public TextField mmhTextField;
     private MediaPlayer mediaPlayer;
     Calendar c = Calendar.getInstance();
+    List<Event> monthEvent;
+    DbConnection dbConnection;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        dbConnection = new DbConnection();
+        //DbConnection.connectToDB();
         dayGrid = new VBox[][]{
                 {vBox01, vBox11, vBox21, vBox31, vBox41, vBox51, vBox61},
                 {vBox02, vBox12, vBox22, vBox32, vBox42, vBox52, vBox62},
@@ -96,6 +99,7 @@ public class Controller implements Initializable {
         calendarGridPane.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
+                monthEvent = new ArrayList<Event>();
                 if (event.getDeltaY() < 0) {
                     c.add(Calendar.MONTH, 1);
                     c.set(Calendar.DAY_OF_MONTH, 1);
@@ -188,7 +192,8 @@ public class Controller implements Initializable {
 
     }
 
-    private void refreshCalendarGrid(int maxDay, int dayOfWeek) {
+    public void refreshCalendarGrid(int maxDay, int dayOfWeek) {
+        monthEvent = new ArrayList<Event>();
         showLastRow(); // Hiện hàng cuối của lịch cho các tháng hiện đủ 6 dòng
         removeDayVBoxContent(); // Xóa các ngày đang hiển thị trong lịch
         int j = -1;
@@ -221,6 +226,7 @@ public class Controller implements Initializable {
         for (; i <= 5; i++) {
             for (; j <= 6; j++) {
                 Label day = new Label("" + dayCount);
+                VBox.setMargin(day, new Insets(5, 0, 0, 5));
                 day.setPickOnBounds(false);
                 if (dayCount == current.get(Calendar.DAY_OF_MONTH) && (current.get(Calendar.MONTH) == c.get(Calendar.MONTH)) && (current.get(Calendar.YEAR) == c.get(Calendar.YEAR))) {
                     day.setBackground(new Background(new BackgroundFill(Color.rgb(66, 133, 244), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -230,17 +236,25 @@ public class Controller implements Initializable {
                 day.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        event.consume();
-                        EventDetailAlertBox.display("s", 1522763460L, 1522849860L, "This is a description", 8640L, event.getScreenX(), event.getScreenY());
+
+                        //EventDetailAlertBox.display("s", 1524934800L, 1522849860L, "This is a description", 8640L, event.getScreenX(), event.getScreenY());
                     }
                 });
                 dayGrid[i][j].getChildren().add(day);
                 dayGrid[i][j].setUserData(dayCount);
+                List<Event> events = dbConnection.getDayEvent(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
+                if (events != null) {
+                    for (Event k : events) {
+                        Label label = makeEventLabel(k);
+                        VBox.setMargin(label, new Insets(0, 0, 2, 0));
+                        dayGrid[i][j].getChildren().add(label);
+                    }
+                    monthEvent.addAll(events);
+                }
                 dayCount++;
                 if (dayCount > maxDay) {
                     break;
                 }
-
             }
             if (dayCount > maxDay)
                 break;
@@ -249,6 +263,43 @@ public class Controller implements Initializable {
         if (i == 4)
             hideLastRow();
     }
+
+    private Label makeEventLabel(Event event) {
+        Label label = new Label();
+        label.setFont(new Font("System", 15));
+        label.setUserData(event.getEventid());
+        label.setBackground(new Background(new BackgroundFill(Color.web(event.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+        label.setTextFill(Color.WHITE);
+        label.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Event temp = getEventFromList((int) label.getUserData());
+                if (temp != null) {
+                    event.consume();
+                    EventDetailAlertBox.display(temp.getTitle(), temp.getStartTime(), temp.getEndTime(), temp.getDescription(), temp.getNotifyTime(), temp.getColor(), event.getScreenX(), event.getScreenY());
+                }
+            }
+        });
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+        java.util.Date eventStartTime = new java.util.Date((long) event.getStartTime() * 1000);
+        formatter.setTimeZone(TimeZone.getTimeZone("GMT+07:00"));
+        if (event.getTitle().isEmpty()) {
+            label.setText(formatter.format(eventStartTime) + "  Không có tiêu đề");
+        } else {
+            label.setText(formatter.format(eventStartTime) + "  " + event.getTitle());
+        }
+
+        return label;
+    }
+
+    private Event getEventFromList(int eventID) {
+        for (Event i : monthEvent) {
+            if (i.getEventid() == eventID)
+                return i;
+        }
+        return null;
+    }
+
 
     private void initDayVBoxEvent() {
         addMouseClickEvent(vBox01);
@@ -305,7 +356,13 @@ public class Controller implements Initializable {
                     @Override
                     public void handle(MouseEvent event) {
                         event.consume();
-                        CreateEventAlertBox.display((int) node.getUserData(), c, event.getScreenX(), event.getScreenY());
+                        CreateEventAlertBox createEventAlertBox = new CreateEventAlertBox();
+                        boolean result = createEventAlertBox.display((int) node.getUserData(), c, event.getScreenX(), event.getScreenY(),false);
+                        System.out.println("result: " + result);
+                        if (result) {
+                            c.set(Calendar.DAY_OF_MONTH, 1);
+                            refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
+                        }
                     }
                 });
             }
@@ -326,7 +383,6 @@ public class Controller implements Initializable {
         }
     }
 
-
     public Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
         Node result = null;
         ObservableList<Node> childrens = gridPane.getChildren();
@@ -341,7 +397,6 @@ public class Controller implements Initializable {
         return result;
     }
 
-
     private void showLastRow() {
         for (int i = 5; i <= 5; i++) {
             for (int j = 0; j <= 6; j++) {
@@ -353,7 +408,6 @@ public class Controller implements Initializable {
         calendarGridPane.getRowConstraints().get(6).setPrefHeight(calendarGridPane.getRowConstraints().get(1).getPrefHeight());
         calendarGridPane.getRowConstraints().get(6).setMaxHeight(calendarGridPane.getRowConstraints().get(1).getMaxHeight());
     }
-
 
     private void hideLastRow() {
         for (int i = 5; i <= 5; i++) {
@@ -481,8 +535,7 @@ public class Controller implements Initializable {
             }
 
 
-            for (int i = 0; i < arrayListThongBao.size(); i++)
-            {
+            for (int i = 0; i < arrayListThongBao.size(); i++) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText(arrayListThongBao.get(i));
                 alert.showAndWait();

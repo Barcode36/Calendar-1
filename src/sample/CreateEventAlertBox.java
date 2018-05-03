@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,20 +22,32 @@ import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 
 import java.io.File;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Optional;
 
 
 public class CreateEventAlertBox {
-    private static String oldStartTime;
-    private static String oldEndTime;
+    private String oldStartTime;
+    private String oldEndTime;
+    private boolean isChanged = false;
+    private boolean isInColorPicker = false;
+    private boolean isNewEventAdded = false;
 
-    public static void display(int day, Calendar c, double x, double y) {
+    public boolean display(int day, Calendar c, double x, double y, boolean update) {
         Stage window = new Stage();
-        window.setTitle("Thêm sự kiện mới");
+        if(update){
+            window.setTitle("Cập nhật sự kiện");
+        }else {
+            window.setTitle("Thêm sự kiện mới");
+        }
+
         window.setMinWidth(610);
-        window.setMinHeight(282);
+        window.setMinHeight(500);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         window.initModality(Modality.WINDOW_MODAL);
@@ -47,8 +60,18 @@ public class CreateEventAlertBox {
         VBox.setVgrow(titleTextField, Priority.ALWAYS);
         VBox.setMargin(titleTextField, new Insets(20, 20, 10, 20));
         titleTextField.setPromptText("Thêm tiêu đề");
+        titleTextField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused)
+                isInColorPicker = false;
+        });
+        titleTextField.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                isChanged = true;
+            }
+        });
 
-        ImageView eventTimeImageView= makeImageView("eventtimeicon", "Thời gian", 30,10,0,8);
+        ImageView eventTimeImageView = makeImageView("eventtimeicon", "Thời gian", 30, 10, 0, 8);
 
         Label start = new Label("Từ");
         HBox.setMargin(start, new Insets(8, 20, 0, 5));
@@ -58,6 +81,11 @@ public class CreateEventAlertBox {
         Calendar temp = c;
         temp.set(Calendar.DATE, day);
         DatePicker startDatePicker = makeDatePicker(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH), temp.get(Calendar.DAY_OF_MONTH));
+        startDatePicker.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused)
+                isInColorPicker = false;
+        });
+
 
         ComboBox<Time> startTimeComboBox = makeTimeComboBox();
 
@@ -65,7 +93,7 @@ public class CreateEventAlertBox {
         startTimeTextField.setMaxWidth(100);
         startTimeTextField.setFont(new Font("System", 20));
         Calendar current = Calendar.getInstance();
-        oldStartTime = (current.get(Calendar.HOUR) >= 10 ? "" + current.get(Calendar.HOUR) : "0" + current.get(Calendar.HOUR))
+        oldStartTime = (current.get(Calendar.HOUR_OF_DAY) >= 10 ? "" + current.get(Calendar.HOUR_OF_DAY) : "0" + current.get(Calendar.HOUR_OF_DAY))
                 + ":" +
                 (current.get(Calendar.MINUTE) >= 10 ? "" + current.get(Calendar.MINUTE) : "0" + current.get(Calendar.MINUTE));
         startTimeTextField.setText(oldStartTime);
@@ -77,6 +105,7 @@ public class CreateEventAlertBox {
                         startTimeComboBox.setVisible(false);
                 }
             } else if (newValue) {
+                isInColorPicker = false;
                 startTimeComboBox.setVisible(true);
             }
         });
@@ -92,7 +121,7 @@ public class CreateEventAlertBox {
         DatePicker endDatePicker = makeDatePicker(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH), temp.get(Calendar.DAY_OF_MONTH));
 
         Label end = new Label("Đến");
-        HBox.setMargin(end, new Insets(8, 5, 0, 5));
+        HBox.setMargin(end, new Insets(8, 7, 0, 5));
         end.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         end.setStyle("-fx-font: 20px \"System\";");
 
@@ -102,7 +131,7 @@ public class CreateEventAlertBox {
         endTimeTextField.setMaxWidth(100);
         endTimeTextField.setFont(new Font("System", 20));
         current.add(Calendar.MINUTE, 30);
-        oldEndTime = (current.get(Calendar.HOUR) >= 10 ? "" + current.get(Calendar.HOUR) : "0" + current.get(Calendar.HOUR))
+        oldEndTime = (current.get(Calendar.HOUR_OF_DAY) >= 10 ? "" + current.get(Calendar.HOUR_OF_DAY) : "0" + current.get(Calendar.HOUR_OF_DAY))
                 + ":" +
                 (current.get(Calendar.MINUTE) >= 10 ? "" + current.get(Calendar.MINUTE) : "0" + current.get(Calendar.MINUTE));
         endTimeTextField.setText(oldEndTime);
@@ -114,6 +143,7 @@ public class CreateEventAlertBox {
                         endTimeComboBox.setVisible(false);
                 }
             } else if (newValue) {
+                isInColorPicker = false;
                 endTimeComboBox.setVisible(true);
             }
         });
@@ -145,10 +175,11 @@ public class CreateEventAlertBox {
         timeHBox.setPadding(new Insets(0, 0, 10, 0));
         timeHBox.getChildren().addAll(eventTimeImageView, eventTimeVBox);
 
-        ImageView eventNotifyTimeImageView = makeImageView("notifyicon", "Thời gian thông báo", 5,10,0,8);
+        ImageView eventNotifyTimeImageView = makeImageView("notifyicon", "Thời gian thông báo", 5, 10, 0, 8);
 
         ComboBox notifyTimeComboBox = new ComboBox<>();
         notifyTimeComboBox.getItems().addAll(
+                "Tại thời điểm sự kiện",
                 "Trước 10 phút",
                 "Trước 30 phút",
                 "Tùy chọn",
@@ -156,6 +187,10 @@ public class CreateEventAlertBox {
         );
         notifyTimeComboBox.setStyle("-fx-font: 20px \"System\";");
         notifyTimeComboBox.getSelectionModel().selectFirst();
+        notifyTimeComboBox.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused)
+                isInColorPicker = false;
+        });
 
         TextField notifyTimeTextField = new TextField();
         notifyTimeTextField.setFont(new Font("System", 20));
@@ -185,13 +220,10 @@ public class CreateEventAlertBox {
         notifyTimeComboBox.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(notifyTimeComboBox.getSelectionModel().getSelectedItem().toString().equals("Tùy chọn"))
-                {
+                if (notifyTimeComboBox.getSelectionModel().getSelectedItem().toString().equals("Tùy chọn")) {
                     notifyTimeTextField.setVisible(true);
                     notifyTimeUnitComboBox.setVisible(true);
-                }
-                else
-                {
+                } else {
                     notifyTimeTextField.setVisible(false);
                     notifyTimeUnitComboBox.setVisible(false);
                 }
@@ -203,27 +235,139 @@ public class CreateEventAlertBox {
         notifyTimeHBox.setPadding(new Insets(0, 0, 10, 0));
         notifyTimeHBox.getChildren().addAll(eventNotifyTimeImageView, notifyTimeComboBox, notifyTimeTextField, notifyTimeUnitComboBox);
 
-        ImageView eventDescriptionImageView = makeImageView("description", "Mô tả sự kiện", 5,10,0,8);
+        ImageView eventDescriptionImageView = makeImageView("description", "Mô tả sự kiện", 5, 10, 0, 8);
 
         TextArea eventDescriptionTextArea = new TextArea();
         eventDescriptionTextArea.setPromptText("Thêm mô tả sự kiện");
         eventDescriptionTextArea.setWrapText(true);
         eventDescriptionTextArea.setPrefRowCount(5);
-        HBox.setMargin(eventDescriptionTextArea, new Insets(0,10,0,0));
+        eventDescriptionTextArea.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                isChanged = true;
+            }
+        });
+        eventDescriptionTextArea.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused)
+                isInColorPicker = false;
+        });
+        HBox.setMargin(eventDescriptionTextArea, new Insets(0, 10, 0, 0));
         eventDescriptionTextArea.setFont(new Font("System", 20));
         HBox.setHgrow(eventDescriptionTextArea, Priority.ALWAYS);
 
         HBox eventDescriptionHBox = new HBox();
         eventDescriptionHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         eventDescriptionHBox.setPadding(new Insets(0, 0, 10, 0));
-        VBox.setVgrow(eventDescriptionHBox,Priority.ALWAYS);
+        VBox.setVgrow(eventDescriptionHBox, Priority.ALWAYS);
         eventDescriptionHBox.getChildren().addAll(eventDescriptionImageView, eventDescriptionTextArea);
+
+        ImageView colorChooser = makeImageView("colorchooser", "Chọn màu sự kiện", 5, 10, 0, 8);
+        final ColorPicker colorPicker = new ColorPicker();
+        DbConnection dbConnection = new DbConnection();
+        colorPicker.setValue(Color.web(dbConnection.getDefaultColor("event")));
+        colorPicker.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused) {
+                isInColorPicker = true;
+            }
+        });
+
+        HBox colorChooserHBox = new HBox();
+        colorChooserHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        colorChooserHBox.setPadding(new Insets(0, 0, 10, 0));
+        colorChooserHBox.getChildren().addAll(colorChooser, colorPicker);
+
+        Button acceptButton = new Button();
+        if(update){
+            acceptButton.setText("Cập nhật");
+        }else{
+            acceptButton.setText("Thêm");
+        }
+        acceptButton.setFont(new Font("System", 20));
+        acceptButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Event newEvent = new Event();
+                if (!titleTextField.getText().isEmpty()) {
+                    newEvent.setTitle(titleTextField.getText());
+                } else {
+                    newEvent.setTitle("");
+                }
+
+                if (!eventDescriptionTextArea.getText().isEmpty()) {
+                    newEvent.setDescription(eventDescriptionTextArea.getText());
+                } else {
+                    newEvent.setDescription("");
+                }
+
+                LocalDate localDate = startDatePicker.getValue();
+                Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+                Date date = Date.from(instant);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                String[] hourAndMinute = startTimeTextField.getText().split(":");
+                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hourAndMinute[0]));
+                calendar.set(Calendar.MINUTE, Integer.parseInt(hourAndMinute[1]));
+                newEvent.setStartTime(calendar.getTimeInMillis() / 1000);
+                System.out.println(calendar.getTimeInMillis() / 1000);
+
+                localDate = endDatePicker.getValue();
+                instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+                date = Date.from(instant);
+                calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                hourAndMinute = endTimeTextField.getText().split(":");
+                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hourAndMinute[0]));
+                calendar.set(Calendar.MINUTE, Integer.parseInt(hourAndMinute[1]));
+                newEvent.setEndTime(calendar.getTimeInMillis() / 1000);
+                System.out.println(calendar.getTimeInMillis() / 1000);
+
+                String selection = notifyTimeComboBox.getSelectionModel().getSelectedItem().toString();
+                if (selection.equals("Không thông báo")) {
+                    newEvent.setNotifyTime(-1L);
+                } else if (selection.equals("Tại thời điểm sự kiện")) {
+                    newEvent.setNotifyTime(0L);
+                } else if (selection.equals("Trước 10 phút")) {
+                    newEvent.setNotifyTime(10 * 60L);
+                } else if (selection.equals("Trước 30 phút")) {
+                    newEvent.setNotifyTime(30 * 60L);
+                } else if (selection.equals("Tùy chọn")) {
+                    if (notifyTimeTextField.getText().isEmpty()) {
+                        Alert noinput = new Alert(Alert.AlertType.WARNING);
+                        noinput.setTitle("Cảnh báo");
+                        noinput.setContentText("Bạn chưa nhập thời gian thông báo tùy chọn");
+                        return;
+                    } else {
+                        String unitSelection = notifyTimeUnitComboBox.getSelectionModel().getSelectedItem().toString();
+                        if (unitSelection.equals("phút")) {
+                            newEvent.setNotifyTime(Long.parseLong(notifyTimeTextField.getText()) * 60);
+                        } else if (unitSelection.equals("giờ")) {
+                            newEvent.setNotifyTime(Long.parseLong(notifyTimeTextField.getText()) * 60 * 60);
+                        } else if (unitSelection.equals("ngày")) {
+                            newEvent.setNotifyTime(Long.parseLong(notifyTimeTextField.getText()) * 24 * 60 * 60);
+                        }
+                    }
+                }
+
+                newEvent.setColor(Utils.toRGBCode(colorPicker.getValue()));
+                DbConnection dbConnection = new DbConnection();
+                dbConnection.addEventToMonthEventTable(newEvent, calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+
+                isChanged = false;
+                isNewEventAdded = true;
+                window.close();
+            }
+        });
+
+        HBox controlHBox = new HBox();
+        controlHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        controlHBox.setPadding(new Insets(0, 0, 10, 10));
+        controlHBox.getChildren().addAll(acceptButton);
 
         VBox layout = new VBox(0);
         layout.setPadding(new Insets(0, 0, 20, 0));
         layout.setMaxWidth(600);
         layout.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        layout.getChildren().addAll(titleTextField, timeHBox, notifyTimeHBox, eventDescriptionHBox);
+        layout.getChildren().addAll(titleTextField, timeHBox, notifyTimeHBox, eventDescriptionHBox, colorChooserHBox, controlHBox);
 
         if (primaryScreenBounds.getWidth() - x < window.getMinWidth()) {
             if (primaryScreenBounds.getHeight() - y < window.getMinHeight()) {
@@ -244,16 +388,34 @@ public class CreateEventAlertBox {
         }
         window.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
             if (!isNowFocused) {
-                window.close();
+                if (!isInColorPicker) {
+                    if (!isChanged) {
+                        if (!isNewEventAdded)
+                            window.close();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Xác nhận");
+                        alert.setContentText("Sự kiện chưa được lưu, bạn có muốn hủy sự kện?");
+
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.get() == ButtonType.OK) {
+                            isNewEventAdded = false;
+                            window.close();
+                        } else {
+                            alert.close();
+                        }
+                    }
+                }
             }
         });
 
         Scene scene = new Scene(layout);
         window.setScene(scene);
-        window.show();
+        window.showAndWait();
+        return isNewEventAdded;
     }
 
-    private static ComboBox<Time> makeTimeComboBox() {
+    private ComboBox<Time> makeTimeComboBox() {
         ComboBox<Time> comboBox = new ComboBox<Time>();
         comboBox.setItems(FXCollections.observableArrayList(
                 new Time(0, 0),
@@ -325,7 +487,7 @@ public class CreateEventAlertBox {
         return comboBox;
     }
 
-    private static DatePicker makeDatePicker(int defaultYear, int defaultMonth, int defaultDay) {
+    private DatePicker makeDatePicker(int defaultYear, int defaultMonth, int defaultDay) {
         DatePicker datePicker = new DatePicker();
         datePicker.setMaxWidth(200);
         datePicker.setStyle("-fx-font: 20px \"System\";");
@@ -351,8 +513,7 @@ public class CreateEventAlertBox {
         return datePicker;
     }
 
-    private static ImageView makeImageView(String fileName, String toolTip, double topPadding, double rightPadding, double bottomPadding, double leftPadding)
-    {
+    private ImageView makeImageView(String fileName, String toolTip, double topPadding, double rightPadding, double bottomPadding, double leftPadding) {
         File imageFile = new File("resources/" + fileName + ".png");
         Image image = new Image(imageFile.toURI().toString());
         ImageView imageView = new ImageView();

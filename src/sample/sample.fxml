@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="sampleroot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="1258.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane fx:id="sampleroot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1368.0" prefHeight="768.0" prefWidth="1368.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <GridPane fx:id="calendarGridPane" gridLinesVisible="true" layoutX="160.0" layoutY="105.0" minHeight="447.0" minWidth="1098.0" prefHeight="447.0" prefWidth="1098.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="105.0">
+      <GridPane fx:id="calendarGridPane" gridLinesVisible="true" layoutY="108.0" minHeight="444.0" minWidth="1098.0" prefHeight="444.0" prefWidth="1258.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="108.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -93,196 +93,200 @@
             </Label>
             <VBox fx:id="vBox01" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox11" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox21" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox31" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox41" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox51" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox61" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox02" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox12" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox22" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox32" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox42" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox52" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox62" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox03" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox13" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox23" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox33" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox43" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox53" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox63" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox04" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox14" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox24" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox34" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox44" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox54" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox64" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox05" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="5">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox15" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox25" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox35" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox45" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="5">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox55" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="5">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox65" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="5">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox06" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="6">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox16" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox26" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox36" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox46" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox56" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="5" GridPane.rowIndex="6">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
             <VBox fx:id="vBox66" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="6" GridPane.rowIndex="6">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" top="5.0" />
+                  <Insets right="3.0" />
                </GridPane.margin></VBox>
          </children>
       </GridPane>
-      <Button fx:id="currentDayButton" contentDisplay="TOP" layoutX="160.0" layoutY="32.0" mnemonicParsing="false" style="-fx-background-color: #f5f5f5;" text="Hôm nay">
+      <Button fx:id="currentDayButton" contentDisplay="TOP" layoutX="28.0" layoutY="29.0" mnemonicParsing="false" style="-fx-background-color: #f5f5f5;" text="Hôm nay" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="29.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <font>
             <Font size="20.0" />
          </font></Button>
-      <TextField fx:id="yearTextField" layoutX="533.0" layoutY="33.0" prefHeight="31.0" prefWidth="108.0">
+      <TextField fx:id="yearTextField" layoutX="401.0" layoutY="30.0" prefHeight="31.0" prefWidth="108.0" AnchorPane.leftAnchor="401.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="monthComboBox" layoutX="290.0" layoutY="39.0" prefHeight="31.0" prefWidth="171.0" />
-      <Button fx:id="prevYearButton" layoutX="490.0" layoutY="33.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="43.0" style="-fx-background-color: #f5f5f5;" text="&lt;">
+      <ComboBox fx:id="monthComboBox" layoutX="158.0" layoutY="29.0" prefHeight="31.0" prefWidth="171.0" AnchorPane.leftAnchor="158.0" AnchorPane.topAnchor="29.0" />
+      <Button fx:id="prevYearButton" layoutX="358.0" layoutY="30.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="43.0" style="-fx-background-color: #f5f5f5;" text="&lt;" AnchorPane.leftAnchor="358.0" AnchorPane.topAnchor="30.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="nextYearButton" layoutX="641.0" layoutY="33.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="43.0" style="-fx-background-color: #f5f5f5;" text="&gt;">
+      <Button fx:id="nextYearButton" layoutX="509.0" layoutY="30.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="43.0" style="-fx-background-color: #f5f5f5;" text="&gt;" AnchorPane.leftAnchor="509.0" AnchorPane.topAnchor="30.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
       <TextField fx:id="mmhTextField" layoutX="720.0" layoutY="43.0" />
       <Button fx:id="updateButton" layoutX="913.0" layoutY="43.0" mnemonicParsing="false" text="Cập nhật thông báo" />
+      <Button layoutX="1249.0" layoutY="26.0" mnemonicParsing="false" text="Thiết lập" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="26.0">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
    </children>
 </AnchorPane>
