@@ -18,20 +18,20 @@ public class DbConnection {
         return conn;
     }
 
-    private void createMonthTable(int month, int year) {
-        String query = "CREATE Table `" + month + "_" + year
-                + "` (dateid INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "date TEXT)";
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+//    private void createMonthTable(int month, int year) {
+//        String query = "CREATE Table `" + month + "_" + year
+//                + "` (dateid INTEGER PRIMARY KEY AUTOINCREMENT, "
+//                + "date TEXT)";
+//        try (Connection conn = this.connect();
+//             PreparedStatement pstmt = conn.prepareStatement(query)) {
+//            pstmt.executeUpdate();
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 
     private void createMonthEventTable(int month, int year) {
-        createMonthTable(month, year);
+        //createMonthTable(month, year);
         String query = "CREATE Table `" + month + "_" + year + "_event`"
                 + "(eventid INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "dateid INTEGER, "
@@ -49,27 +49,27 @@ public class DbConnection {
         }
     }
 
-    private void addDateToMonthTable(int day, int month, int year) {
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        int dateid = getDateId(day, month, year);
-        if (dateid == -1) {
-            String query = "INSERT INTO `" + month + "_" + year + "`(dateid, date) VALUES (NULL, ?)";
-            try (Connection conn = this.connect();
-                 PreparedStatement pstmt = conn.prepareStatement(query)) {
-                pstmt.setString(1, Utils.toddMMyyyy(day, month, year));
-                pstmt.executeUpdate();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
+//    private void addDateToMonthTable(int day, int month, int year) {
+//        PreparedStatement preparedStatement;
+//        ResultSet resultSet;
+//        int dateid = getDateId(day);
+//        if (dateid == -1) {
+//            String query = "INSERT INTO `" + month + "_" + year + "`(dateid, date) VALUES (NULL, ?)";
+//            try (Connection conn = this.connect();
+//                 PreparedStatement pstmt = conn.prepareStatement(query)) {
+//                pstmt.setString(1, Utils.toddMMyyyy(day, month, year));
+//                pstmt.executeUpdate();
+//            } catch (SQLException e) {
+//                System.out.println(e.getMessage());
+//            }
+//        }
+//    }
 
     public void addEventToMonthEventTable(Event event, int day, int month, int year) {
         createMonthEventTable(month, year);
-        addDateToMonthTable(day, month, year);
+        //addDateToMonthTable(day, month, year);
         String query = "INSERT INTO `" + month + "_" + year + "_event`(dateid, title, starttime, endtime, notifytime, description, color) VALUES ("
-                + getDateId(day, month, year)
+                + getDateId(day)
                 + ", '" + event.getTitle()
                 + "', " + event.getStartTime()
                 + ", " + event.getEndTime()
@@ -97,11 +97,11 @@ public class DbConnection {
     }
 
 
-    private int getDateId(int day, int month, int year) {
-        String query = "SELECT * FROM `" + month + "_" + year + "` WHERE date = ?";
+    private int getDateId(int day) {
+        String query = "SELECT * FROM FixedDateID WHERE date = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, Utils.toddMMyyyy(day, month, year));
+            pstmt.setInt(1, day);
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.isBeforeFirst()) {
                 return resultSet.getInt("dateid");
@@ -115,7 +115,7 @@ public class DbConnection {
 
 
     public List<Event> getDayEvent(int day, int month, int year) {
-        int dateid = getDateId(day, month, year);
+        int dateid = getDateId(day);
         if (dateid == -1)
             return null;
         List<Event> events = new ArrayList<Event>();
@@ -140,6 +140,60 @@ public class DbConnection {
             }
             sortEventTimeDesc(events);
             return events;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public List<Holiday> getDayHoliday(int day, int month, int year) {
+        int dateid = getDateId(day);
+        if (dateid == -1)
+            return null;
+        List<Holiday> holidays = new ArrayList<Holiday>();
+
+        String query = "SELECT * FROM `" + month + "_" + year + "_holiday` WHERE dateid = " + dateid;
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            ResultSet resultSet = pstmt.executeQuery();
+            int i = 0;
+            while (resultSet.next()) {
+                Holiday newHoliday = new Holiday();
+                newHoliday.setDateid(resultSet.getInt("dateid"));
+                newHoliday.setName(resultSet.getString("name"));
+                holidays.add(newHoliday);
+                i++;
+            }
+            return holidays;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public List<Birthday> getDayBirthday(int day, int month, int year) {
+        int dateid = getDateId(day);
+        if (dateid == -1)
+            return null;
+        List<Birthday> birthdays = new ArrayList<Birthday>();
+
+        String query = "SELECT * FROM `" + month + "_" + year + "_birthday` WHERE dateid = " + dateid;
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            ResultSet resultSet = pstmt.executeQuery();
+            int i = 0;
+            while (resultSet.next()) {
+                Birthday newBirthday = new Birthday();
+                newBirthday.setDateid(resultSet.getInt("dateid"));
+                newBirthday.setName(resultSet.getString("name"));
+                birthdays.add(newBirthday);
+                i++;
+            }
+            return birthdays;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

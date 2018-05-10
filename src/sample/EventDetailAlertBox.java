@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class EventDetailAlertBox {
-    public static void display(String title, Long startTime, Long endTime, String description, Long notifyTime, String color, double x, double y) {
+    public static void display(, String title, Long startTime, Long endTime, String description, Long notifyTime, String color, double x, double y) {
         Stage window = new Stage();
         window.setTitle("Chi tiết sự kiện");
         window.setMinWidth(600);

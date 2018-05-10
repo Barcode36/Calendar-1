@@ -60,7 +60,7 @@ public class Controller implements Initializable {
     public VBox vBox45;
     public VBox vBox55;
     public VBox vBox65;
-    public VBox dayGrid[][];
+    private VBox dayGrid[][];
     public VBox vBox06;
     public VBox vBox16;
     public VBox vBox26;
@@ -78,9 +78,11 @@ public class Controller implements Initializable {
     public Button updateButton;
     public TextField mmhTextField;
     private MediaPlayer mediaPlayer;
-    Calendar c = Calendar.getInstance();
-    List<Event> monthEvent;
-    DbConnection dbConnection;
+    private Calendar c = Calendar.getInstance();
+    private List<Event> monthEvent;
+    private List<Holiday> monthHoliday;
+    private List<Birthday> monthBirthday;
+    private DbConnection dbConnection;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -99,7 +101,7 @@ public class Controller implements Initializable {
         calendarGridPane.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
-                monthEvent = new ArrayList<Event>();
+                //monthEvent = new ArrayList<Event>();
                 if (event.getDeltaY() < 0) {
                     c.add(Calendar.MONTH, 1);
                     c.set(Calendar.DAY_OF_MONTH, 1);
@@ -194,6 +196,8 @@ public class Controller implements Initializable {
 
     public void refreshCalendarGrid(int maxDay, int dayOfWeek) {
         monthEvent = new ArrayList<Event>();
+        monthHoliday = new ArrayList<Holiday>();
+        monthBirthday = new ArrayList<Birthday>();
         showLastRow(); // Hiện hàng cuối của lịch cho các tháng hiện đủ 6 dòng
         removeDayVBoxContent(); // Xóa các ngày đang hiển thị trong lịch
         int j = -1;
@@ -242,10 +246,21 @@ public class Controller implements Initializable {
                 });
                 dayGrid[i][j].getChildren().add(day);
                 dayGrid[i][j].setUserData(dayCount);
+
+                List<Holiday> holidays = dbConnection.getDayHoliday(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
+                if (holidays != null) {
+                    for (Holiday k : holidays) {
+                        Label label = makeLabel(k);
+                        VBox.setMargin(label, new Insets(0, 0, 2, 0));
+                        dayGrid[i][j].getChildren().add(label);
+                    }
+                    monthEvent.addAll(events);
+                }
+
                 List<Event> events = dbConnection.getDayEvent(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
                 if (events != null) {
                     for (Event k : events) {
-                        Label label = makeEventLabel(k);
+                        Label label = makeLabel(k);
                         VBox.setMargin(label, new Insets(0, 0, 2, 0));
                         dayGrid[i][j].getChildren().add(label);
                     }
@@ -264,30 +279,70 @@ public class Controller implements Initializable {
             hideLastRow();
     }
 
-    private Label makeEventLabel(Event event) {
+    private Label makeLabel(Object object) {
         Label label = new Label();
         label.setFont(new Font("System", 15));
-        label.setUserData(event.getEventid());
-        label.setBackground(new Background(new BackgroundFill(Color.web(event.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+        if(object instanceof Event){
+            Event event = (Event)object;
+            label.setUserData(event.getEventid());
+            label.setBackground(new Background(new BackgroundFill(Color.web(event.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+            java.util.Date eventStartTime = new java.util.Date((long) event.getStartTime() * 1000);
+            formatter.setTimeZone(TimeZone.getTimeZone("GMT+07:00"));
+            if (event.getTitle().isEmpty()) {
+                label.setText(formatter.format(eventStartTime) + "  Không có tiêu đề");
+            } else {
+                label.setText(formatter.format(eventStartTime) + "  " + event.getTitle());
+            }
+        }
+        else if(object instanceof Holiday){
+            Holiday holiday = (Holiday)object;
+            label.setUserData(holiday.getDateid());
+            label.setBackground(new Background(new BackgroundFill(Color.web(dbConnection.getDefaultColor("holiday")), CornerRadii.EMPTY, Insets.EMPTY)));
+            if (holiday.getName().isEmpty()) {
+                label.setText("Ngày lễ không có tiêu đề");
+            } else {
+                label.setText(holiday.getName());
+            }
+        }else if(object instanceof Birthday){
+            Birthday birthday = (Birthday)object;
+            label.setUserData(birthday.getDateid());
+            label.setBackground(new Background(new BackgroundFill(Color.web(dbConnection.getDefaultColor("birthday")), CornerRadii.EMPTY, Insets.EMPTY)));
+            if (birthday.getName().isEmpty()) {
+                label.setText("Sinh nhật");
+            } else {
+                label.setText(birthday.getName());
+            }
+        }
+
         label.setTextFill(Color.WHITE);
         label.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                Event temp = getEventFromList((int) label.getUserData());
-                if (temp != null) {
-                    event.consume();
-                    EventDetailAlertBox.display(temp.getTitle(), temp.getStartTime(), temp.getEndTime(), temp.getDescription(), temp.getNotifyTime(), temp.getColor(), event.getScreenX(), event.getScreenY());
+
+//                Event temp = getEventFromList((int) label.getUserData());
+//                if (temp != null) {
+//                    event.consume();
+//                    EventDetailAlertBox.display(temp.getTitle(), temp.getStartTime(), temp.getEndTime(), temp.getDescription(), temp.getNotifyTime(), temp.getColor(), event.getScreenX(), event.getScreenY());
+//                }
+                if(object instanceof Event){
+                    Event event1 = (Event)object;
+                    EventDetailAlertBox.display(event1.getTitle(),
+                            event1.getStartTime(),
+                            event1.getEndTime(),
+                            event1.getDescription(),
+                            event1.getNotifyTime(),
+                            event1.getColor(),
+                            event.getScreenX(), event.getScreenY());
+                }else if(object instanceof Holiday){
+                    Holiday holiday = (Holiday)object;
+
                 }
+
+
             }
         });
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-        java.util.Date eventStartTime = new java.util.Date((long) event.getStartTime() * 1000);
-        formatter.setTimeZone(TimeZone.getTimeZone("GMT+07:00"));
-        if (event.getTitle().isEmpty()) {
-            label.setText(formatter.format(eventStartTime) + "  Không có tiêu đề");
-        } else {
-            label.setText(formatter.format(eventStartTime) + "  " + event.getTitle());
-        }
+
 
         return label;
     }
