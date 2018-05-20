@@ -20,6 +20,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -473,6 +475,7 @@ public class Controller implements Initializable {
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-nghi-hoc-hoc-bu?page=1");
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-nghi-hoc-hoc-bu?page=2");
         ArrayList<String> arrayListThongBao = new ArrayList<String>();
+        ArrayList<Course> arrayListCourse = new ArrayList<Course>();
         boolean test;
         for (int i = 0; i < arrayListMMH.size(); i++) {//arrayListMMH.size(); i++) {
             for (int j = 0; j < arrayListURL.size(); j++) {
@@ -497,13 +500,36 @@ public class Controller implements Initializable {
 
                                 String titletemp = temptext.substring(0, tempCBGD - 22 - 2); //CThongBao.Title
                                 String timetemp = temptext.substring(tempCBGD - 22 - 1, tempCBGD - 1); //CThongBao.TimeStamp
-                                timetemp = timetemp.substring(4, 14);
+                                //timetemp = timetemp.substring(4, timetemp.length()) + ":00";
                                 String teachertemp = temptext.substring(tempCBGD, tempKhoa - 1);
                                 String facultytemp = temptext.substring(tempKhoa, tempMon - 1);
                                 String subjecttemp = temptext.substring(tempMon, tempLop - 1);
                                 String classtemp = temptext.substring(tempLop, tempPhong - 1);
                                 String roomtemp = temptext.substring(tempPhong, tempThoiGian - 1);
                                 String timetemp2 = temptext.substring(tempThoiGian, tempXemThem - 1);
+                                //timetemp2 = "" + timetemp2.charAt(29) + " " + timetemp2.charAt(49);
+
+                                String[] startHour = {"07", "08", "09", "10", "10", "13", "13", "14", "15", "16"};
+                                String[] startMinute = {"30", "15", "00", "00", "45", "00", "45", "30", "30", "15"};
+
+                                String[] endHour = {"08", "09", "09", "10", "11", "13", "14", "15", "16", "17"};
+                                String[] endMinute = {"15", "00", "45", "45", "30", "45", "30", "15", "15", "00"};
+
+                                //timetemp2 = timetemp2.substring(timetemp2.length() - 10, timetemp2.length()) + " - " + startHour[Integer.parseInt("" + timetemp2.charAt(29)) - 1] + ":" + startMinute[Integer.parseInt("" + timetemp2.charAt(29)) - 1] + ":00" +
+                                //         " - " + endHour[Integer.parseInt("" + timetemp2.charAt(49)) - 1] + ":" + endMinute[Integer.parseInt("" + timetemp2.charAt(49)) - 1] + ":00";
+
+                                /*DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss");
+                                try {
+                                    Date date = dateFormat.parse(timetemp2);
+                                    long dateInLong = date.getTime();
+                                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                                    alert1.setContentText(Long.toString(dateInLong));
+                                    alert1.showAndWait();
+                                } catch (ParseException e) {
+
+                                }*/
+
+
 
                                 String temptext2 = titletemp + "\n" + timetemp + "\n" + teachertemp + "\n" + facultytemp + "\n" + subjecttemp + "\n" + classtemp + "\n" + roomtemp + "\n" + timetemp2;
 
@@ -516,6 +542,7 @@ public class Controller implements Initializable {
 
                                 if (test == false) {
                                     arrayListThongBao.add(temptext2);
+                                    arrayListCourse.add(new Course(titletemp, timetemp, teachertemp, facultytemp, subjecttemp, classtemp, roomtemp, timetemp2));
                                 }
 
                                 /*arrayListThongBao.add(temptext2);
@@ -531,9 +558,9 @@ public class Controller implements Initializable {
             }
         }
 
-        for (int i = 0; i < arrayListThongBao.size(); i++) {
+        for (int i = 0; i < arrayListCourse.size(); i++) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText(arrayListThongBao.get(i));
+            alert.setContentText(arrayListCourse.get(i).getDescription());
             alert.showAndWait();
         }
     }
