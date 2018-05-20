@@ -185,8 +185,8 @@ public class Controller implements Initializable {
                 alert.setContentText(temp3.toString());
                 alert.showAndWait();*/
 
-                //getUpdate(arrayListMMH);
-                getUpdateDAA();
+                getUpdate(arrayListMMH);
+                //getUpdateDAA();
             }
         });
         //Utils.playSound("alarm.mp3");
@@ -254,7 +254,17 @@ public class Controller implements Initializable {
                         VBox.setMargin(label, new Insets(0, 0, 2, 0));
                         dayGrid[i][j].getChildren().add(label);
                     }
-                    monthEvent.addAll(events);
+                    monthHoliday.addAll(holidays);
+                }
+
+                List<Birthday> birthdays = dbConnection.getDayBirthday(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
+                if (birthdays != null) {
+                    for (Birthday k : birthdays) {
+                        Label label = makeLabel(k);
+                        VBox.setMargin(label, new Insets(0, 0, 2, 0));
+                        dayGrid[i][j].getChildren().add(label);
+                    }
+                    monthBirthday.addAll(birthdays);
                 }
 
                 List<Event> events = dbConnection.getDayEvent(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
@@ -282,9 +292,9 @@ public class Controller implements Initializable {
     private Label makeLabel(Object object) {
         Label label = new Label();
         label.setFont(new Font("System", 15));
-        if(object instanceof Event){
-            Event event = (Event)object;
-            label.setUserData(event.getEventid());
+        if (object instanceof Event) {
+            Event event = (Event) object;
+            //label.setUserData(event.getEventid());
             label.setBackground(new Background(new BackgroundFill(Color.web(event.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
             SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
             java.util.Date eventStartTime = new java.util.Date((long) event.getStartTime() * 1000);
@@ -294,19 +304,18 @@ public class Controller implements Initializable {
             } else {
                 label.setText(formatter.format(eventStartTime) + "  " + event.getTitle());
             }
-        }
-        else if(object instanceof Holiday){
-            Holiday holiday = (Holiday)object;
-            label.setUserData(holiday.getDateid());
+        } else if (object instanceof Holiday) {
+            Holiday holiday = (Holiday) object;
+            //label.setUserData(holiday.getDateid());
             label.setBackground(new Background(new BackgroundFill(Color.web(dbConnection.getDefaultColor("holiday")), CornerRadii.EMPTY, Insets.EMPTY)));
             if (holiday.getName().isEmpty()) {
                 label.setText("Ngày lễ không có tiêu đề");
             } else {
                 label.setText(holiday.getName());
             }
-        }else if(object instanceof Birthday){
-            Birthday birthday = (Birthday)object;
-            label.setUserData(birthday.getDateid());
+        } else if (object instanceof Birthday) {
+            Birthday birthday = (Birthday) object;
+            //label.setUserData(birthday.getDateid());
             label.setBackground(new Background(new BackgroundFill(Color.web(dbConnection.getDefaultColor("birthday")), CornerRadii.EMPTY, Insets.EMPTY)));
             if (birthday.getName().isEmpty()) {
                 label.setText("Sinh nhật");
@@ -319,27 +328,9 @@ public class Controller implements Initializable {
         label.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
-//                Event temp = getEventFromList((int) label.getUserData());
-//                if (temp != null) {
-//                    event.consume();
-//                    EventDetailAlertBox.display(temp.getTitle(), temp.getStartTime(), temp.getEndTime(), temp.getDescription(), temp.getNotifyTime(), temp.getColor(), event.getScreenX(), event.getScreenY());
-//                }
-                if(object instanceof Event){
-                    Event event1 = (Event)object;
-                    EventDetailAlertBox.display(event1.getTitle(),
-                            event1.getStartTime(),
-                            event1.getEndTime(),
-                            event1.getDescription(),
-                            event1.getNotifyTime(),
-                            event1.getColor(),
-                            event.getScreenX(), event.getScreenY());
-                }else if(object instanceof Holiday){
-                    Holiday holiday = (Holiday)object;
-
-                }
-
-
+                event.consume();
+                EventDetailAlertBox eventDetailAlertBox = new EventDetailAlertBox();
+                eventDetailAlertBox.display(object, event.getSceneX(), event.getSceneY());
             }
         });
 
@@ -412,7 +403,7 @@ public class Controller implements Initializable {
                     public void handle(MouseEvent event) {
                         event.consume();
                         CreateEventAlertBox createEventAlertBox = new CreateEventAlertBox();
-                        boolean result = createEventAlertBox.display((int) node.getUserData(), c, event.getScreenX(), event.getScreenY(),false);
+                        boolean result = createEventAlertBox.display((int) node.getUserData(), c, event.getScreenX(), event.getScreenY(), false);
                         System.out.println("result: " + result);
                         if (result) {
                             c.set(Calendar.DAY_OF_MONTH, 1);
@@ -438,19 +429,19 @@ public class Controller implements Initializable {
         }
     }
 
-    public Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
-        Node result = null;
-        ObservableList<Node> childrens = gridPane.getChildren();
-
-        for (Node node : childrens) {
-            if (gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
-                result = node;
-                break;
-            }
-        }
-
-        return result;
-    }
+//    public Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
+//        Node result = null;
+//        ObservableList<Node> childrens = gridPane.getChildren();
+//
+//        for (Node node : childrens) {
+//            if (gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
+//                result = node;
+//                break;
+//            }
+//        }
+//
+//        return result;
+//    }
 
     private void showLastRow() {
         for (int i = 5; i <= 5; i++) {
@@ -506,6 +497,7 @@ public class Controller implements Initializable {
 
                                 String titletemp = temptext.substring(0, tempCBGD - 22 - 2); //CThongBao.Title
                                 String timetemp = temptext.substring(tempCBGD - 22 - 1, tempCBGD - 1); //CThongBao.TimeStamp
+                                timetemp = timetemp.substring(4, 14);
                                 String teachertemp = temptext.substring(tempCBGD, tempKhoa - 1);
                                 String facultytemp = temptext.substring(tempKhoa, tempMon - 1);
                                 String subjecttemp = temptext.substring(tempMon, tempLop - 1);

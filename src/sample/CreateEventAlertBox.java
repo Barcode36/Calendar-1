@@ -38,11 +38,16 @@ public class CreateEventAlertBox {
     private boolean isInColorPicker = false;
     private boolean isNewEventAdded = false;
 
+    private DatePicker startDatePicker;
+    private TextField startTimeTextField;
+    private DatePicker endDatePicker;
+    private TextField endTimeTextField;
+
     public boolean display(int day, Calendar c, double x, double y, boolean update) {
         Stage window = new Stage();
-        if(update){
+        if (update) {
             window.setTitle("Cập nhật sự kiện");
-        }else {
+        } else {
             window.setTitle("Thêm sự kiện mới");
         }
 
@@ -80,90 +85,10 @@ public class CreateEventAlertBox {
 
         Calendar temp = c;
         temp.set(Calendar.DATE, day);
-        DatePicker startDatePicker = makeDatePicker(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH), temp.get(Calendar.DAY_OF_MONTH));
-        startDatePicker.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (isNowFocused)
-                isInColorPicker = false;
-        });
 
+        HBox eventStartTimeHBox = makeStartTimeHBox(temp);
 
-        ComboBox<Time> startTimeComboBox = makeTimeComboBox();
-
-        TextField startTimeTextField = new TextField();
-        startTimeTextField.setMaxWidth(100);
-        startTimeTextField.setFont(new Font("System", 20));
-        Calendar current = Calendar.getInstance();
-        oldStartTime = (current.get(Calendar.HOUR_OF_DAY) >= 10 ? "" + current.get(Calendar.HOUR_OF_DAY) : "0" + current.get(Calendar.HOUR_OF_DAY))
-                + ":" +
-                (current.get(Calendar.MINUTE) >= 10 ? "" + current.get(Calendar.MINUTE) : "0" + current.get(Calendar.MINUTE));
-        startTimeTextField.setText(oldStartTime);
-        startTimeTextField.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-            if (!newValue) { //when focus lost
-                if (!startTimeTextField.getText().matches("[0-23]\\:[0-59]")) {
-                    startTimeTextField.setText(oldStartTime);
-                    if (!startTimeComboBox.isFocused())
-                        startTimeComboBox.setVisible(false);
-                }
-            } else if (newValue) {
-                isInColorPicker = false;
-                startTimeComboBox.setVisible(true);
-            }
-        });
-        ;
-        startTimeComboBox.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                oldStartTime = startTimeComboBox.getSelectionModel().getSelectedItem().getTime();
-                startTimeTextField.setText(oldStartTime);
-            }
-        });
-
-        DatePicker endDatePicker = makeDatePicker(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH), temp.get(Calendar.DAY_OF_MONTH));
-
-        Label end = new Label("Đến");
-        HBox.setMargin(end, new Insets(8, 7, 0, 5));
-        end.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        end.setStyle("-fx-font: 20px \"System\";");
-
-        ComboBox<Time> endTimeComboBox = makeTimeComboBox();
-
-        TextField endTimeTextField = new TextField();
-        endTimeTextField.setMaxWidth(100);
-        endTimeTextField.setFont(new Font("System", 20));
-        current.add(Calendar.MINUTE, 30);
-        oldEndTime = (current.get(Calendar.HOUR_OF_DAY) >= 10 ? "" + current.get(Calendar.HOUR_OF_DAY) : "0" + current.get(Calendar.HOUR_OF_DAY))
-                + ":" +
-                (current.get(Calendar.MINUTE) >= 10 ? "" + current.get(Calendar.MINUTE) : "0" + current.get(Calendar.MINUTE));
-        endTimeTextField.setText(oldEndTime);
-        endTimeTextField.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-            if (!newValue) { //when focus lost
-                if (!endTimeTextField.getText().matches("[0-23]\\:[0-59]")) {
-                    endTimeTextField.setText(oldEndTime);
-                    if (!endTimeComboBox.isFocused())
-                        endTimeComboBox.setVisible(false);
-                }
-            } else if (newValue) {
-                isInColorPicker = false;
-                endTimeComboBox.setVisible(true);
-            }
-        });
-        endTimeComboBox.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                oldEndTime = endTimeComboBox.getSelectionModel().getSelectedItem().getTime();
-                endTimeTextField.setText(oldEndTime);
-            }
-        });
-
-        HBox eventStartTimeHBox = new HBox();
-        eventStartTimeHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        eventStartTimeHBox.setPadding(new Insets(0, 0, 10, 0));
-        eventStartTimeHBox.getChildren().addAll(start, startDatePicker, startTimeTextField, startTimeComboBox);
-
-        HBox eventEndTimeHBox = new HBox();
-        eventEndTimeHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        eventEndTimeHBox.setPadding(new Insets(0, 0, 10, 0));
-        eventEndTimeHBox.getChildren().addAll(end, endDatePicker, endTimeTextField, endTimeComboBox);
+        HBox eventEndTimeHBox = makeEndTimeHBox(temp);
 
         VBox eventTimeVBox = new VBox();
         eventTimeVBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -277,9 +202,9 @@ public class CreateEventAlertBox {
         colorChooserHBox.getChildren().addAll(colorChooser, colorPicker);
 
         Button acceptButton = new Button();
-        if(update){
+        if (update) {
             acceptButton.setText("Cập nhật");
-        }else{
+        } else {
             acceptButton.setText("Thêm");
         }
         acceptButton.setFont(new Font("System", 20));
@@ -413,6 +338,113 @@ public class CreateEventAlertBox {
         window.setScene(scene);
         window.showAndWait();
         return isNewEventAdded;
+    }
+
+    private HBox makeStartTimeHBox(Calendar temp) {
+        Label start = new Label("Từ");
+        HBox.setMargin(start, new Insets(8, 20, 0, 5));
+        start.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        start.setStyle("-fx-font: 20px \"System\";");
+
+        startDatePicker = makeDatePicker(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH), temp.get(Calendar.DAY_OF_MONTH));
+        startDatePicker.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused)
+                isInColorPicker = false;
+        });
+
+        ComboBox<Time> startTimeComboBox = makeTimeComboBox();
+
+        startTimeTextField = new TextField();
+        startTimeTextField.setMaxWidth(100);
+        startTimeTextField.setFont(new Font("System", 20));
+        Calendar current = Calendar.getInstance();
+        oldStartTime = (current.get(Calendar.HOUR_OF_DAY) >= 10 ? "" + current.get(Calendar.HOUR_OF_DAY) : "0" + current.get(Calendar.HOUR_OF_DAY))
+                + ":" +
+                (current.get(Calendar.MINUTE) >= 10 ? "" + current.get(Calendar.MINUTE) : "0" + current.get(Calendar.MINUTE));
+        startTimeTextField.setText(oldStartTime);
+        startTimeTextField.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                if (!startTimeTextField.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")) {
+                    startTimeTextField.setText(oldStartTime);
+                    if (!startTimeComboBox.isFocused())
+                        startTimeComboBox.setVisible(false);
+                }
+                else {
+                    oldStartTime = startTimeTextField.getText();
+                }
+            } else if (newValue) {
+                isInColorPicker = false;
+                startTimeComboBox.setVisible(true);
+            }
+        });
+        ;
+        startTimeComboBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                oldStartTime = startTimeComboBox.getSelectionModel().getSelectedItem().getTime();
+                startTimeTextField.setText(oldStartTime);
+            }
+        });
+
+        HBox eventStartTimeHBox = new HBox();
+        eventStartTimeHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        eventStartTimeHBox.setPadding(new Insets(0, 0, 10, 0));
+        eventStartTimeHBox.getChildren().addAll(start, startDatePicker, startTimeTextField, startTimeComboBox);
+
+        return eventStartTimeHBox;
+    }
+
+    private HBox makeEndTimeHBox(Calendar temp) {
+        Label end = new Label("Từ");
+        HBox.setMargin(end, new Insets(8, 20, 0, 5));
+        end.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        end.setStyle("-fx-font: 20px \"System\";");
+
+        endDatePicker = makeDatePicker(temp.get(Calendar.YEAR), temp.get(Calendar.MONTH), temp.get(Calendar.DAY_OF_MONTH));
+        endDatePicker.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused)
+                isInColorPicker = false;
+        });
+
+        ComboBox<Time> endTimeComboBox = makeTimeComboBox();
+
+        endTimeTextField = new TextField();
+        endTimeTextField.setMaxWidth(100);
+        endTimeTextField.setFont(new Font("System", 20));
+        Calendar current = Calendar.getInstance();
+        oldEndTime = (current.get(Calendar.HOUR_OF_DAY) >= 10 ? "" + current.get(Calendar.HOUR_OF_DAY) : "0" + current.get(Calendar.HOUR_OF_DAY))
+                + ":" +
+                (current.get(Calendar.MINUTE) >= 10 ? "" + current.get(Calendar.MINUTE) : "0" + current.get(Calendar.MINUTE));
+        endTimeTextField.setText(oldEndTime);
+        endTimeTextField.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+            if (!newValue) { //when focus lost
+                if (!endTimeTextField.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")) {
+                    endTimeTextField.setText(oldEndTime);
+                    if (!endTimeComboBox.isFocused())
+                        endTimeComboBox.setVisible(false);
+                }else{
+                    oldEndTime = endTimeTextField.getText();
+                }
+            } else if (newValue) {
+                isInColorPicker = false;
+                endTimeComboBox.setVisible(true);
+            }
+        });
+        ;
+        endTimeComboBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                oldEndTime = endTimeComboBox.getSelectionModel().getSelectedItem().getTime();
+                endTimeTextField.setText(oldEndTime);
+            }
+        });
+
+        HBox eventEndTimeHBox = new HBox();
+        eventEndTimeHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        eventEndTimeHBox.setPadding(new Insets(0, 0, 10, 0));
+        eventEndTimeHBox.getChildren().addAll(end, endDatePicker, endTimeTextField, endTimeComboBox);
+
+        return eventEndTimeHBox;
     }
 
     private ComboBox<Time> makeTimeComboBox() {
