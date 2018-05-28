@@ -1,11 +1,12 @@
 package sample;
 
-import javafx.collections.ObservableList;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -14,14 +15,13 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -62,6 +62,7 @@ public class Controller implements Initializable {
     public VBox vBox45;
     public VBox vBox55;
     public VBox vBox65;
+    public Button SettingsButton;
     private VBox dayGrid[][];
     public VBox vBox06;
     public VBox vBox16;
@@ -70,7 +71,6 @@ public class Controller implements Initializable {
     public VBox vBox46;
     public VBox vBox56;
     public VBox vBox66;
-    public VBox eventDetailDialog;
     public AnchorPane sampleroot;
     public Button currentDayButton;
     public TextField yearTextField;
@@ -79,15 +79,17 @@ public class Controller implements Initializable {
     public Button nextYearButton;
     public Button updateButton;
     public TextField mmhTextField;
-    private MediaPlayer mediaPlayer;
     private Calendar c = Calendar.getInstance();
     private List<Event> monthEvent;
     private List<Holiday> monthHoliday;
     private List<Birthday> monthBirthday;
     private DbConnection dbConnection;
+    private List<Event> notifyEvents;
+    private Task alarmTask;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         dbConnection = new DbConnection();
         //DbConnection.connectToDB();
         dayGrid = new VBox[][]{
@@ -191,17 +193,74 @@ public class Controller implements Initializable {
                 //getUpdateDAA();
             }
         });
-        //Utils.playSound("alarm.mp3");
-        initDayVBoxEvent();
+        alarmTask = new Task() {
+            @Override
+            protected Object call() throws Exception {
+                Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+                while (true) {
+                    try {
+                        Thread.sleep(findNextEvent());
+                        if (notifyEvents != null) {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    for (Event event : notifyEvents) {
+                                        Utils.playSound("alarm1.mp3");
+                                        EventDetailAlertBox eventDetailAlertBox = new EventDetailAlertBox();
+                                        eventDetailAlertBox.display(event, primaryScreenBounds.getWidth() / 2, primaryScreenBounds.getHeight() / 2);
+                                    }
 
+                                }
+                            });
+                        }
+                    } catch (InterruptedException e) {
+                        System.out.println("cancelling task");
+                    }
+                }
+            }
+        };
+
+        new Thread(alarmTask).start();
     }
 
-    public void refreshCalendarGrid(int maxDay, int dayOfWeek) {
+    private long findNextEvent() {
+        Calendar calendar = Calendar.getInstance();
+        int count = 0;
+        for (int i = calendar.get(Calendar.YEAR); count < 2; ) {
+            notifyEvents = dbConnection.getDayEvent(calendar.getTimeInMillis() / 1000, i);
+            if (notifyEvents != null) {
+                long min = notifyEvents.get(0).getStartTime() - notifyEvents.get(0).getNotifyTime() - calendar.getTimeInMillis() / 1000;
+                Event event;
+                for (int j = 1; j < notifyEvents.size(); j++) {
+                    event = notifyEvents.get(j);
+                    if (event.getStartTime() - event.getNotifyTime() - calendar.getTimeInMillis() / 1000 < min) {
+                        min = event.getStartTime() - event.getNotifyTime() - calendar.getTimeInMillis() / 1000;
+                    }
+                }
+                for (Event k : notifyEvents) {
+                    if (k.getStartTime() - k.getNotifyTime() - calendar.getTimeInMillis() / 1000 != min) {
+                        notifyEvents.remove(k);
+                    }
+                }
+                System.out.println("Found next event! Begin to sleep for " + min);
+                return min * 1000;
+            } else {
+                i++;
+                count++;
+            }
+        }
+        System.out.println("Couldn't find next event. Start sleeping indefinitely!");
+        return 1000000000L;
+    }
+
+
+    private void refreshCalendarGrid(int maxDay, int dayOfWeek) {
         monthEvent = new ArrayList<Event>();
         monthHoliday = new ArrayList<Holiday>();
         monthBirthday = new ArrayList<Birthday>();
         showLastRow(); // Hiện hàng cuối của lịch cho các tháng hiện đủ 6 dòng
         removeDayVBoxContent(); // Xóa các ngày đang hiển thị trong lịch
+        removeVBoxEvent();
         int j = -1;
         switch (dayOfWeek) {
             case 1:
@@ -239,15 +298,9 @@ public class Controller implements Initializable {
                     day.setTextFill(Color.WHITE);
                 }
                 day.setFont(new Font("System", 18));
-                day.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-
-                        //EventDetailAlertBox.display("s", 1524934800L, 1522849860L, "This is a description", 8640L, event.getScreenX(), event.getScreenY());
-                    }
-                });
                 dayGrid[i][j].getChildren().add(day);
                 dayGrid[i][j].setUserData(dayCount);
+                addMouseClickEvent(dayGrid[i][j]);
 
                 List<Holiday> holidays = dbConnection.getDayHoliday(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
                 if (holidays != null) {
@@ -348,79 +401,66 @@ public class Controller implements Initializable {
         return null;
     }
 
-
-    private void initDayVBoxEvent() {
-        addMouseClickEvent(vBox01);
-        addMouseClickEvent(vBox11);
-        addMouseClickEvent(vBox21);
-        addMouseClickEvent(vBox31);
-        addMouseClickEvent(vBox41);
-        addMouseClickEvent(vBox51);
-        addMouseClickEvent(vBox61);
-        addMouseClickEvent(vBox02);
-        addMouseClickEvent(vBox12);
-        addMouseClickEvent(vBox22);
-        addMouseClickEvent(vBox32);
-        addMouseClickEvent(vBox42);
-        addMouseClickEvent(vBox52);
-        addMouseClickEvent(vBox62);
-        addMouseClickEvent(vBox03);
-        addMouseClickEvent(vBox13);
-        addMouseClickEvent(vBox23);
-        addMouseClickEvent(vBox33);
-        addMouseClickEvent(vBox43);
-        addMouseClickEvent(vBox53);
-        addMouseClickEvent(vBox63);
-        addMouseClickEvent(vBox04);
-        addMouseClickEvent(vBox14);
-        addMouseClickEvent(vBox24);
-        addMouseClickEvent(vBox34);
-        addMouseClickEvent(vBox44);
-        addMouseClickEvent(vBox54);
-        addMouseClickEvent(vBox64);
-        addMouseClickEvent(vBox05);
-        addMouseClickEvent(vBox15);
-        addMouseClickEvent(vBox25);
-        addMouseClickEvent(vBox35);
-        addMouseClickEvent(vBox45);
-        addMouseClickEvent(vBox55);
-        addMouseClickEvent(vBox65);
-        addMouseClickEvent(vBox06);
-        addMouseClickEvent(vBox16);
-        addMouseClickEvent(vBox26);
-        addMouseClickEvent(vBox36);
-        addMouseClickEvent(vBox46);
-        addMouseClickEvent(vBox56);
-        addMouseClickEvent(vBox66);
+    private void removeVBoxEvent() {
+        vBox01.setOnMouseClicked(null);
+        vBox02.setOnMouseClicked(null);
+        vBox03.setOnMouseClicked(null);
+        vBox04.setOnMouseClicked(null);
+        vBox05.setOnMouseClicked(null);
+        vBox06.setOnMouseClicked(null);
+        vBox11.setOnMouseClicked(null);
+        vBox12.setOnMouseClicked(null);
+        vBox13.setOnMouseClicked(null);
+        vBox14.setOnMouseClicked(null);
+        vBox15.setOnMouseClicked(null);
+        vBox16.setOnMouseClicked(null);
+        vBox21.setOnMouseClicked(null);
+        vBox22.setOnMouseClicked(null);
+        vBox23.setOnMouseClicked(null);
+        vBox24.setOnMouseClicked(null);
+        vBox25.setOnMouseClicked(null);
+        vBox26.setOnMouseClicked(null);
+        vBox31.setOnMouseClicked(null);
+        vBox32.setOnMouseClicked(null);
+        vBox33.setOnMouseClicked(null);
+        vBox34.setOnMouseClicked(null);
+        vBox35.setOnMouseClicked(null);
+        vBox36.setOnMouseClicked(null);
+        vBox41.setOnMouseClicked(null);
+        vBox42.setOnMouseClicked(null);
+        vBox43.setOnMouseClicked(null);
+        vBox44.setOnMouseClicked(null);
+        vBox45.setOnMouseClicked(null);
+        vBox46.setOnMouseClicked(null);
+        vBox51.setOnMouseClicked(null);
+        vBox52.setOnMouseClicked(null);
+        vBox53.setOnMouseClicked(null);
+        vBox54.setOnMouseClicked(null);
+        vBox55.setOnMouseClicked(null);
+        vBox56.setOnMouseClicked(null);
+        vBox61.setOnMouseClicked(null);
+        vBox62.setOnMouseClicked(null);
+        vBox63.setOnMouseClicked(null);
+        vBox64.setOnMouseClicked(null);
+        vBox65.setOnMouseClicked(null);
+        vBox66.setOnMouseClicked(null);
     }
 
-    private void addMouseClickEvent(Node node) {
-        if (node.getClass().getName().equals(VBox.class.getName())) {
-            final VBox vBox = (VBox) node;
-            if (vBox.getChildren().isEmpty())
-                return;
-            else {
-                node.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        event.consume();
-                        CreateEventAlertBox createEventAlertBox = new CreateEventAlertBox();
-                        boolean result = createEventAlertBox.display((int) node.getUserData(), c, event.getScreenX(), event.getScreenY(), false);
-                        System.out.println("result: " + result);
-                        if (result) {
-                            c.set(Calendar.DAY_OF_MONTH, 1);
-                            refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
-                        }
-                    }
-                });
+    private void addMouseClickEvent(VBox vBox) {
+        vBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                event.consume();
+                CreateEventAlertBox createEventAlertBox = new CreateEventAlertBox();
+                boolean result = createEventAlertBox.display((int) vBox.getUserData(), c, event.getScreenX(), event.getScreenY(), false);
+                System.out.println("result: " + result);
+                if (result) {
+                    c.set(Calendar.DAY_OF_MONTH, 1);
+                    alarmTask.cancel();
+                    refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
+                }
             }
-        }
-    }
-
-    public void playAlarm() {
-        Media m = new Media("file:///" + System.getProperty("user.dir").replace('\\', '/') + "/" + "resources/alarm.mp3");
-        MediaPlayer player = new MediaPlayer(m);
-        player.play();
+        });
     }
 
     private void removeDayVBoxContent() {
@@ -618,4 +658,3 @@ public class Controller implements Initializable {
 
     }
 }
-

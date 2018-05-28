@@ -3,6 +3,7 @@ package sample;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -42,6 +43,13 @@ public class CreateEventAlertBox {
     private TextField startTimeTextField;
     private DatePicker endDatePicker;
     private TextField endTimeTextField;
+    private ComboBox notifyTimeComboBox;
+    private TextField notifyTimeTextField;
+    private ComboBox notifyTimeUnitComboBox;
+    private TextArea eventDescriptionTextArea;
+    private ColorPicker colorPicker;
+    private TextField titleTextField;
+    private ComboBox<String> optionCombobox;
 
     public boolean display(int day, Calendar c, double x, double y, boolean update) {
         Stage window = new Stage();
@@ -59,7 +67,7 @@ public class CreateEventAlertBox {
         window.setResizable(true);
         window.initStyle(StageStyle.UTILITY);
 
-        TextField titleTextField = new TextField();
+        titleTextField = new TextField();
         titleTextField.setFont(new Font("Calibri", 32));
         titleTextField.setMaxWidth(Double.MAX_VALUE);
         VBox.setVgrow(titleTextField, Priority.ALWAYS);
@@ -78,11 +86,6 @@ public class CreateEventAlertBox {
 
         ImageView eventTimeImageView = makeImageView("eventtimeicon", "Thời gian", 30, 10, 0, 8);
 
-        Label start = new Label("Từ");
-        HBox.setMargin(start, new Insets(8, 20, 0, 5));
-        start.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        start.setStyle("-fx-font: 20px \"System\";");
-
         Calendar temp = c;
         temp.set(Calendar.DATE, day);
 
@@ -100,106 +103,11 @@ public class CreateEventAlertBox {
         timeHBox.setPadding(new Insets(0, 0, 10, 0));
         timeHBox.getChildren().addAll(eventTimeImageView, eventTimeVBox);
 
-        ImageView eventNotifyTimeImageView = makeImageView("notifyicon", "Thời gian thông báo", 5, 10, 0, 8);
+        HBox notifyTimeHBox = makeEventNotifyTimeHBox();
 
-        ComboBox notifyTimeComboBox = new ComboBox<>();
-        notifyTimeComboBox.getItems().addAll(
-                "Tại thời điểm sự kiện",
-                "Trước 10 phút",
-                "Trước 30 phút",
-                "Tùy chọn",
-                "Không thông báo"
-        );
-        notifyTimeComboBox.setStyle("-fx-font: 20px \"System\";");
-        notifyTimeComboBox.getSelectionModel().selectFirst();
-        notifyTimeComboBox.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (isNowFocused)
-                isInColorPicker = false;
-        });
+        HBox eventDescriptionHBox = makeEventDescriptionHBox();
 
-        TextField notifyTimeTextField = new TextField();
-        notifyTimeTextField.setFont(new Font("System", 20));
-        notifyTimeTextField.setPromptText("Trước");
-        notifyTimeTextField.setMaxWidth(110);
-        notifyTimeTextField.setVisible(false);
-        notifyTimeTextField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    notifyTimeTextField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-
-        ComboBox notifyTimeUnitComboBox = new ComboBox<>();
-        notifyTimeUnitComboBox.getItems().addAll(
-                "phút",
-                "giờ",
-                "ngày"
-        );
-        notifyTimeUnitComboBox.setStyle("-fx-font: 20px \"System\";");
-        notifyTimeUnitComboBox.setMaxWidth(120);
-        notifyTimeUnitComboBox.getSelectionModel().selectFirst();
-        notifyTimeUnitComboBox.setVisible(false);
-        notifyTimeComboBox.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (notifyTimeComboBox.getSelectionModel().getSelectedItem().toString().equals("Tùy chọn")) {
-                    notifyTimeTextField.setVisible(true);
-                    notifyTimeUnitComboBox.setVisible(true);
-                } else {
-                    notifyTimeTextField.setVisible(false);
-                    notifyTimeUnitComboBox.setVisible(false);
-                }
-            }
-        });
-
-        HBox notifyTimeHBox = new HBox();
-        notifyTimeHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        notifyTimeHBox.setPadding(new Insets(0, 0, 10, 0));
-        notifyTimeHBox.getChildren().addAll(eventNotifyTimeImageView, notifyTimeComboBox, notifyTimeTextField, notifyTimeUnitComboBox);
-
-        ImageView eventDescriptionImageView = makeImageView("description", "Mô tả sự kiện", 5, 10, 0, 8);
-
-        TextArea eventDescriptionTextArea = new TextArea();
-        eventDescriptionTextArea.setPromptText("Thêm mô tả sự kiện");
-        eventDescriptionTextArea.setWrapText(true);
-        eventDescriptionTextArea.setPrefRowCount(5);
-        eventDescriptionTextArea.setOnKeyTyped(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                isChanged = true;
-            }
-        });
-        eventDescriptionTextArea.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (isNowFocused)
-                isInColorPicker = false;
-        });
-        HBox.setMargin(eventDescriptionTextArea, new Insets(0, 10, 0, 0));
-        eventDescriptionTextArea.setFont(new Font("System", 20));
-        HBox.setHgrow(eventDescriptionTextArea, Priority.ALWAYS);
-
-        HBox eventDescriptionHBox = new HBox();
-        eventDescriptionHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        eventDescriptionHBox.setPadding(new Insets(0, 0, 10, 0));
-        VBox.setVgrow(eventDescriptionHBox, Priority.ALWAYS);
-        eventDescriptionHBox.getChildren().addAll(eventDescriptionImageView, eventDescriptionTextArea);
-
-        ImageView colorChooser = makeImageView("colorchooser", "Chọn màu sự kiện", 5, 10, 0, 8);
-        final ColorPicker colorPicker = new ColorPicker();
-        DbConnection dbConnection = new DbConnection();
-        colorPicker.setValue(Color.web(dbConnection.getDefaultColor("event")));
-        colorPicker.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (isNowFocused) {
-                isInColorPicker = true;
-            }
-        });
-
-        HBox colorChooserHBox = new HBox();
-        colorChooserHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        colorChooserHBox.setPadding(new Insets(0, 0, 10, 0));
-        colorChooserHBox.getChildren().addAll(colorChooser, colorPicker);
+        HBox colorChooserHBox = makeColorChooseHBox();
 
         Button acceptButton = new Button();
         if (update) {
@@ -211,75 +119,37 @@ public class CreateEventAlertBox {
         acceptButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Event newEvent = new Event();
-                if (!titleTextField.getText().isEmpty()) {
-                    newEvent.setTitle(titleTextField.getText());
-                } else {
-                    newEvent.setTitle("");
-                }
-
-                if (!eventDescriptionTextArea.getText().isEmpty()) {
-                    newEvent.setDescription(eventDescriptionTextArea.getText());
-                } else {
-                    newEvent.setDescription("");
-                }
-
-                LocalDate localDate = startDatePicker.getValue();
-                Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-                Date date = Date.from(instant);
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                String[] hourAndMinute = startTimeTextField.getText().split(":");
-                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hourAndMinute[0]));
-                calendar.set(Calendar.MINUTE, Integer.parseInt(hourAndMinute[1]));
-                newEvent.setStartTime(calendar.getTimeInMillis() / 1000);
-                System.out.println(calendar.getTimeInMillis() / 1000);
-
-                localDate = endDatePicker.getValue();
-                instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-                date = Date.from(instant);
-                calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                hourAndMinute = endTimeTextField.getText().split(":");
-                calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hourAndMinute[0]));
-                calendar.set(Calendar.MINUTE, Integer.parseInt(hourAndMinute[1]));
-                newEvent.setEndTime(calendar.getTimeInMillis() / 1000);
-                System.out.println(calendar.getTimeInMillis() / 1000);
-
-                String selection = notifyTimeComboBox.getSelectionModel().getSelectedItem().toString();
-                if (selection.equals("Không thông báo")) {
-                    newEvent.setNotifyTime(-1L);
-                } else if (selection.equals("Tại thời điểm sự kiện")) {
-                    newEvent.setNotifyTime(0L);
-                } else if (selection.equals("Trước 10 phút")) {
-                    newEvent.setNotifyTime(10 * 60L);
-                } else if (selection.equals("Trước 30 phút")) {
-                    newEvent.setNotifyTime(30 * 60L);
-                } else if (selection.equals("Tùy chọn")) {
-                    if (notifyTimeTextField.getText().isEmpty()) {
-                        Alert noinput = new Alert(Alert.AlertType.WARNING);
-                        noinput.setTitle("Cảnh báo");
-                        noinput.setContentText("Bạn chưa nhập thời gian thông báo tùy chọn");
-                        return;
-                    } else {
-                        String unitSelection = notifyTimeUnitComboBox.getSelectionModel().getSelectedItem().toString();
-                        if (unitSelection.equals("phút")) {
-                            newEvent.setNotifyTime(Long.parseLong(notifyTimeTextField.getText()) * 60);
-                        } else if (unitSelection.equals("giờ")) {
-                            newEvent.setNotifyTime(Long.parseLong(notifyTimeTextField.getText()) * 60 * 60);
-                        } else if (unitSelection.equals("ngày")) {
-                            newEvent.setNotifyTime(Long.parseLong(notifyTimeTextField.getText()) * 24 * 60 * 60);
-                        }
+                if(optionCombobox.getSelectionModel().getSelectedItem().equals("Sự kiện")) {
+                    if (addNewEvent()) {
+                        isChanged = false;
+                        isNewEventAdded = true;
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Xác nhận");
+                        alert.setContentText("Thêm thành công!");
+                        alert.showAndWait();
+                        window.close();
+                    }
+                }else if (optionCombobox.getSelectionModel().getSelectedItem().equals("Ngày lễ")){
+                    if (addNewBirthday(day, c.get(Calendar.MONTH))){
+                        isChanged = false;
+                        isNewEventAdded = true;
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Xác nhận");
+                        alert.setContentText("Thêm thành công!");
+                        alert.showAndWait();
+                        window.close();
+                    }
+                }else if (optionCombobox.getSelectionModel().getSelectedItem().equals("Ngày sinh nhật")){
+                    if(addNewHoliday(day, c.get(Calendar.MONTH))){
+                        isChanged = false;
+                        isNewEventAdded = true;
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Xác nhận");
+                        alert.setContentText("Thêm thành công!");
+                        alert.showAndWait();
+                        window.close();
                     }
                 }
-
-                newEvent.setColor(Utils.toRGBCode(colorPicker.getValue()));
-                DbConnection dbConnection = new DbConnection();
-                dbConnection.addEventToMonthEventTable(newEvent, calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
-
-                isChanged = false;
-                isNewEventAdded = true;
-                window.close();
             }
         });
 
@@ -293,6 +163,46 @@ public class CreateEventAlertBox {
         layout.setMaxWidth(600);
         layout.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         layout.getChildren().addAll(titleTextField, timeHBox, notifyTimeHBox, eventDescriptionHBox, colorChooserHBox, controlHBox);
+
+        ObservableList<String> data = FXCollections.observableArrayList("Sự kiện", "Ngày lễ", "Ngày sinh nhật");
+        optionCombobox = new ComboBox<>(data);
+        optionCombobox.getSelectionModel().selectFirst();
+        VBox.setMargin(optionCombobox, new Insets(0, 0, 0, 10));
+        optionCombobox.setStyle("-fx-font: 20px \"System\";");
+        optionCombobox.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.equals("Ngày lễ")) {
+                    layout.getChildren().remove(timeHBox);
+                    layout.getChildren().remove(notifyTimeHBox);
+                    layout.getChildren().remove(eventDescriptionHBox);
+                    layout.getChildren().remove(colorChooserHBox);
+                    layout.getChildren().remove(controlHBox);
+                    layout.getChildren().add(controlHBox);
+                    titleTextField.setPromptText("Nhập tên ngày lễ");
+                    window.setMinHeight(250f);
+                    window.setMaxHeight(250f);
+                } else if (newValue.equals("Ngày sinh nhật")) {
+                    layout.getChildren().remove(timeHBox);
+                    layout.getChildren().remove(notifyTimeHBox);
+                    layout.getChildren().remove(eventDescriptionHBox);
+                    layout.getChildren().remove(colorChooserHBox);
+                    layout.getChildren().remove(controlHBox);
+                    layout.getChildren().add(controlHBox);
+                    titleTextField.setPromptText("Ngày sinh nhật của");
+                    window.setMinHeight(250f);
+                    window.setMaxHeight(250f);
+                } else if (newValue.equals("Sự kiện")) {
+                    layout.getChildren().remove(controlHBox);
+                    layout.getChildren().addAll(timeHBox, notifyTimeHBox, eventDescriptionHBox, colorChooserHBox);
+                    layout.getChildren().add(controlHBox);
+                    titleTextField.setPromptText("Thêm tiêu đề");
+                    window.setMinHeight(600f);
+                    window.setMaxHeight(1000f);
+                }
+            }
+        });
+        layout.getChildren().add(0, optionCombobox);
 
         if (primaryScreenBounds.getWidth() - x < window.getMinWidth()) {
             if (primaryScreenBounds.getHeight() - y < window.getMinHeight()) {
@@ -340,6 +250,109 @@ public class CreateEventAlertBox {
         return isNewEventAdded;
     }
 
+    private boolean addNewEvent() {
+        Event newEvent = new Event();
+        if (!titleTextField.getText().isEmpty()) {
+            newEvent.setTitle(titleTextField.getText());
+        } else {
+            newEvent.setTitle("");
+        }
+
+        if (!eventDescriptionTextArea.getText().isEmpty()) {
+            newEvent.setDescription(eventDescriptionTextArea.getText());
+        } else {
+            newEvent.setDescription("");
+        }
+
+        LocalDate localDate = startDatePicker.getValue();
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        String[] hourAndMinute = startTimeTextField.getText().split(":");
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hourAndMinute[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(hourAndMinute[1]));
+        newEvent.setStartTime(calendar.getTimeInMillis() / 1000);
+        System.out.println(calendar.getTimeInMillis() / 1000);
+
+        localDate = endDatePicker.getValue();
+        instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        date = Date.from(instant);
+        calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        hourAndMinute = endTimeTextField.getText().split(":");
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hourAndMinute[0]));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(hourAndMinute[1]));
+        newEvent.setEndTime(calendar.getTimeInMillis() / 1000);
+        System.out.println(calendar.getTimeInMillis() / 1000);
+
+        if (newEvent.getStartTime() > newEvent.getEndTime()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Thời gian bắt đầu sự kiện phải trước thời gian kết thúc! ", ButtonType.OK);
+            alert.setTitle("Lỗi");
+            alert.showAndWait();
+            return false;
+        }
+
+        String selection = notifyTimeComboBox.getSelectionModel().getSelectedItem().toString();
+        if (selection.equals("Không thông báo")) {
+            newEvent.setNotifyTime(-1L);
+        } else if (selection.equals("Tại thời điểm sự kiện")) {
+            newEvent.setNotifyTime(0L);
+        } else if (selection.equals("Trước 10 phút")) {
+            newEvent.setNotifyTime(10 * 60L);
+        } else if (selection.equals("Trước 30 phút")) {
+            newEvent.setNotifyTime(30 * 60L);
+        } else if (selection.equals("Tùy chọn")) {
+            if (notifyTimeTextField.getText().isEmpty()) {
+                Alert noinput = new Alert(Alert.AlertType.WARNING);
+                noinput.setTitle("Cảnh báo");
+                noinput.setContentText("Bạn chưa nhập thời gian thông báo tùy chọn");
+                return false;
+            } else {
+                String unitSelection = notifyTimeUnitComboBox.getSelectionModel().getSelectedItem().toString();
+                if (unitSelection.equals("phút")) {
+                    newEvent.setNotifyTime(Long.parseLong(notifyTimeTextField.getText()) * 60);
+                } else if (unitSelection.equals("giờ")) {
+                    newEvent.setNotifyTime(Long.parseLong(notifyTimeTextField.getText()) * 60 * 60);
+                } else if (unitSelection.equals("ngày")) {
+                    newEvent.setNotifyTime(Long.parseLong(notifyTimeTextField.getText()) * 24 * 60 * 60);
+                }
+            }
+        }
+
+        newEvent.setColor(Utils.toRGBCode(colorPicker.getValue()));
+        DbConnection dbConnection = new DbConnection();
+        return dbConnection.addEventToYearEventTable(newEvent, calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+    }
+
+    private boolean addNewBirthday(int day, int month){
+        Birthday newBirthday = new Birthday();
+        if (!titleTextField.getText().isEmpty()) {
+            newBirthday.setName(titleTextField.getText());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Vui lòng nhập tên! ", ButtonType.OK);
+            alert.setTitle("Lỗi");
+            alert.showAndWait();
+            return false;
+        }
+        DbConnection dbConnection = new DbConnection();
+        return dbConnection.addBirthday(newBirthday, day, month);
+    }
+
+    private boolean addNewHoliday(int day, int month){
+        Holiday newHoliday = new Holiday();
+        if (!titleTextField.getText().isEmpty()) {
+            newHoliday.setName(titleTextField.getText());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Vui lòng nhập tên ngày lễ! ", ButtonType.OK);
+            alert.setTitle("Lỗi");
+            alert.showAndWait();
+            return false;
+        }
+        DbConnection dbConnection = new DbConnection();
+        return dbConnection.addHoliday(newHoliday, day, month);
+    }
+
     private HBox makeStartTimeHBox(Calendar temp) {
         Label start = new Label("Từ");
         HBox.setMargin(start, new Insets(8, 20, 0, 5));
@@ -368,8 +381,7 @@ public class CreateEventAlertBox {
                     startTimeTextField.setText(oldStartTime);
                     if (!startTimeComboBox.isFocused())
                         startTimeComboBox.setVisible(false);
-                }
-                else {
+                } else {
                     oldStartTime = startTimeTextField.getText();
                 }
             } else if (newValue) {
@@ -412,6 +424,7 @@ public class CreateEventAlertBox {
         endTimeTextField.setMaxWidth(100);
         endTimeTextField.setFont(new Font("System", 20));
         Calendar current = Calendar.getInstance();
+        current.add(Calendar.MINUTE, 30);
         oldEndTime = (current.get(Calendar.HOUR_OF_DAY) >= 10 ? "" + current.get(Calendar.HOUR_OF_DAY) : "0" + current.get(Calendar.HOUR_OF_DAY))
                 + ":" +
                 (current.get(Calendar.MINUTE) >= 10 ? "" + current.get(Calendar.MINUTE) : "0" + current.get(Calendar.MINUTE));
@@ -422,7 +435,7 @@ public class CreateEventAlertBox {
                     endTimeTextField.setText(oldEndTime);
                     if (!endTimeComboBox.isFocused())
                         endTimeComboBox.setVisible(false);
-                }else{
+                } else {
                     oldEndTime = endTimeTextField.getText();
                 }
             } else if (newValue) {
@@ -445,6 +458,122 @@ public class CreateEventAlertBox {
         eventEndTimeHBox.getChildren().addAll(end, endDatePicker, endTimeTextField, endTimeComboBox);
 
         return eventEndTimeHBox;
+    }
+
+    private HBox makeEventNotifyTimeHBox() {
+        ImageView eventNotifyTimeImageView = makeImageView("notifyicon", "Thời gian thông báo", 5, 10, 0, 8);
+
+        notifyTimeComboBox = new ComboBox<>();
+        notifyTimeComboBox.getItems().addAll(
+                "Tại thời điểm sự kiện",
+                "Trước 10 phút",
+                "Trước 30 phút",
+                "Tùy chọn",
+                "Không thông báo"
+        );
+        notifyTimeComboBox.setStyle("-fx-font: 20px \"System\";");
+        notifyTimeComboBox.getSelectionModel().selectFirst();
+        notifyTimeComboBox.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused)
+                isInColorPicker = false;
+        });
+
+        notifyTimeTextField = new TextField();
+        notifyTimeTextField.setFont(new Font("System", 20));
+        notifyTimeTextField.setPromptText("Trước");
+        notifyTimeTextField.setMaxWidth(110);
+        notifyTimeTextField.setVisible(false);
+        notifyTimeTextField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    notifyTimeTextField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        notifyTimeUnitComboBox = new ComboBox<>();
+        notifyTimeUnitComboBox.getItems().addAll(
+                "phút",
+                "giờ",
+                "ngày"
+        );
+        notifyTimeUnitComboBox.setStyle("-fx-font: 20px \"System\";");
+        notifyTimeUnitComboBox.setMaxWidth(120);
+        notifyTimeUnitComboBox.getSelectionModel().selectFirst();
+        notifyTimeUnitComboBox.setVisible(false);
+        notifyTimeComboBox.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (notifyTimeComboBox.getSelectionModel().getSelectedItem().toString().equals("Tùy chọn")) {
+                    notifyTimeTextField.setVisible(true);
+                    notifyTimeUnitComboBox.setVisible(true);
+                } else {
+                    notifyTimeTextField.setVisible(false);
+                    notifyTimeUnitComboBox.setVisible(false);
+                }
+            }
+        });
+
+        HBox notifyTimeHBox = new HBox();
+        notifyTimeHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        notifyTimeHBox.setPadding(new Insets(0, 0, 10, 0));
+        notifyTimeHBox.getChildren().addAll(eventNotifyTimeImageView, notifyTimeComboBox, notifyTimeTextField, notifyTimeUnitComboBox);
+
+        return notifyTimeHBox;
+    }
+
+    private HBox makeEventDescriptionHBox() {
+        ImageView eventDescriptionImageView = makeImageView("description", "Mô tả sự kiện", 5, 10, 0, 8);
+
+        eventDescriptionTextArea = new TextArea();
+        eventDescriptionTextArea.setPromptText("Thêm mô tả sự kiện");
+        eventDescriptionTextArea.setWrapText(true);
+        eventDescriptionTextArea.setPrefRowCount(5);
+        eventDescriptionTextArea.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                isChanged = true;
+            }
+        });
+        eventDescriptionTextArea.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused)
+                isInColorPicker = false;
+        });
+        HBox.setMargin(eventDescriptionTextArea, new Insets(0, 10, 0, 0));
+        eventDescriptionTextArea.setFont(new Font("System", 20));
+        HBox.setHgrow(eventDescriptionTextArea, Priority.ALWAYS);
+
+        HBox eventDescriptionHBox = new HBox();
+        eventDescriptionHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        eventDescriptionHBox.setPadding(new Insets(0, 0, 10, 0));
+        VBox.setVgrow(eventDescriptionHBox, Priority.ALWAYS);
+        eventDescriptionHBox.getChildren().addAll(eventDescriptionImageView, eventDescriptionTextArea);
+
+        return eventDescriptionHBox;
+    }
+
+    private HBox makeColorChooseHBox() {
+        ImageView colorChooser = makeImageView("colorchooser", "Chọn màu sự kiện", 5, 10, 0, 8);
+        colorPicker = new ColorPicker();
+        colorPicker.setStyle("-fx-font: 20px \"System\";");
+        DbConnection dbConnection = new DbConnection();
+        colorPicker.setValue(Color.web(dbConnection.getDefaultColor("event")));
+        colorPicker.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+            if (isNowFocused) {
+                isInColorPicker = true;
+            } else {
+                isInColorPicker = false;
+            }
+        });
+
+        HBox colorChooserHBox = new HBox();
+        colorChooserHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        colorChooserHBox.setPadding(new Insets(0, 0, 10, 0));
+        colorChooserHBox.getChildren().addAll(colorChooser, colorPicker);
+
+        return colorChooserHBox;
     }
 
     private ComboBox<Time> makeTimeComboBox() {

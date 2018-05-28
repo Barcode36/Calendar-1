@@ -31,7 +31,7 @@ public class EventDetailAlertBox {
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-        window.initModality(Modality.WINDOW_MODAL);
+        window.initModality(Modality.APPLICATION_MODAL);
         window.setResizable(true);
         window.initStyle(StageStyle.UTILITY);
 
@@ -228,11 +228,11 @@ public class EventDetailAlertBox {
                 window.setX(x);
             }
         }
-        window.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
-            if (!isNowFocused) {
-                window.close();
-            }
-        });
+//        window.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+//            if (!isNowFocused) {
+//                window.close();
+//            }
+//        });
 
         Scene scene = new Scene(layout);
         window.setScene(scene);
