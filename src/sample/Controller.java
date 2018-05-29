@@ -192,8 +192,8 @@ public class Controller implements Initializable {
                 alert.setContentText(temp3.toString());
                 alert.showAndWait();*/
 
-                getUpdate(arrayListMMH);
-                //getUpdateDAA();
+                //getUpdate(arrayListMMH);
+                getUpdateDAA();
             }
         });
         alarmTask = new Task() {
@@ -592,6 +592,7 @@ public class Controller implements Initializable {
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung?page=1");
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung?page=2");
         ArrayList<String> arrayListThongBao = new ArrayList<String>();
+        ArrayList<String> arrayListThongBao2 = new ArrayList<String>();
         boolean test;
         for (int j = 0; j < arrayListURL.size(); j++) {
             test = false;
@@ -624,6 +625,31 @@ public class Controller implements Initializable {
                                 alert.showAndWait();*/
                         }
                     }
+
+                    Elements elements2 = document.select("div.content > article");
+                    elements2 = elements2.select("div.submitted");
+                    for (Element element : elements2) {
+                        Element element2 = element.getAllElements().first();
+                        if (element2 != null) {
+                            String temptext = element2.text(); //getting text in the element
+
+                            for (int y = 0; y < arrayListThongBao2.size(); y++) {
+                                if (arrayListThongBao2.get(y).equals(temptext)) {
+                                    test = true;
+                                    break;
+                                }
+                            }
+
+                            if (test == false) {
+                                arrayListThongBao2.add(temptext.substring(4, temptext.length()));
+                            }
+
+                                /*arrayListThongBao.add(temptext2);
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setContentText(temptext2);
+                                alert.showAndWait();*/
+                        }
+                    }
                 }
             } catch (Exception e) {
 
@@ -632,7 +658,7 @@ public class Controller implements Initializable {
 
             for (int i = 0; i < arrayListThongBao.size(); i++) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText(arrayListThongBao.get(i));
+                alert.setContentText(arrayListThongBao.get(i) + "\n" +arrayListThongBao2.get(i));
                 alert.showAndWait();
             }
         }
