@@ -90,6 +90,9 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        LoginDialog loginDialog =new LoginDialog();
+        loginDialog.display();
+
         dbConnection = new DbConnection();
         //DbConnection.connectToDB();
         dayGrid = new VBox[][]{
@@ -393,14 +396,6 @@ public class Controller implements Initializable {
         return label;
     }
 
-    private Event getEventFromList(int eventID) {
-        for (Event i : monthEvent) {
-            if (i.getEventid() == eventID)
-                return i;
-        }
-        return null;
-    }
-
     private void removeVBoxEvent() {
         vBox01.setOnMouseClicked(null);
         vBox02.setOnMouseClicked(null);
@@ -470,20 +465,6 @@ public class Controller implements Initializable {
             }
         }
     }
-
-//    public Node getNodeByRowColumnIndex(final int row, final int column, GridPane gridPane) {
-//        Node result = null;
-//        ObservableList<Node> childrens = gridPane.getChildren();
-//
-//        for (Node node : childrens) {
-//            if (gridPane.getRowIndex(node) == row && gridPane.getColumnIndex(node) == column) {
-//                result = node;
-//                break;
-//            }
-//        }
-//
-//        return result;
-//    }
 
     private void showLastRow() {
         for (int i = 5; i <= 5; i++) {

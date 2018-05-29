@@ -267,6 +267,22 @@ public class DbConnection {
         return "";
     }
 
+    public Boolean checkUser(String user, String password) {
+        String query = "SELECT * FROM `User` WHERE UserName = ? and Password = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, user);
+            pstmt.setString(2, password);
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.isBeforeFirst()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
     private void sortEventTimeDesc(List<Event> events) {
         for (int i = 0; i <= events.size() - 2; i++) {
             for (int j = i + 1; j <= events.size() - 1; j++) {

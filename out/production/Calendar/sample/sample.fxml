@@ -284,7 +284,7 @@
          </cursor></Button>
       <TextField fx:id="mmhTextField" layoutX="720.0" layoutY="43.0" />
       <Button fx:id="updateButton" layoutX="913.0" layoutY="43.0" mnemonicParsing="false" text="Cập nhật thông báo" />
-      <Button layoutX="1249.0" layoutY="26.0" mnemonicParsing="false" text="Thiết lập" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="26.0">
+      <Button fx:id="SettingsButton" layoutX="1249.0" layoutY="26.0" mnemonicParsing="false" text="Thiết lập" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="26.0">
          <font>
             <Font size="20.0" />
          </font></Button>
