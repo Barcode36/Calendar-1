@@ -253,7 +253,7 @@ public class DbConnection {
     }
 
     public String getDefaultColor(String type) {
-        String query = "SELECT * FROM `DefaultColor` WHERE type = ?";
+        String query = "SELECT * FROM `DefaultSettings` WHERE type = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, type);
@@ -265,6 +265,20 @@ public class DbConnection {
             System.out.println(e.getMessage());
         }
         return "";
+    }
+
+    public Boolean setDefaultColor(String type, String color) {
+        String query = "UPDATE DefaultSettings SET color = ? WHERE type = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, color);
+            pstmt.setString(2, type);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     public Boolean checkUser(String user, String password) {

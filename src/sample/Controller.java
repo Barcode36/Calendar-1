@@ -90,8 +90,15 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        LoginDialog loginDialog =new LoginDialog();
-        loginDialog.display();
+//        LoginDialog loginDialog =new LoginDialog();
+//        loginDialog.display();
+        SettingsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Settings settings = new Settings();
+                settings.display();
+            }
+        });
 
         dbConnection = new DbConnection();
         //DbConnection.connectToDB();
