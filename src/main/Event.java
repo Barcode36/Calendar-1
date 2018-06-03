@@ -9,20 +9,12 @@ public class Event {
     private Long notifyTime;
     private String description;
     private String color;
+    private int alarmid;
     private boolean isdeleted;
     private boolean isnotified;
 
     public Event() {
-    }
-
-    public Event(int _dateid, String _title, Long _startTime, Long _endTime, Long _notifyTime, String _description, String _color) {
-        dateid = _dateid;
-        title = _title;
-        startTime = _startTime;
-        endTime = _endTime;
-        notifyTime = _notifyTime;
-        description = _description;
-        color = _color;
+        isnotified = false;
     }
 
     public int getEventid() {
@@ -53,6 +45,10 @@ public class Event {
         return description;
     }
 
+    public int getAlarmID() {
+        return alarmid;
+    }
+
     public String getColor() {
         return color;
     }
@@ -63,6 +59,10 @@ public class Event {
 
     public boolean isIsnotified() {
         return isnotified;
+    }
+
+    public void setAlarmID(int alarmid) {
+        this.alarmid = alarmid;
     }
 
     public void setEventid(int eventid) {

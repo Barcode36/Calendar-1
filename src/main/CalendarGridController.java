@@ -1,6 +1,5 @@
 package main;
 
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -78,6 +77,7 @@ public class CalendarGridController implements Initializable {
     private EventDetailAlertBox eventDetailAlertBox;
     private Calendar c = Calendar.getInstance();
     private DbConnection dbConnection;
+    private AlarmModel alarmModel;
 
 
     @Override
@@ -200,7 +200,7 @@ public class CalendarGridController implements Initializable {
             }
         });
 
-        AlarmModel alarmModel = new AlarmModel();
+        alarmModel = new AlarmModel();
         alarmModel.start();
     }
 
@@ -291,9 +291,10 @@ public class CalendarGridController implements Initializable {
     private Label makeLabel(Object object) {
         Label label = new Label();
         label.setFont(new Font("System", 15));
+        label.setPadding(new Insets(0,0,0,5));
+        label.setMaxWidth(Double.MAX_VALUE);
         if (object instanceof Event) {
             Event event = (Event) object;
-            //label.setUserData(event.getEventid());
             label.setBackground(new Background(new BackgroundFill(Color.web(event.getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
             SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
             java.util.Date eventStartTime = new java.util.Date((long) event.getStartTime() * 1000);
@@ -305,7 +306,6 @@ public class CalendarGridController implements Initializable {
             }
         } else if (object instanceof Holiday) {
             Holiday holiday = (Holiday) object;
-            //label.setUserData(holiday.getDateid());
             label.setBackground(new Background(new BackgroundFill(Color.web(dbConnection.getDefaultColor("holiday")), CornerRadii.EMPTY, Insets.EMPTY)));
             if (holiday.getName().isEmpty()) {
                 label.setText("Ngày lễ không có tiêu đề");
@@ -314,12 +314,11 @@ public class CalendarGridController implements Initializable {
             }
         } else if (object instanceof Birthday) {
             Birthday birthday = (Birthday) object;
-            //label.setUserData(birthday.getDateid());
             label.setBackground(new Background(new BackgroundFill(Color.web(dbConnection.getDefaultColor("birthday")), CornerRadii.EMPTY, Insets.EMPTY)));
             if (birthday.getName().isEmpty()) {
                 label.setText("Sinh nhật");
             } else {
-                label.setText(birthday.getName());
+                label.setText("Ngày sinh nhật của " + birthday.getName());
             }
         }
 
@@ -329,6 +328,7 @@ public class CalendarGridController implements Initializable {
             public void handle(MouseEvent event) {
                 event.consume();
                 eventDetailAlertBox.display(object, event.getSceneX(), event.getSceneY());
+                refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
             }
         });
 
@@ -386,11 +386,11 @@ public class CalendarGridController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 event.consume();
-                boolean result = createEventAlertBox.display((int) vBox.getUserData(), c, event.getScreenX(), event.getScreenY(), false);
-                System.out.println("result: " + result);
-                if (result) {
+                Event resultEvent = createEventAlertBox.display((int) vBox.getUserData(), c, event.getScreenX(), event.getScreenY(), false, null);
+                if (resultEvent!=null) {
                     c.set(Calendar.DAY_OF_MONTH, 1);
                     refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
+                    alarmModel.addAlarm(resultEvent);
                 }
             }
         });
@@ -487,7 +487,6 @@ public class CalendarGridController implements Initializable {
                                 } catch (ParseException e) {
 
                                 }*/
-
 
 
                                 String temptext2 = titletemp + "\n" + timetemp + "\n" + teachertemp + "\n" + facultytemp + "\n" + subjecttemp + "\n" + classtemp + "\n" + roomtemp + "\n" + timetemp2;
@@ -596,7 +595,7 @@ public class CalendarGridController implements Initializable {
 
             for (int i = 0; i < arrayListThongBao.size(); i++) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText(arrayListThongBao.get(i) + "\n" +arrayListThongBao2.get(i));
+                alert.setContentText(arrayListThongBao.get(i) + "\n" + arrayListThongBao2.get(i));
                 alert.showAndWait();
             }
         }

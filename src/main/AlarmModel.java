@@ -17,10 +17,15 @@ public class AlarmModel {
 
     private List<Event> events;
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-    Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+    private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
     private boolean isUpdating = false;
+    private DbConnection dbConnection;
 
     public void addAlarm(Event event) {
+        if (event.isIsnotified())
+            return;
+        isUpdating = true;
         int pos = 0;
         Event temp;
         for (int i = 0; i < events.size(); i++) {
@@ -30,6 +35,8 @@ public class AlarmModel {
             }
         }
         events.add(pos, event);
+        System.out.println("New event added to notify queue at pos " + pos);
+        isUpdating = false;
     }
 
     public void removeAlarm(Event event) {
@@ -37,11 +44,12 @@ public class AlarmModel {
     }
 
     public void start() {
+        dbConnection = new DbConnection();
         Calendar calendar = Calendar.getInstance();
         events = new ArrayList<Event>();
         DbConnection dbConnection = new DbConnection();
         List<Event> temp = dbConnection.getDayEvent(calendar.get(Calendar.YEAR));
-        if(temp!=null){
+        if (temp != null) {
             events.addAll(temp);
         }
         executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.SECONDS);
@@ -52,15 +60,19 @@ public class AlarmModel {
     }
 
     private void tick() {
-        long current = System.currentTimeMillis()/1000;
+        if (isUpdating)
+            return;
+        long current = System.currentTimeMillis() / 1000;
         Platform.runLater(() -> {
             for (Event event : events) {
                 if (event.getStartTime() - event.getNotifyTime() <= current) {
                     System.out.println("Alerting event");
-                    Utils.playSound("alarm1.mp3");
+                    Utils.playSound(dbConnection.getAlarm(event.getAlarmID()).getPath());
                     EventDetailAlertBox eventDetailAlertBox = new EventDetailAlertBox();
                     eventDetailAlertBox.display(event, primaryScreenBounds.getWidth() / 2, primaryScreenBounds.getHeight() / 2);
+                    event.setIsnotified(true);
                     removeAlarm(event);
+                    dbConnection.updateEvent(event);
                 }
             }
         });
