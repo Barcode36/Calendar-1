@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f795f893-3c55-41b5-b8bf-ae23a37e9cae" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/sample/Settings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calendar.db" beforeDir="false" afterPath="$PROJECT_DIR$/Calendar.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Calendar/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calendar/sample/Controller.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Calendar/sample/Daa.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Calendar/sample/Daa.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/DbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/DbConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calendar/main/Settings$1.class" afterPath="$PROJECT_DIR$/out/production/Calendar/main/Settings$1.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/Calendar/main/Settings.class" afterPath="$PROJECT_DIR$/out/production/Calendar/main/Settings.class" />
+      <change beforePath="$PROJECT_DIR$/src/main/Settings.java" afterPath="$PROJECT_DIR$/src/main/Settings.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,11 +22,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CalendarGridController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CalendarGridController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/CalendarGridController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-781">
-              <caret line="290" column="43" selection-start-line="290" selection-start-column="43" selection-end-line="290" selection-end-column="43" />
+            <state relative-caret-position="374">
+              <caret line="311" column="20" lean-forward="false" selection-start-line="311" selection-start-column="20" selection-end-line="311" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Settings.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/Settings.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2635">
+              <caret line="172" column="11" lean-forward="true" selection-start-line="172" selection-start-column="11" selection-end-line="172" selection-end-column="11" />
+              <folding>
+                <element signature="class#7486:7645" expanded="false" />
+                <element signature="e#7588#7589#0" expanded="true" />
+                <element signature="e#7634#7635#0" expanded="true" />
+                <element signature="method#makeImageView#0;class#Settings#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -38,8 +50,8 @@
       <file leaf-file-name="AlarmModel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/AlarmModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="898">
-              <caret line="75" column="17" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
+            <state relative-caret-position="1020">
+              <caret line="75" column="17" lean-forward="false" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -51,7 +63,8 @@
         <entry file="file://$PROJECT_DIR$/src/main/Daa.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -60,7 +73,8 @@
         <entry file="file://$PROJECT_DIR$/src/main/DatePickerDialog.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+              <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -68,35 +82,35 @@
       <file leaf-file-name="DbConnection.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/DbConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="308" lean-forward="true" selection-start-line="308" selection-end-line="308" />
+            <state relative-caret-position="561">
+              <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
               <folding>
-                <element signature="method#connect#0;class#DbConnection#0" />
-                <element signature="method#createYearTable#0;class#DbConnection#0" />
-                <element signature="method#addEventToYearEventTable#0;class#DbConnection#0" />
-                <element signature="method#addHoliday#0;class#DbConnection#0" />
-                <element signature="method#addBirthday#0;class#DbConnection#0" />
-                <element signature="method#getLastEvent#0;class#DbConnection#0" />
-                <element signature="method#updateEvent#0;class#DbConnection#0" />
-                <element signature="method#updateBirthday#0;class#DbConnection#0" />
-                <element signature="method#updateHoliday#0;class#DbConnection#0" />
-                <element signature="method#getDateId#0;class#DbConnection#0" />
-                <element signature="method#getHolidayDateId#0;class#DbConnection#0" />
-                <element signature="method#getBirthdayDateId#0;class#DbConnection#0" />
-                <element signature="method#getDate#0;class#DbConnection#0" />
-                <element signature="method#getDayEvent#0;class#DbConnection#0" />
-                <element signature="method#getDayEvent#1;class#DbConnection#0" />
-                <element signature="method#getDayHoliday#0;class#DbConnection#0" />
-                <element signature="method#getDayBirthday#0;class#DbConnection#0" />
-                <element signature="method#getDefaultColor#0;class#DbConnection#0" />
-                <element signature="method#setDefaultColor#0;class#DbConnection#0" />
-                <element signature="method#getDefaultAlarm#0;class#DbConnection#0" />
-                <element signature="method#setDefaultAlarm#0;class#DbConnection#0" />
-                <element signature="method#addAlarm#0;class#DbConnection#0" />
-                <element signature="method#getAlarmList#0;class#DbConnection#0" />
-                <element signature="method#getAlarm#0;class#DbConnection#0" />
-                <element signature="method#checkUser#0;class#DbConnection#0" />
-                <element signature="method#sortEventTimeDesc#0;class#DbConnection#0" />
+                <element signature="method#connect#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#createYearTable#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#addEventToYearEventTable#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#addHoliday#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#addBirthday#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getLastEvent#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#updateEvent#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#updateBirthday#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#updateHoliday#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getDateId#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getHolidayDateId#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getBirthdayDateId#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getDate#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getDayEvent#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getDayEvent#1;class#DbConnection#0" expanded="false" />
+                <element signature="method#getDayHoliday#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getDayBirthday#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getDefaultColor#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#setDefaultColor#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getDefaultAlarm#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#setDefaultAlarm#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#addAlarm#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getAlarmList#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#getAlarm#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#checkUser#0;class#DbConnection#0" expanded="false" />
+                <element signature="method#sortEventTimeDesc#0;class#DbConnection#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -106,21 +120,8 @@
         <entry file="file://$PROJECT_DIR$/src/main/Utils.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="7" column="47" lean-forward="true" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Birthday.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/Birthday.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
-              <folding>
-                <element signature="e#285#286#0" expanded="true" />
-                <element signature="e#320#321#0" expanded="true" />
-                <element signature="e#386#387#0" expanded="true" />
-              </folding>
+              <caret line="7" column="47" lean-forward="false" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -129,7 +130,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/Holiday.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="25" />
+              <caret line="37" column="8" lean-forward="false" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="25" />
               <folding>
                 <element signature="e#428#429#0" expanded="true" />
                 <element signature="e#463#464#0" expanded="true" />
@@ -143,22 +144,22 @@
       <file leaf-file-name="EventDetailAlertBox.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/EventDetailAlertBox.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="153" column="17" selection-start-line="153" selection-start-column="17" selection-end-line="153" selection-end-column="17" />
+            <state relative-caret-position="680">
+              <caret line="153" column="17" lean-forward="false" selection-start-line="153" selection-start-column="17" selection-end-line="153" selection-end-column="17" />
               <folding>
-                <element signature="method#EventDetailAlertBox#0;class#EventDetailAlertBox#0" />
-                <element signature="class#5906:6197" />
-                <element signature="method#handle#0;class#5906:6197" />
-                <element signature="class#6333:7031" />
-                <element signature="method#handle#0;class#6333:7031" />
-                <element signature="class#9862:10604" />
-                <element signature="method#handle#0;class#9862:10604" />
-                <element signature="class#11540:12249" />
-                <element signature="method#handle#0;class#11540:12249" />
-                <element signature="method#makeImageView#0;class#EventDetailAlertBox#0" />
-                <element signature="method#getDateOfWeek#0;class#EventDetailAlertBox#0" />
-                <element signature="method#getMonthString#0;class#EventDetailAlertBox#0" />
-                <element signature="method#getObjectColor#0;class#EventDetailAlertBox#0" />
+                <element signature="method#EventDetailAlertBox#0;class#EventDetailAlertBox#0" expanded="false" />
+                <element signature="class#5906:6197" expanded="false" />
+                <element signature="method#handle#0;class#5906:6197" expanded="false" />
+                <element signature="class#6333:7031" expanded="false" />
+                <element signature="method#handle#0;class#6333:7031" expanded="false" />
+                <element signature="class#9862:10604" expanded="false" />
+                <element signature="method#handle#0;class#9862:10604" expanded="false" />
+                <element signature="class#11540:12249" expanded="false" />
+                <element signature="method#handle#0;class#11540:12249" expanded="false" />
+                <element signature="method#makeImageView#0;class#EventDetailAlertBox#0" expanded="false" />
+                <element signature="method#getDateOfWeek#0;class#EventDetailAlertBox#0" expanded="false" />
+                <element signature="method#getMonthString#0;class#EventDetailAlertBox#0" expanded="false" />
+                <element signature="method#getObjectColor#0;class#EventDetailAlertBox#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -167,8 +168,51 @@
       <file leaf-file-name="CreateEventAlertBox.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/CreateEventAlertBox.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2227">
-              <caret line="160" column="95" selection-start-line="160" selection-start-column="95" selection-end-line="160" selection-end-column="95" />
+            <state relative-caret-position="394">
+              <caret line="919" column="5" lean-forward="true" selection-start-line="910" selection-start-column="4" selection-end-line="919" selection-end-column="5" />
+              <folding>
+                <element signature="method#CreateEventAlertBox#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="class#2779:2934" expanded="false" />
+                <element signature="class#4084:7619" expanded="false" />
+                <element signature="method#handle#0;class#4084:7619" expanded="false" />
+                <element signature="class#8674:10712" expanded="false" />
+                <element signature="method#changed#0;class#8674:10712" expanded="false" />
+                <element signature="class#10806:11458" expanded="false" />
+                <element signature="method#handle#0;class#10806:11458" expanded="false" />
+                <element signature="method#display#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="method#addNewEvent#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="method#updateEvent#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="method#addNewBirthday#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="method#updateBirthday#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="method#addNewHoliday#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="method#updateHoliday#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="method#makeStartTimeHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="e#27860#28442#0" expanded="false" />
+                <element signature="class#28488:28771" expanded="false" />
+                <element signature="method#handle#0;class#28488:28771" expanded="false" />
+                <element signature="method#makeEndTimeHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="e#30196#30762#0" expanded="false" />
+                <element signature="class#30806:31081" expanded="false" />
+                <element signature="method#handle#0;class#30806:31081" expanded="false" />
+                <element signature="method#makeEventNotifyTimeHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="class#32327:32696" expanded="false" />
+                <element signature="method#changed#0;class#32327:32696" expanded="false" />
+                <element signature="class#33161:33681" expanded="false" />
+                <element signature="method#handle#0;class#33161:33681" expanded="false" />
+                <element signature="method#makeEventAlarmHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="class#34522:34805" expanded="false" />
+                <element signature="method#makeEventDescriptionHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="class#35551:35706" expanded="false" />
+                <element signature="method#makeColorChooseHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="method#makeTimeComboBox#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="class#38851:39131" expanded="false" />
+                <element signature="e#39181#39312#0" expanded="false" />
+                <element signature="method#makeDatePicker#0;class#CreateEventAlertBox#0" expanded="false" />
+                <element signature="class#39674:40333" expanded="false" />
+                <element signature="method#toString#0;class#39674:40333" expanded="false" />
+                <element signature="method#fromString#0;class#39674:40333" expanded="false" />
+                <element signature="method#makeImageView#0;class#CreateEventAlertBox#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -199,6 +243,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -225,6 +274,7 @@
         <option value="$PROJECT_DIR$/src/main/DbConnection.java" />
         <option value="$PROJECT_DIR$/src/main/EventDetailAlertBox.java" />
         <option value="$PROJECT_DIR$/src/main/Utils.java" />
+        <option value="$PROJECT_DIR$/src/main/Settings.java" />
       </list>
     </option>
   </component>
@@ -240,10 +290,24 @@
     <option name="height" value="1040" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -271,9 +335,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -305,20 +366,41 @@
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="main.Main" />
-      <module name="Calendar" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
         <pattern>
           <option name="PATTERN" value="main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="MAIN_CLASS_NAME" value="main.Main" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="Calendar" />
+      <envs />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" />
@@ -328,13 +410,17 @@
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="singleModule" />
       </option>
+      <envs />
       <patterns />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="SUITE_NAME" />
@@ -347,20 +433,26 @@
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="singleModule" />
       </option>
       <option name="USE_DEFAULT_REPORTERS" value="false" />
       <option name="PROPERTIES_FILE" />
+      <envs />
       <properties />
       <listeners />
     </configuration>
     <recent_temporary>
-      <list>
-        <item itemvalue="Application.Main" />
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -375,76 +467,77 @@
       <workItem from="1527776269165" duration="669000" />
       <workItem from="1527830198308" duration="591000" />
       <workItem from="1527909174726" duration="5493000" />
+      <workItem from="1528083203107" duration="369000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6753000" />
+    <option name="totallyTimeSpent" value="7122000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.16" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50130206" side_tool="true" weight="0.27724138" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4986979" visible="true" weight="0.1737931" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17122395" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49934897" weight="0.39586207" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" x="0" y="0" width="337" height="638" id="Documentation" order="4" side_tool="true" weight="0.3294271" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="Coverage" order="4" side_tool="true" weight="0.3294271" />
-      <window_info id="Learn" order="3" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="right" id="Database" order="4" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27724138" sideWeight="0.50130206" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17320262" sideWeight="0.4986979" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17397882" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39586207" sideWeight="0.49934897" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294271" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" x="0" y="0" width="337" height="638" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294271" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49934897" visible="true" weight="0.011034483" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.13241379" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1829427" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info id="Learn" order="7" />
-      <window_info anchor="right" id="Palette&#9;" order="6" />
-      <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.3294271" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49934897" weight="0.16275862" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50065106" side_tool="true" visible="true" weight="0.011034483" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="right" id="Maven Projects" order="7" />
-      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.011034483" sideWeight="0.50065106" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16275862" sideWeight="0.49934897" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13241379" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.011034483" sideWeight="0.49934897" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294271" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1829427" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -469,10 +562,61 @@
           <option name="timeStamp" value="46" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="47" />
+      <option name="time" value="48" />
     </breakpoint-manager>
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/CreateEventAlertBox.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2720">
+          <caret line="160" column="95" lean-forward="false" selection-start-line="160" selection-start-column="95" selection-end-line="160" selection-end-column="95" />
+          <folding>
+            <element signature="method#CreateEventAlertBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#2779:2934" expanded="false" />
+            <element signature="class#4084:7619" expanded="false" />
+            <element signature="method#handle#0;class#4084:7619" expanded="false" />
+            <element signature="class#8674:10712" expanded="false" />
+            <element signature="method#changed#0;class#8674:10712" expanded="false" />
+            <element signature="class#10806:11458" expanded="false" />
+            <element signature="method#handle#0;class#10806:11458" expanded="false" />
+            <element signature="method#display#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#addNewEvent#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#updateEvent#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#addNewBirthday#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#updateBirthday#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#addNewHoliday#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#updateHoliday#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#makeStartTimeHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="e#27860#28442#0" expanded="false" />
+            <element signature="class#28488:28771" expanded="false" />
+            <element signature="method#handle#0;class#28488:28771" expanded="false" />
+            <element signature="method#makeEndTimeHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="e#30196#30762#0" expanded="false" />
+            <element signature="class#30806:31081" expanded="false" />
+            <element signature="method#handle#0;class#30806:31081" expanded="false" />
+            <element signature="method#makeEventNotifyTimeHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#32327:32696" expanded="false" />
+            <element signature="method#changed#0;class#32327:32696" expanded="false" />
+            <element signature="class#33161:33681" expanded="false" />
+            <element signature="method#handle#0;class#33161:33681" expanded="false" />
+            <element signature="method#makeEventAlarmHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#34522:34805" expanded="false" />
+            <element signature="method#makeEventDescriptionHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#35551:35706" expanded="false" />
+            <element signature="method#makeColorChooseHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#makeTimeComboBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#38851:39131" expanded="false" />
+            <element signature="e#39181#39312#0" expanded="false" />
+            <element signature="method#makeDatePicker#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#39674:40333" expanded="false" />
+            <element signature="method#toString#0;class#39674:40333" expanded="false" />
+            <element signature="method#fromString#0;class#39674:40333" expanded="false" />
+            <element signature="method#makeImageView#0;class#CreateEventAlertBox#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Birthday.java" />
     <entry file="file://$PROJECT_DIR$/src/main/Holiday.java" />
     <entry file="file://$PROJECT_DIR$/src/main/Event.java" />
@@ -492,179 +636,54 @@
     <entry file="file://$PROJECT_DIR$/src/main/Main.java" />
     <entry file="file://$PROJECT_DIR$/src/main/LoginDialog.java" />
     <entry file="file://$PROJECT_DIR$/src/main/Course.java" />
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/ComboBoxBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="149" column="41" selection-start-line="149" selection-start-column="41" selection-end-line="149" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/ReadOnlyObjectPropertyBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="74" selection-start-line="74" selection-end-line="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/ReadOnlyObjectWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="103" selection-start-line="103" selection-end-line="103" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/ObjectPropertyBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="147" selection-start-line="147" selection-end-line="147" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/ComboBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="494" selection-start-line="494" selection-end-line="494" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/SingleSelectionModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="149" selection-start-line="149" selection-end-line="149" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/ReadOnlyIntegerPropertyBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="72" selection-start-line="72" selection-end-line="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/ReadOnlyIntegerWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="103" selection-start-line="103" selection-end-line="103" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/IntegerPropertyBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="148" selection-start-line="148" selection-end-line="148" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/SelectionModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="67" column="54" selection-start-line="67" selection-start-column="54" selection-end-line="67" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/MultipleSelectionModelBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="356" selection-start-line="356" selection-end-line="356" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/ListView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="1403" selection-start-line="1403" selection-end-line="1403" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/event/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="197" selection-start-line="197" selection-end-line="197" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/Scene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="2494" selection-start-line="2494" selection-end-line="2494" />
-          <folding>
-            <element signature="e#66617#66618#0" expanded="true" />
-            <element signature="e#66663#66664#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/com/sun/javafx/event/EventDispatchChainImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="113" selection-start-line="113" selection-end-line="113" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/stage/Stage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="473" selection-start-line="473" selection-end-line="473" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Settings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="38" column="92" lean-forward="true" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="92" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/ComboBoxBase.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/ReadOnlyObjectPropertyBase.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/ReadOnlyObjectWrapper.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/ObjectPropertyBase.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/ComboBox.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/SingleSelectionModel.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/ReadOnlyIntegerPropertyBase.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/ReadOnlyIntegerWrapper.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/beans/property/IntegerPropertyBase.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/SelectionModel.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/MultipleSelectionModelBase.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/control/ListView.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/event/Event.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/Scene.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/com/sun/javafx/event/EventDispatchChainImpl.java" />
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/stage/Stage.java" />
     <entry file="file://$PROJECT_DIR$/src/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/stylesheet.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="5" selection-start-column="5" selection-end-column="5" />
+        <state relative-caret-position="0">
+          <caret line="0" column="5" lean-forward="false" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Alarm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="467">
-          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="20" />
+          <caret line="28" column="8" lean-forward="false" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Event.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-          <folding>
-            <element signature="e#360#361#0" expanded="true" />
-            <element signature="e#394#395#0" expanded="true" />
-            <element signature="e#903#904#0" expanded="true" />
-            <element signature="e#1459#1460#0" expanded="true" />
-            <element signature="e#1497#1498#0" expanded="true" />
-          </folding>
+          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/CalendarGrid.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="137" column="18" selection-start-line="137" selection-start-column="18" selection-end-line="137" selection-end-column="18" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Birthday.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <caret line="16" column="32" lean-forward="false" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
           <folding>
             <element signature="e#285#286#0" expanded="true" />
             <element signature="e#320#321#0" expanded="true" />
@@ -676,7 +695,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/Holiday.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="25" />
+          <caret line="37" column="8" lean-forward="false" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="25" />
           <folding>
             <element signature="e#428#429#0" expanded="true" />
             <element signature="e#463#464#0" expanded="true" />
@@ -686,17 +705,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/CreateEventAlertBox.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2227">
-          <caret line="160" column="95" selection-start-line="160" selection-start-column="95" selection-end-line="160" selection-end-column="95" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/AlarmModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="898">
-          <caret line="75" column="17" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
+        <state relative-caret-position="1020">
+          <caret line="75" column="17" lean-forward="false" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -706,48 +718,50 @@
     <entry file="file://$PROJECT_DIR$/src/main/Daa.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/DatePickerDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/DbConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="308" lean-forward="true" selection-start-line="308" selection-end-line="308" />
+        <state relative-caret-position="561">
+          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
           <folding>
-            <element signature="method#connect#0;class#DbConnection#0" />
-            <element signature="method#createYearTable#0;class#DbConnection#0" />
-            <element signature="method#addEventToYearEventTable#0;class#DbConnection#0" />
-            <element signature="method#addHoliday#0;class#DbConnection#0" />
-            <element signature="method#addBirthday#0;class#DbConnection#0" />
-            <element signature="method#getLastEvent#0;class#DbConnection#0" />
-            <element signature="method#updateEvent#0;class#DbConnection#0" />
-            <element signature="method#updateBirthday#0;class#DbConnection#0" />
-            <element signature="method#updateHoliday#0;class#DbConnection#0" />
-            <element signature="method#getDateId#0;class#DbConnection#0" />
-            <element signature="method#getHolidayDateId#0;class#DbConnection#0" />
-            <element signature="method#getBirthdayDateId#0;class#DbConnection#0" />
-            <element signature="method#getDate#0;class#DbConnection#0" />
-            <element signature="method#getDayEvent#0;class#DbConnection#0" />
-            <element signature="method#getDayEvent#1;class#DbConnection#0" />
-            <element signature="method#getDayHoliday#0;class#DbConnection#0" />
-            <element signature="method#getDayBirthday#0;class#DbConnection#0" />
-            <element signature="method#getDefaultColor#0;class#DbConnection#0" />
-            <element signature="method#setDefaultColor#0;class#DbConnection#0" />
-            <element signature="method#getDefaultAlarm#0;class#DbConnection#0" />
-            <element signature="method#setDefaultAlarm#0;class#DbConnection#0" />
-            <element signature="method#addAlarm#0;class#DbConnection#0" />
-            <element signature="method#getAlarmList#0;class#DbConnection#0" />
-            <element signature="method#getAlarm#0;class#DbConnection#0" />
-            <element signature="method#checkUser#0;class#DbConnection#0" />
-            <element signature="method#sortEventTimeDesc#0;class#DbConnection#0" />
+            <element signature="method#connect#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#createYearTable#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#addEventToYearEventTable#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#addHoliday#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#addBirthday#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getLastEvent#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#updateEvent#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#updateBirthday#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#updateHoliday#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getDateId#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getHolidayDateId#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getBirthdayDateId#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getDate#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getDayEvent#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getDayEvent#1;class#DbConnection#0" expanded="false" />
+            <element signature="method#getDayHoliday#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getDayBirthday#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getDefaultColor#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#setDefaultColor#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getDefaultAlarm#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#setDefaultAlarm#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#addAlarm#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getAlarmList#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#getAlarm#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#checkUser#0;class#DbConnection#0" expanded="false" />
+            <element signature="method#sortEventTimeDesc#0;class#DbConnection#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -755,36 +769,101 @@
     <entry file="file://$PROJECT_DIR$/src/main/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="7" column="47" lean-forward="true" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+          <caret line="7" column="47" lean-forward="false" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/EventDetailAlertBox.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="153" column="17" selection-start-line="153" selection-start-column="17" selection-end-line="153" selection-end-column="17" />
+        <state relative-caret-position="680">
+          <caret line="153" column="17" lean-forward="false" selection-start-line="153" selection-start-column="17" selection-end-line="153" selection-end-column="17" />
           <folding>
-            <element signature="method#EventDetailAlertBox#0;class#EventDetailAlertBox#0" />
-            <element signature="class#5906:6197" />
-            <element signature="method#handle#0;class#5906:6197" />
-            <element signature="class#6333:7031" />
-            <element signature="method#handle#0;class#6333:7031" />
-            <element signature="class#9862:10604" />
-            <element signature="method#handle#0;class#9862:10604" />
-            <element signature="class#11540:12249" />
-            <element signature="method#handle#0;class#11540:12249" />
-            <element signature="method#makeImageView#0;class#EventDetailAlertBox#0" />
-            <element signature="method#getDateOfWeek#0;class#EventDetailAlertBox#0" />
-            <element signature="method#getMonthString#0;class#EventDetailAlertBox#0" />
-            <element signature="method#getObjectColor#0;class#EventDetailAlertBox#0" />
+            <element signature="method#EventDetailAlertBox#0;class#EventDetailAlertBox#0" expanded="false" />
+            <element signature="class#5906:6197" expanded="false" />
+            <element signature="method#handle#0;class#5906:6197" expanded="false" />
+            <element signature="class#6333:7031" expanded="false" />
+            <element signature="method#handle#0;class#6333:7031" expanded="false" />
+            <element signature="class#9862:10604" expanded="false" />
+            <element signature="method#handle#0;class#9862:10604" expanded="false" />
+            <element signature="class#11540:12249" expanded="false" />
+            <element signature="method#handle#0;class#11540:12249" expanded="false" />
+            <element signature="method#makeImageView#0;class#EventDetailAlertBox#0" expanded="false" />
+            <element signature="method#getDateOfWeek#0;class#EventDetailAlertBox#0" expanded="false" />
+            <element signature="method#getMonthString#0;class#EventDetailAlertBox#0" expanded="false" />
+            <element signature="method#getObjectColor#0;class#EventDetailAlertBox#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/CalendarGridController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-781">
-          <caret line="290" column="43" selection-start-line="290" selection-start-column="43" selection-end-line="290" selection-end-column="43" />
+        <state relative-caret-position="374">
+          <caret line="311" column="20" lean-forward="false" selection-start-line="311" selection-start-column="20" selection-end-line="311" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/CreateEventAlertBox.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="919" column="5" lean-forward="true" selection-start-line="910" selection-start-column="4" selection-end-line="919" selection-end-column="5" />
+          <folding>
+            <element signature="method#CreateEventAlertBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#2779:2934" expanded="false" />
+            <element signature="class#4084:7619" expanded="false" />
+            <element signature="method#handle#0;class#4084:7619" expanded="false" />
+            <element signature="class#8674:10712" expanded="false" />
+            <element signature="method#changed#0;class#8674:10712" expanded="false" />
+            <element signature="class#10806:11458" expanded="false" />
+            <element signature="method#handle#0;class#10806:11458" expanded="false" />
+            <element signature="method#display#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#addNewEvent#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#updateEvent#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#addNewBirthday#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#updateBirthday#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#addNewHoliday#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#updateHoliday#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#makeStartTimeHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="e#27860#28442#0" expanded="false" />
+            <element signature="class#28488:28771" expanded="false" />
+            <element signature="method#handle#0;class#28488:28771" expanded="false" />
+            <element signature="method#makeEndTimeHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="e#30196#30762#0" expanded="false" />
+            <element signature="class#30806:31081" expanded="false" />
+            <element signature="method#handle#0;class#30806:31081" expanded="false" />
+            <element signature="method#makeEventNotifyTimeHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#32327:32696" expanded="false" />
+            <element signature="method#changed#0;class#32327:32696" expanded="false" />
+            <element signature="class#33161:33681" expanded="false" />
+            <element signature="method#handle#0;class#33161:33681" expanded="false" />
+            <element signature="method#makeEventAlarmHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#34522:34805" expanded="false" />
+            <element signature="method#makeEventDescriptionHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#35551:35706" expanded="false" />
+            <element signature="method#makeColorChooseHBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="method#makeTimeComboBox#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#38851:39131" expanded="false" />
+            <element signature="e#39181#39312#0" expanded="false" />
+            <element signature="method#makeDatePicker#0;class#CreateEventAlertBox#0" expanded="false" />
+            <element signature="class#39674:40333" expanded="false" />
+            <element signature="method#toString#0;class#39674:40333" expanded="false" />
+            <element signature="method#fromString#0;class#39674:40333" expanded="false" />
+            <element signature="method#makeImageView#0;class#CreateEventAlertBox#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/Settings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2635">
+          <caret line="172" column="11" lean-forward="true" selection-start-line="172" selection-start-column="11" selection-end-line="172" selection-end-column="11" />
+          <folding>
+            <element signature="class#7486:7645" expanded="false" />
+            <element signature="e#7588#7589#0" expanded="true" />
+            <element signature="e#7634#7635#0" expanded="true" />
+            <element signature="method#makeImageView#0;class#Settings#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
