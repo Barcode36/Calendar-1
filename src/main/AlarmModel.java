@@ -67,12 +67,12 @@ public class AlarmModel {
             for (Event event : events) {
                 if (event.getStartTime() - event.getNotifyTime() <= current) {
                     System.out.println("Alerting event");
+                    event.setIsnotified(true);
+                    dbConnection.updateEvent(event);
                     Utils.playSound(dbConnection.getAlarm(event.getAlarmID()).getPath());
                     EventDetailAlertBox eventDetailAlertBox = new EventDetailAlertBox();
-                    eventDetailAlertBox.display(event, primaryScreenBounds.getWidth() - eventDetailAlertBox.getStageWidth(), primaryScreenBounds.getHeight() - eventDetailAlertBox.getStageHeight());
-                    event.setIsnotified(true);
+                    eventDetailAlertBox.display(event, primaryScreenBounds.getWidth() - eventDetailAlertBox.getStageWidth(), primaryScreenBounds.getHeight() - eventDetailAlertBox.getStageHeight(), true);
                     removeAlarm(event);
-                    dbConnection.updateEvent(event);
                 }
             }
         });

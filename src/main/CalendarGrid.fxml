@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="sampleroot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1368.0" prefHeight="768.0" prefWidth="1368.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.CalendarGridController">
+<AnchorPane fx:id="RootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1368.0" prefHeight="768.0" prefWidth="1368.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.CalendarGridController">
    <children>
       <GridPane fx:id="calendarGridPane" gridLinesVisible="true" layoutY="108.0" minHeight="444.0" minWidth="1098.0" prefHeight="444.0" prefWidth="1258.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="108.0">
         <columnConstraints>

@@ -1,5 +1,7 @@
 package main;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
@@ -64,6 +66,7 @@ public class CalendarGridController implements Initializable {
     public ScrollPane scrollPane46;
     public ScrollPane scrollPane56;
     public ScrollPane scrollPane66;
+    public AnchorPane RootPane;
     private VBox dayGrid[][];
     public VBox vBox06;
     public VBox vBox16;
@@ -86,6 +89,8 @@ public class CalendarGridController implements Initializable {
     private Calendar c = Calendar.getInstance();
     private DbConnection dbConnection;
     private AlarmModel alarmModel;
+    private OEPNewsAlarmModel oepNewsAlarmModel;
+    private OEPCourseNewsAlarmModel oepCourseNewsAlarmModel;
 
 
     @Override
@@ -115,22 +120,26 @@ public class CalendarGridController implements Initializable {
                 {vBox06, vBox16, vBox26, vBox36, vBox46, vBox56, vBox66}
         };
         c.set(Calendar.DAY_OF_MONTH, 1);
-        refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
+        calendarGridPane.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
+            }
+        });
         calendarGridPane.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
-                //monthEvent = new ArrayList<Event>();
                 if (event.getDeltaY() < 0) {
                     c.add(Calendar.MONTH, 1);
                     c.set(Calendar.DAY_OF_MONTH, 1);
                     monthComboBox.getSelectionModel().select(c.get(Calendar.MONTH));
-                    refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
+                    //refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
                     yearTextField.setText("" + c.get(Calendar.YEAR));
                 } else if (event.getDeltaY() > 0) {
                     c.add(Calendar.MONTH, -1);
                     c.set(Calendar.DAY_OF_MONTH, 1);
                     monthComboBox.getSelectionModel().select(c.get(Calendar.MONTH));
-                    refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
+                    //refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
                     yearTextField.setText("" + c.get(Calendar.YEAR));
                 }
             }
@@ -203,16 +212,23 @@ public class CalendarGridController implements Initializable {
 //                alert.setContentText(temp3.toString());
 //                alert.showAndWait();
 
-                //getUpdate(arrayListMMH);
-                getUpdateDAA();
+                getUpdate(arrayListMMH);
+                //getUpdateDAA();
             }
         });
 
         alarmModel = new AlarmModel();
         alarmModel.start();
+
+        oepNewsAlarmModel = new OEPNewsAlarmModel();
+        oepNewsAlarmModel.start();
+
+        oepCourseNewsAlarmModel = new OEPCourseNewsAlarmModel();
+        oepCourseNewsAlarmModel.start();
     }
 
     private void refreshCalendarGrid(int maxDay, int dayOfWeek) {
+        System.out.println("refreshing");
         showLastRow(); // Hiện hàng cuối của lịch cho các tháng hiện đủ 6 dòng
         removeDayVBoxContent(); // Xóa các ngày đang hiển thị trong lịch
         removeVBoxEvent();
@@ -335,14 +351,13 @@ public class CalendarGridController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 event.consume();
-                Event resultEvent = eventDetailAlertBox.display(object, event.getSceneX(), event.getSceneY());
+                Event resultEvent = eventDetailAlertBox.display(object, event.getSceneX(), event.getSceneY(), false);
                 if (resultEvent != null) {
                     System.out.println("resultEvent: not null");
                     alarmModel.addAlarm(resultEvent);
                 } else {
                     System.out.println("resultEvent: null");
                 }
-                refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
             }
         });
 
@@ -402,7 +417,7 @@ public class CalendarGridController implements Initializable {
                 event.consume();
                 Event resultEvent = createEventAlertBox.display((int) vBox.getUserData(), c, event.getScreenX(), event.getScreenY(), false, null);
                 c.set(Calendar.DAY_OF_MONTH, 1);
-                refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
+                //refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
                 if (resultEvent != null) {
                     alarmModel.addAlarm(resultEvent);
                 }
@@ -544,7 +559,7 @@ public class CalendarGridController implements Initializable {
 
                                 if (test == false) {
                                     arrayListThongBao.add(temptext2);
-                                    arrayListCourse.add(new Course(titletemp, timetemp, teachertemp, facultytemp, subjecttemp, classtemp, roomtemp, timetemp2));
+                                    //arrayListCourse.add(new Course(titletemp, timetemp, teachertemp, facultytemp, subjecttemp, classtemp, roomtemp, timetemp2));
                                 }
 
                                 /*arrayListThongBao.add(temptext2);
@@ -560,11 +575,11 @@ public class CalendarGridController implements Initializable {
             }
         }
 
-        for (int i = 0; i < arrayListCourse.size(); i++) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText(arrayListCourse.get(i).getDescription());
-            alert.showAndWait();
-        }
+//        for (int i = 0; i < arrayListCourse.size(); i++) {
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//            alert.setContentText(arrayListCourse.get(i).getDescription());
+//            alert.showAndWait();
+//        }
     }
 
     private void getUpdateDAA() {

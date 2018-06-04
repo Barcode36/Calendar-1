@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class EventDetailAlertBox {
     private Rectangle2D primaryScreenBounds;
     private ImageView editImageView;
     private ImageView deleteImageView;
+    private ImageView openInBrowserImageView;
     private Label eventTimeLabel;
     private Label eventSubtitleLabel;
     private Label eventTitleLabel;
@@ -60,10 +62,15 @@ public class EventDetailAlertBox {
         window.setResizable(true);
         window.initStyle(StageStyle.UTILITY);
         window.setAlwaysOnTop(true);
+        window.setMinWidth(600);
+        window.setWidth(600);
+        window.setHeight(350);
+        window.setMinHeight(350);
 
         eventTitleLabel = new Label();
         eventTitleLabel.setFont(new Font("System", 32));
         eventTitleLabel.setMaxWidth(Double.MAX_VALUE);
+        eventTitleLabel.setPrefWidth(600f);
         eventTitleLabel.setPadding(new Insets(15, 8, 30, 15));
         VBox.setVgrow(eventTitleLabel, Priority.ALWAYS);
         eventTitleLabel.setTextFill(Color.WHITE);
@@ -83,7 +90,9 @@ public class EventDetailAlertBox {
 
         deleteImageView = makeImageView("delete", "Xóa", 5, 10, 10, 10);
 
-        menuBarHBox.getChildren().addAll(editImageView, deleteImageView);
+        openInBrowserImageView = makeImageView("openbrowser", "Mở trong trình duyệt", 5, 5, 5, 5);
+
+        menuBarHBox.getChildren().addAll(editImageView, deleteImageView, openInBrowserImageView);
 
         eventTimeHBox = new HBox();
         VBox.setMargin(eventTimeHBox, new Insets(10, 0, 0, 0));
@@ -130,7 +139,7 @@ public class EventDetailAlertBox {
         window.setScene(scene);
     }
 
-    public Event display(Object object, double x, double y) {
+    public Event display(Object object, double x, double y, boolean notify) {
         resultEvent = null;
 
         layout.getChildren().remove(eventSubtitleLabel);
@@ -138,6 +147,10 @@ public class EventDetailAlertBox {
         layout.getChildren().remove(eventTimeHBox);
         layout.getChildren().remove(eventNotifyTimeHBox);
         layout.getChildren().remove(eventDescriptionHBox);
+
+        menuBarHBox.getChildren().remove(editImageView);
+        menuBarHBox.getChildren().remove(deleteImageView);
+        menuBarHBox.getChildren().remove(openInBrowserImageView);
 
         menuBarHBox.setBackground(new Background(new BackgroundFill(Color.web(getObjectColor(object)), CornerRadii.EMPTY, Insets.EMPTY)));
         eventTitleLabel.setBackground(new Background(new BackgroundFill(Color.web(getObjectColor(object)), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -153,6 +166,8 @@ public class EventDetailAlertBox {
         });
 
         if (object instanceof Event) {
+            menuBarHBox.getChildren().addAll(editImageView, deleteImageView);
+
             Event event = (Event) object;
 
             deleteImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -227,6 +242,8 @@ public class EventDetailAlertBox {
                 window.setMinHeight(400);
             }
         } else if (object instanceof Holiday) {
+            menuBarHBox.getChildren().addAll(editImageView, deleteImageView);
+
             eventSubtitleLabel.setText("Ngày lễ");
             Holiday holiday = (Holiday) object;
 
@@ -262,6 +279,8 @@ public class EventDetailAlertBox {
             window.setMinWidth(650);
             window.setMinHeight(400);
         } else if (object instanceof Birthday) {
+            menuBarHBox.getChildren().addAll(editImageView, deleteImageView);
+
             eventSubtitleLabel.setText("Sinh nhật");
             Birthday birthday = (Birthday) object;
 
@@ -295,24 +314,90 @@ public class EventDetailAlertBox {
             layout.getChildren().addAll(eventSubtitleLabel, eventTitleLabel, eventTimeHBox);
             window.setMinWidth(650);
             window.setMinHeight(350);
+        } else if (object instanceof OEPNews) {
+            menuBarHBox.getChildren().add(openInBrowserImageView);
+
+            eventSubtitleLabel.setText("Thông báo chung OEP");
+            OEPNews oepNews = (OEPNews) object;
+
+            openInBrowserImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start chrome " + oepNews.getUrl()});
+                    } catch (IOException e) {
+
+                    }
+                }
+            });
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(oepNews.getNotifyTime() * 1000);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
+            eventTimeLabel.setText(formatter.format(calendar.getTime()));
+            if (oepNews.getTitle().isEmpty()) {
+                eventTitleLabel.setText("Không có tiêu đề");
+            } else {
+                eventTitleLabel.setText(oepNews.getTitle());
+            }
+            layout.getChildren().addAll(eventSubtitleLabel, eventTitleLabel, eventTimeHBox);
+            window.setMinWidth(650);
+            window.setMinHeight(400);
+        } else if (object instanceof Course) {
+            menuBarHBox.getChildren().add(openInBrowserImageView);
+
+            eventSubtitleLabel.setText("Thông báo nghỉ, học bù OEP");
+            Course course = (Course) object;
+
+            openInBrowserImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start chrome " + course.getUrl()});
+                    } catch (IOException e) {
+
+                    }
+                }
+            });
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(course.getNotifyTime() * 1000);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
+            eventTimeLabel.setText(formatter.format(calendar.getTime()));
+            if (course.getTitle().isEmpty()) {
+                eventTitleLabel.setText("Không có tiêu đề");
+            } else {
+                eventTitleLabel.setText(course.getTitle());
+            }
+            SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
+            calendar.setTimeInMillis(course.getCourseTime() * 1000);
+            eventDescriptionLabel.setText("Giáo viên: " + course.getTeacher() + "\n" + "Khoa/Bộ môn: " + course.getFaculty() + "\n" + "Môn học: " + course.getSubject() + "\n" + "Lớp: " + course.getClassid() + "\n" + "Phòng: " + course.getRoom() + "\n" + "Tiết bắt đầu: " + course.getStartTime() + "\n" + "Tiết kết thúc: " + course.getEndTime() + "\n" + "ngày " + formatter.format(calendar.getTime()));
+            layout.getChildren().addAll(eventSubtitleLabel, eventTitleLabel, eventTimeHBox);
+            window.setMinWidth(650);
+            window.setMinHeight(600);
         }
 
-        if (primaryScreenBounds.getWidth() - x < window.getMinWidth()) {
-            if (primaryScreenBounds.getHeight() - y < window.getMinHeight()) {
-                window.setY(y - window.getMinHeight());
-                window.setX(x - window.getMinWidth());
+        if (!notify) {
+            if (primaryScreenBounds.getWidth() - x < window.getMinWidth()) {
+                if (primaryScreenBounds.getHeight() - y < window.getMinHeight()) {
+                    window.setY(y - window.getMinHeight());
+                    window.setX(x - window.getMinWidth());
+                } else {
+                    window.setY(y);
+                    window.setX(x - window.getMinWidth());
+                }
             } else {
-                window.setY(y);
-                window.setX(x - window.getMinWidth());
+                if (primaryScreenBounds.getHeight() - y < window.getMinHeight()) {
+                    window.setY(y - window.getMinHeight());
+                    window.setX(x);
+                } else {
+                    window.setY(y);
+                    window.setX(x);
+                }
             }
         } else {
-            if (primaryScreenBounds.getHeight() - y < window.getMinHeight()) {
-                window.setY(y - window.getMinHeight());
-                window.setX(x);
-            } else {
-                window.setY(y);
-                window.setX(x);
-            }
+            window.setY(y);
+            window.setX(x);
         }
         window.showAndWait();
         return resultEvent;
@@ -384,20 +469,23 @@ public class EventDetailAlertBox {
             Event event = (Event) object;
             return event.getColor();
         } else if (object instanceof Holiday) {
-            DbConnection dbConnection = new DbConnection();
+            dbConnection = new DbConnection();
             return dbConnection.getDefaultColor("holiday");
         } else if (object instanceof Birthday) {
-            DbConnection dbConnection = new DbConnection();
+            dbConnection = new DbConnection();
             return dbConnection.getDefaultColor("birthday");
+        } else if (object instanceof OEPNews) {
+            dbConnection = new DbConnection();
+            return dbConnection.getDefaultColor("oepnews");
         }
         return "";
     }
 
-    public double getStageWidth(){
-        return window.getMinWidth();
+    public double getStageWidth() {
+        return window.getWidth();
     }
 
-    public double getStageHeight(){
-        return window.getMinHeight();
+    public double getStageHeight() {
+        return window.getHeight();
     }
 }

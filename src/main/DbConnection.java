@@ -44,7 +44,7 @@ public class DbConnection {
     private void createOEPNewsYearTable(int year, long lastTime) {
         boolean result = true;
         String query = "CREATE Table `OEP_News_" + year
-                + "( `newsid` INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "` (`newsid` INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "`dateid` INTEGER, "
                 + "`title` TEXT, "
                 + "`notifytime` INTEGER, "
@@ -53,15 +53,40 @@ public class DbConnection {
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            result =false;
+            result = false;
             System.out.println(e.getMessage());
         }
-        if (result){
+        if (result) {
             OEPNews oepNews = new OEPNews();
             oepNews.setTitle("");
             oepNews.setNotifyTime(lastTime);
             oepNews.setUrl("");
             addOEPNews(oepNews, 1, 1, year);
+        }
+    }
+
+    private void createOEPCourseYearTable(int year, long lastTime) {
+        boolean result = true;
+        String query = "CREATE TABLE `OEP_CourseNews_"+year+"` ( `courseid` INTEGER PRIMARY KEY AUTOINCREMENT, `dateid` INTEGER, `title` TEXT, `notifytime` INTEGER, `teacher` TEXT, `faculty` TEXT, `subject` TEXT, `room` TEXT, `starttime` INTEGER, `endtime` INTEGER )";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            result = false;
+            System.out.println(e.getMessage());
+        }
+        if (result) {
+            Course course = new Course();
+            course.setTitle("");
+            course.setNotifyTime(lastTime);
+            course.setTeacher("");
+            course.setFaculty("");
+            course.setSubject("");
+            course.setRoom("");
+            course.setStartTime(0);
+            course.setEndTime(0);
+            course.setUrl("");
+            addOEPCourseNews(course, 1, 1, year);
         }
     }
 
@@ -121,13 +146,36 @@ public class DbConnection {
 
     public boolean addOEPNews(OEPNews oepNews, int day, int month, int year) {
         createOEPNewsYearTable(year, oepNews.getNotifyTime());
-        String query = "INSERT INTO `OEP_News_"+year+"`(dateid, title, notifytime, url) VALUES (?,?,?,?)";
+        String query = "INSERT INTO `OEP_News_" + year + "`(dateid, title, notifytime, url) VALUES (?,?,?,?)";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, getDateId(day, month));
             pstmt.setString(2, oepNews.getTitle());
             pstmt.setLong(3, oepNews.getNotifyTime());
             pstmt.setString(4, oepNews.getUrl());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean addOEPCourseNews(Course course, int day, int month, int year) {
+        createOEPCourseYearTable(year, course.getNotifyTime());
+        String query = "INSERT INTO `OEP_CourseNews_" + year + "`(dateid, title, notifytime, teacher, faculty, subject, room, starttime, endtime, url) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, getDateId(day, month));
+            pstmt.setString(2, course.getTitle());
+            pstmt.setLong(3, course.getNotifyTime());
+            pstmt.setString(4, course.getTeacher());
+            pstmt.setString(5, course.getFaculty());
+            pstmt.setString(6, course.getSubject());
+            pstmt.setString(7, course.getRoom());
+            pstmt.setLong(8, course.getStartTime());
+            pstmt.setLong(9, course.getEndTime());
+            pstmt.setString(10, course.getUrl());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -460,8 +508,30 @@ public class DbConnection {
         return null;
     }
 
-    public long getLastOEPNewsTime(int year){
-        String query = "SELECT * FROM `OEP_News_`"+ year +" WHERE newsid = 1";
+    public List<String> getCourseList() {
+        List<String> courses = new ArrayList<String>();
+        String query = "SELECT * FROM `Course`";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.isBeforeFirst()) {
+                int i = 0;
+                while (resultSet.next()) {
+                    String course = resultSet.getString("courseid");
+                    courses.add(course);
+                    i++;
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return courses;
+    }
+
+    public long getLastOEPNewsTime(int year) {
+        String query = "SELECT * FROM `OEP_News_" + year + "` WHERE newsid = 1";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             ResultSet resultSet = pstmt.executeQuery();
@@ -475,6 +545,36 @@ public class DbConnection {
         return -1;
     }
 
+    public long getLastOEPCourseNewsTime(int year) {
+        String query = "SELECT * FROM `OEP_CourseNews_" + year + "` WHERE courseid = 1";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.isBeforeFirst()) {
+                return resultSet.getLong("notifytime");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return -1;
+    }
+
+    public boolean updateLastOEPNewsTime(long lastTime, int year) {
+        String query = "UPDATE `OEP_News_" + year + "` SET notifytime = ? WHERE newsid = 1";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setLong(1, lastTime);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    //public addCourse()
 
     public String getDefaultColor(String type) {
         String query = "SELECT * FROM `DefaultSettings` WHERE type = ?";

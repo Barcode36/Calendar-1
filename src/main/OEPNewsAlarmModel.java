@@ -2,7 +2,6 @@ package main;
 
 import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Alert;
 import javafx.stage.Screen;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,8 +21,8 @@ public class OEPNewsAlarmModel {
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-    private boolean isUpdating = false;
     private DbConnection dbConnection;
+    private EventDetailAlertBox eventDetailAlertBox;
 
     private long lastTime;
 
@@ -31,13 +30,8 @@ public class OEPNewsAlarmModel {
         dbConnection = new DbConnection();
         Calendar calendar = Calendar.getInstance();
         lastTime = dbConnection.getLastOEPNewsTime(calendar.get(Calendar.YEAR));
-
-        DbConnection dbConnection = new DbConnection();
-        List<Event> temp = dbConnection.getDayEvent(calendar.get(Calendar.YEAR));
-        if (temp != null) {
-            //events.addAll(temp);
-        }
-        executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.SECONDS);
+        eventDetailAlertBox = new EventDetailAlertBox();
+        executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.MINUTES);
     }
 
     public void stop() {
@@ -45,12 +39,17 @@ public class OEPNewsAlarmModel {
     }
 
     private void tick() {
-        if (isUpdating)
-            return;
-        long current = System.currentTimeMillis() / 1000;
+        Alarm alarm = dbConnection.getAlarm(dbConnection.getDefaultAlarm("oepnews"));
+        Calendar calendar = Calendar.getInstance();
+        List<OEPNews> oepNewsList = getUpdateDAA();
         Platform.runLater(() -> {
-
+            for (OEPNews oepNews : oepNewsList){
+                Utils.playSound(alarm.getPath());
+                eventDetailAlertBox.display(oepNews, primaryScreenBounds.getWidth() - eventDetailAlertBox.getStageWidth(), primaryScreenBounds.getHeight() - eventDetailAlertBox.getStageHeight(), true);
+            }
         });
+        lastTime = System.currentTimeMillis()/1000;
+        dbConnection.updateLastOEPNewsTime(lastTime, calendar.get(Calendar.YEAR));
     }
 
     private List<OEPNews> getUpdateDAA() {
@@ -60,11 +59,7 @@ public class OEPNewsAlarmModel {
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung");
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung?page=1");
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung?page=2");
-        ArrayList<String> arrayListThongBao = new ArrayList<String>();
-        ArrayList<String> arrayListThongBao2 = new ArrayList<String>();
-        boolean test;
         for (int j = 0; j < arrayListURL.size(); j++) {
-            test = false;
             try {
                 Document document = Jsoup.connect(arrayListURL.get(j)).get();
                 if (document != null) {
@@ -88,7 +83,7 @@ public class OEPNewsAlarmModel {
                                 oepNewsList.add(oepNews);
                                 Calendar calendar = convertTimeToCalendarObject(tempTime);
                                 if (calendar!=null){
-                                    dbConnection.addOEPNews(oepNews, calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR));
+                                    dbConnection.addOEPNews(oepNews, calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.YEAR));
                                 }
                             }
                         }
@@ -109,7 +104,7 @@ public class OEPNewsAlarmModel {
             System.out.println("error converting time to mili");
             return -1;
         }
-        return calendar.getTimeInMillis();
+        return calendar.getTimeInMillis()/1000;
     }
 
     private Calendar convertTimeToCalendarObject(String time) {
