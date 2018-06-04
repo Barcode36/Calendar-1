@@ -57,6 +57,13 @@ public class CalendarGridController implements Initializable {
     public VBox vBox55;
     public VBox vBox65;
     public Button SettingsButton;
+    public ScrollPane scrollPane06;
+    public ScrollPane scrollPane16;
+    public ScrollPane scrollPane26;
+    public ScrollPane scrollPane36;
+    public ScrollPane scrollPane46;
+    public ScrollPane scrollPane56;
+    public ScrollPane scrollPane66;
     private VBox dayGrid[][];
     public VBox vBox06;
     public VBox vBox16;
@@ -75,6 +82,7 @@ public class CalendarGridController implements Initializable {
     public TextField mmhTextField;
     private CreateEventAlertBox createEventAlertBox;
     private EventDetailAlertBox eventDetailAlertBox;
+    private Settings settings;
     private Calendar c = Calendar.getInstance();
     private DbConnection dbConnection;
     private AlarmModel alarmModel;
@@ -88,11 +96,11 @@ public class CalendarGridController implements Initializable {
         SettingsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Settings settings = new Settings();
                 settings.display();
             }
         });
 
+        settings = new Settings();
         createEventAlertBox = new CreateEventAlertBox();
         eventDetailAlertBox = new EventDetailAlertBox();
 
@@ -186,14 +194,14 @@ public class CalendarGridController implements Initializable {
                             && !((int) (temp.charAt(i)) >= 91 && (int) (temp.charAt(i)) <= 96) && !((int) (temp.charAt(i)) >= 123 && (int) (temp.charAt(i)) <= 127) && (int) (temp.charAt(i)) != 47)
                         temp2.append(temp.charAt(i));
                 }
-                /*StringBuilder temp3 = new StringBuilder();
-                for (int i = 0; i < arrayListMMH.size(); i++) {
-                    temp3.append(arrayListMMH.get(i));
-                    temp3.append(" ");
-                }
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText(temp3.toString());
-                alert.showAndWait();*/
+//                StringBuilder temp3 = new StringBuilder();
+//                for (int i = 0; i < arrayListMMH.size(); i++) {
+//                    temp3.append(arrayListMMH.get(i));
+//                    temp3.append(" ");
+//                }
+//                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                alert.setContentText(temp3.toString());
+//                alert.showAndWait();
 
                 //getUpdate(arrayListMMH);
                 getUpdateDAA();
@@ -291,7 +299,7 @@ public class CalendarGridController implements Initializable {
     private Label makeLabel(Object object) {
         Label label = new Label();
         label.setFont(new Font("System", 15));
-        label.setPadding(new Insets(0,0,0,5));
+        label.setPadding(new Insets(0, 0, 0, 5));
         label.setMaxWidth(Double.MAX_VALUE);
         if (object instanceof Event) {
             Event event = (Event) object;
@@ -327,7 +335,13 @@ public class CalendarGridController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 event.consume();
-                eventDetailAlertBox.display(object, event.getSceneX(), event.getSceneY());
+                Event resultEvent = eventDetailAlertBox.display(object, event.getSceneX(), event.getSceneY());
+                if (resultEvent != null) {
+                    System.out.println("resultEvent: not null");
+                    alarmModel.addAlarm(resultEvent);
+                } else {
+                    System.out.println("resultEvent: null");
+                }
                 refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
             }
         });
@@ -387,9 +401,9 @@ public class CalendarGridController implements Initializable {
             public void handle(MouseEvent event) {
                 event.consume();
                 Event resultEvent = createEventAlertBox.display((int) vBox.getUserData(), c, event.getScreenX(), event.getScreenY(), false, null);
-                if (resultEvent!=null) {
-                    c.set(Calendar.DAY_OF_MONTH, 1);
-                    refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
+                c.set(Calendar.DAY_OF_MONTH, 1);
+                refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
+                if (resultEvent != null) {
                     alarmModel.addAlarm(resultEvent);
                 }
             }
@@ -411,6 +425,20 @@ public class CalendarGridController implements Initializable {
                 dayGrid[i][j].setManaged(true);
             }
         }
+        scrollPane06.setVisible(true);
+        scrollPane06.setManaged(true);
+        scrollPane16.setVisible(true);
+        scrollPane16.setManaged(true);
+        scrollPane26.setVisible(true);
+        scrollPane26.setManaged(true);
+        scrollPane36.setVisible(true);
+        scrollPane36.setManaged(true);
+        scrollPane46.setVisible(true);
+        scrollPane46.setManaged(true);
+        scrollPane56.setVisible(true);
+        scrollPane56.setManaged(true);
+        scrollPane66.setVisible(true);
+        scrollPane66.setManaged(true);
         calendarGridPane.getRowConstraints().get(6).setMinHeight(calendarGridPane.getRowConstraints().get(1).getMinHeight());
         calendarGridPane.getRowConstraints().get(6).setPrefHeight(calendarGridPane.getRowConstraints().get(1).getPrefHeight());
         calendarGridPane.getRowConstraints().get(6).setMaxHeight(calendarGridPane.getRowConstraints().get(1).getMaxHeight());
@@ -423,6 +451,22 @@ public class CalendarGridController implements Initializable {
                 dayGrid[i][j].setManaged(false);
             }
         }
+
+        scrollPane06.setVisible(false);
+        scrollPane06.setManaged(false);
+        scrollPane16.setVisible(false);
+        scrollPane16.setManaged(false);
+        scrollPane26.setVisible(false);
+        scrollPane26.setManaged(false);
+        scrollPane36.setVisible(false);
+        scrollPane36.setManaged(false);
+        scrollPane46.setVisible(false);
+        scrollPane46.setManaged(false);
+        scrollPane56.setVisible(false);
+        scrollPane56.setManaged(false);
+        scrollPane66.setVisible(false);
+        scrollPane66.setManaged(false);
+
         calendarGridPane.getRowConstraints().get(6).setMinHeight(0);
         calendarGridPane.getRowConstraints().get(6).setPrefHeight(0);
         calendarGridPane.getRowConstraints().get(6).setMaxHeight(0);
@@ -525,9 +569,9 @@ public class CalendarGridController implements Initializable {
 
     private void getUpdateDAA() {
         ArrayList<String> arrayListURL = new ArrayList<String>();
-        arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung");
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung?page=1");
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung?page=2");
+        arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung?page=3");
         ArrayList<String> arrayListThongBao = new ArrayList<String>();
         ArrayList<String> arrayListThongBao2 = new ArrayList<String>();
         boolean test;
@@ -545,17 +589,17 @@ public class CalendarGridController implements Initializable {
                             temptext += "\n";
                             temptext += element2.text();
 
-                            for (int y = 0; y < arrayListThongBao.size(); y++) {
-                                if (arrayListThongBao.get(y).equals(temptext)) {
-                                    test = true;
-                                    break;
-                                }
-                            }
-
-                            if (test == false) {
-                                arrayListThongBao.add(temptext);
-                            }
-
+//                            for (int y = 0; y < arrayListThongBao.size(); y++) {
+//                                if (arrayListThongBao.get(y).equals(temptext)) {
+//                                    test = true;
+//                                    break;
+//                                }
+//                            }
+//
+//                            if (test == false) {
+//                                arrayListThongBao.add(temptext);
+//                            }
+                            arrayListThongBao.add(temptext);
                                 /*arrayListThongBao.add(temptext2);
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                 alert.setContentText(temptext2);

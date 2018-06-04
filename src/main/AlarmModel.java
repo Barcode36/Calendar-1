@@ -69,7 +69,7 @@ public class AlarmModel {
                     System.out.println("Alerting event");
                     Utils.playSound(dbConnection.getAlarm(event.getAlarmID()).getPath());
                     EventDetailAlertBox eventDetailAlertBox = new EventDetailAlertBox();
-                    eventDetailAlertBox.display(event, primaryScreenBounds.getWidth() / 2, primaryScreenBounds.getHeight() / 2);
+                    eventDetailAlertBox.display(event, primaryScreenBounds.getWidth() - eventDetailAlertBox.getStageWidth(), primaryScreenBounds.getHeight() - eventDetailAlertBox.getStageHeight());
                     event.setIsnotified(true);
                     removeAlarm(event);
                     dbConnection.updateEvent(event);

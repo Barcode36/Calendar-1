@@ -1,5 +1,6 @@
 package main;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,22 +17,31 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.StringConverter;
 
 import java.io.File;
+import java.util.List;
 
 public class Settings {
-    public void display(){
-        Stage window = new Stage();
+    private Stage window;
+    private DbConnection colorConnection;
+    private ColorPicker colorPickerSuKien;
+    private ColorPicker colorPickerNgayLe;
+    private ColorPicker colorPickerSinhNhat;
+    private ComboBox<Alarm> comboBoxAmBaoSuKien;
+    private ComboBox<Alarm> comboBoxAmBaoSinhNhat;
+    private ComboBox<Alarm> comboBoxAmBaoNgayLe;
+
+    public Settings(){
+        window = new Stage();
         window.setMinWidth(450);
         window.setMinHeight(570);
-        window.setTitle("Thiết lập");
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
-        DbConnection colorConnection = new DbConnection();
-
-        window.initModality(Modality.WINDOW_MODAL);
+        window.initModality(Modality.APPLICATION_MODAL);
         window.setResizable(true);
         window.initStyle(StageStyle.UTILITY);
+        window.setTitle("Thiết lập");
+
+        colorConnection = new DbConnection();
 
         //Sự kiện - nhóm HBox 1
         Label labelSuKien = new Label();
@@ -56,23 +66,27 @@ public class Settings {
 
         //Sự kiện - nhóm HBox 3
         ImageView imageViewAmBaoSuKien = makeImageView("notifyicon", "Thời gian thông báo", 30, 0, 0, 0);
-        ComboBox comboBoxAmBaoSuKien = new ComboBox<>();
+        ComboBox<Alarm> comboBoxAmBaoSuKien = new ComboBox<Alarm>();
         comboBoxAmBaoSuKien.setStyle("-fx-font: 20px \"System\";");
-        comboBoxAmBaoSuKien.getItems().addAll(
-                "Âm báo 1",
-                "Âm báo 2",
-                "Âm báo 3",
-                "Âm báo 4",
-                "Âm báo 5",
-                "Thêm từ thư mục khác"
-        ); //Cần sửa lại
-        comboBoxAmBaoSuKien.getSelectionModel().selectFirst(); //Cần sửa lại
+        comboBoxAmBaoSuKien.setItems(FXCollections.observableArrayList(colorConnection.getAlarmList()));
+        comboBoxAmBaoSuKien.setConverter(new StringConverter<Alarm>() {
+            @Override
+            public String toString(Alarm object) {
+                return object.getName();
+            }
+
+            @Override
+            public Alarm fromString(String string) {
+                return null;
+            }
+        });
+        Alarm defaultEventAlarm = colorConnection.getAlarm(colorConnection.getDefaultAlarm("event"));
+        comboBoxAmBaoSuKien.getSelectionModel().select(defaultEventAlarm); //Cần sửa lại
 
         HBox hBoxSuKienNhom3 = new HBox();
         hBoxSuKienNhom3.getChildren().addAll(imageViewAmBaoSuKien, comboBoxAmBaoSuKien);
         HBox.setMargin(imageViewAmBaoSuKien, new Insets(10, 0, 0, 50));
         HBox.setMargin(comboBoxAmBaoSuKien, new Insets(10, 0, 0, 38));
-
 
 
         //Ngày lễ - nhóm HBox 1
@@ -97,17 +111,22 @@ public class Settings {
 
         //Ngày lễ - nhóm HBox 3
         ImageView imageViewAmBaoNgayLe = makeImageView("notifyicon", "Thời gian thông báo", 30, 0, 0, 0);
-        ComboBox comboBoxAmBaoNgayLe = new ComboBox<>();
+        ComboBox<Alarm> comboBoxAmBaoNgayLe = new ComboBox<Alarm>();
+        comboBoxAmBaoNgayLe.setItems(FXCollections.observableArrayList(colorConnection.getAlarmList()));
         comboBoxAmBaoNgayLe.setStyle("-fx-font: 20px \"System\";");
-        comboBoxAmBaoNgayLe.getItems().addAll(
-                "Âm báo 1",
-                "Âm báo 2",
-                "Âm báo 3",
-                "Âm báo 4",
-                "Âm báo 5",
-                "Thêm từ thư mục khác"
-        ); //Cần sửa lại
-        comboBoxAmBaoNgayLe.getSelectionModel().selectFirst(); //Cần sửa lại
+        comboBoxAmBaoNgayLe.setConverter(new StringConverter<Alarm>() {
+            @Override
+            public String toString(Alarm object) {
+                return object.getName();
+            }
+
+            @Override
+            public Alarm fromString(String string) {
+                return null;
+            }
+        });
+        Alarm defaultHolidayAlarm = colorConnection.getAlarm(colorConnection.getDefaultAlarm("holiday"));
+        comboBoxAmBaoNgayLe.getSelectionModel().select(defaultHolidayAlarm); //Cần sửa lại
 
         HBox hBoxNgayLeNhom3 = new HBox();
         hBoxNgayLeNhom3.getChildren().addAll(imageViewAmBaoNgayLe, comboBoxAmBaoNgayLe);
@@ -138,17 +157,22 @@ public class Settings {
 
         //Sinh nhật - nhóm HBox 3
         ImageView imageViewAmBaoSinhNhat = makeImageView("notifyicon", "Thời gian thông báo", 30, 0, 0, 0);
-        ComboBox comboBoxAmBaoSinhNhat = new ComboBox<>();
+        ComboBox<Alarm> comboBoxAmBaoSinhNhat = new ComboBox<Alarm>();
+        comboBoxAmBaoSinhNhat.setItems(FXCollections.observableArrayList(colorConnection.getAlarmList()));
         comboBoxAmBaoSinhNhat.setStyle("-fx-font: 20px \"System\";");
-        comboBoxAmBaoSinhNhat.getItems().addAll(
-                "Âm báo 1",
-                "Âm báo 2",
-                "Âm báo 3",
-                "Âm báo 4",
-                "Âm báo 5",
-                "Thêm từ thư mục khác"
-        ); //Cần sửa lại
-        comboBoxAmBaoSinhNhat.getSelectionModel().selectFirst(); //Cần sửa lại
+        comboBoxAmBaoSinhNhat.setConverter(new StringConverter<Alarm>() {
+            @Override
+            public String toString(Alarm object) {
+                return object.getName();
+            }
+
+            @Override
+            public Alarm fromString(String string) {
+                return null;
+            }
+        });
+        Alarm defaultBirthdayAlarm = colorConnection.getAlarm(colorConnection.getDefaultAlarm("birthday"));
+        comboBoxAmBaoSinhNhat.getSelectionModel().select(defaultBirthdayAlarm); //Cần sửa lại
 
         HBox hBoxSinhNhatNhom3 = new HBox();
         hBoxSinhNhatNhom3.getChildren().addAll(imageViewAmBaoSinhNhat, comboBoxAmBaoSinhNhat);
@@ -195,6 +219,9 @@ public class Settings {
 
         Scene scene = new Scene(vBoxSettings);
         window.setScene(scene);
+    }
+
+    public void display(){
         window.showAndWait();
     }
 

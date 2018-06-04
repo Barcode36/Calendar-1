@@ -41,6 +41,30 @@ public class DbConnection {
         }
     }
 
+    private void createOEPNewsYearTable(int year, long lastTime) {
+        boolean result = true;
+        String query = "CREATE Table `OEP_News_" + year
+                + "( `newsid` INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "`dateid` INTEGER, "
+                + "`title` TEXT, "
+                + "`notifytime` INTEGER, "
+                + "`url` TEXT )";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            result =false;
+            System.out.println(e.getMessage());
+        }
+        if (result){
+            OEPNews oepNews = new OEPNews();
+            oepNews.setTitle("");
+            oepNews.setNotifyTime(lastTime);
+            oepNews.setUrl("");
+            addOEPNews(oepNews, 1, 1, year);
+        }
+    }
+
     public boolean addEventToYearEventTable(Event event, int day, int month, int year) {
         createYearTable(year);
         //addDateToMonthTable(day, month, year);
@@ -95,6 +119,23 @@ public class DbConnection {
         return true;
     }
 
+    public boolean addOEPNews(OEPNews oepNews, int day, int month, int year) {
+        createOEPNewsYearTable(year, oepNews.getNotifyTime());
+        String query = "INSERT INTO `OEP_News_"+year+"`(dateid, title, notifytime, url) VALUES (?,?,?,?)";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, getDateId(day, month));
+            pstmt.setString(2, oepNews.getTitle());
+            pstmt.setLong(3, oepNews.getNotifyTime());
+            pstmt.setString(4, oepNews.getUrl());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
     public Event getLastEvent(int year) {
         String query = "SELECT * FROM `" + year + "_event` order by eventid desc limit 1";
         try (Connection conn = this.connect();
@@ -138,7 +179,7 @@ public class DbConnection {
         String query = "UPDATE `" + calendar.get(Calendar.YEAR) + "_event` SET dateid = ?, title = ?, starttime = ?, endtime = ?, notifytime = ?, description = ?, color = ?, alarmid = ?, isnotified = ?, isdeleted = ? WHERE eventid = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, getDateId(calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH)+1));
+            pstmt.setInt(1, getDateId(calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1));
             pstmt.setString(2, event.getTitle());
             pstmt.setLong(3, event.getStartTime());
             pstmt.setLong(4, event.getEndTime());
@@ -165,7 +206,7 @@ public class DbConnection {
         return true;
     }
 
-    public boolean updateBirthday(Birthday birthday){
+    public boolean updateBirthday(Birthday birthday) {
         String query = "UPDATE `Birthday` SET name = ?, isdeleted = ? WHERE birthdayid = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -184,7 +225,7 @@ public class DbConnection {
         return true;
     }
 
-    public boolean updateHoliday(Holiday holiday){
+    public boolean updateHoliday(Holiday holiday) {
         String query = "UPDATE `Holiday` SET name = ?, isdeleted = ? WHERE holidayid = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -419,6 +460,22 @@ public class DbConnection {
         return null;
     }
 
+    public long getLastOEPNewsTime(int year){
+        String query = "SELECT * FROM `OEP_News_`"+ year +" WHERE newsid = 1";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.isBeforeFirst()) {
+                return resultSet.getLong("notifytime");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return -1;
+    }
+
+
     public String getDefaultColor(String type) {
         String query = "SELECT * FROM `DefaultSettings` WHERE type = ?";
         try (Connection conn = this.connect();
@@ -448,19 +505,19 @@ public class DbConnection {
         return true;
     }
 
-    public String getDefaultAlarm(String type) {
+    public int getDefaultAlarm(String type) {
         String query = "SELECT * FROM `DefaultSettings` WHERE type = ?";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, type);
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.isBeforeFirst()) {
-                return resultSet.getString("alarmid");
+                return resultSet.getInt("alarmid");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return "";
+        return -1;
     }
 
     public boolean setDefaultAlarm(String type, int alarmid) {

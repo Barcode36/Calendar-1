@@ -42,6 +42,7 @@ public class EventDetailAlertBox {
     private HBox eventDescriptionHBox;
     private DbConnection dbConnection;
     private CreateEventAlertBox createEventAlertBox;
+    private Event resultEvent;
 
     public EventDetailAlertBox() {
         createEventAlertBox = new CreateEventAlertBox();
@@ -58,6 +59,7 @@ public class EventDetailAlertBox {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setResizable(true);
         window.initStyle(StageStyle.UTILITY);
+        window.setAlwaysOnTop(true);
 
         eventTitleLabel = new Label();
         eventTitleLabel.setFont(new Font("System", 32));
@@ -128,7 +130,9 @@ public class EventDetailAlertBox {
         window.setScene(scene);
     }
 
-    public void display(Object object, double x, double y) {
+    public Event display(Object object, double x, double y) {
+        resultEvent = null;
+
         layout.getChildren().remove(eventSubtitleLabel);
         layout.getChildren().remove(eventTitleLabel);
         layout.getChildren().remove(eventTimeHBox);
@@ -143,7 +147,7 @@ public class EventDetailAlertBox {
             @Override
             public void handle(MouseEvent event) {
                 Calendar calendar = Calendar.getInstance();
-                createEventAlertBox.display(0, null, x, y, true, object);
+                resultEvent = createEventAlertBox.display(0, null, x, y, true, object);
                 window.close();
             }
         });
@@ -212,7 +216,7 @@ public class EventDetailAlertBox {
             }
 
             layout.getChildren().addAll(eventTitleLabel, eventTimeHBox, eventNotifyTimeHBox);
-            window.setMinWidth(600);
+            window.setMinWidth(650);
             window.setMinHeight(350);
 
             if (!event.getDescription().isEmpty()) {
@@ -255,7 +259,7 @@ public class EventDetailAlertBox {
                 eventTitleLabel.setText(holiday.getName());
             }
             layout.getChildren().addAll(eventSubtitleLabel, eventTitleLabel, eventTimeHBox);
-            window.setMinWidth(600);
+            window.setMinWidth(650);
             window.setMinHeight(400);
         } else if (object instanceof Birthday) {
             eventSubtitleLabel.setText("Sinh nhật");
@@ -289,7 +293,7 @@ public class EventDetailAlertBox {
                 eventTitleLabel.setText(birthday.getName());
             }
             layout.getChildren().addAll(eventSubtitleLabel, eventTitleLabel, eventTimeHBox);
-            window.setMinWidth(600);
+            window.setMinWidth(650);
             window.setMinHeight(350);
         }
 
@@ -311,6 +315,7 @@ public class EventDetailAlertBox {
             }
         }
         window.showAndWait();
+        return resultEvent;
     }
 
     private ImageView makeImageView(String fileName, String toolTip, double topPadding, double rightPadding, double bottomPadding, double leftPadding) {
@@ -386,5 +391,13 @@ public class EventDetailAlertBox {
             return dbConnection.getDefaultColor("birthday");
         }
         return "";
+    }
+
+    public double getStageWidth(){
+        return window.getMinWidth();
+    }
+
+    public double getStageHeight(){
+        return window.getMinHeight();
     }
 }

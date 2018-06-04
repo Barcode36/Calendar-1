@@ -337,21 +337,23 @@ public class CreateEventAlertBox {
             startTimeTextField.setText(timeFormat.format(currentTime.getTime()));
             currentTime.add(Calendar.MINUTE, 30);
             endTimeTextField.setText(timeFormat.format(currentTime.getTime()));
+            Alarm alarm = dbConnection.getAlarm(dbConnection.getDefaultAlarm("event"));
+            alarmComboBox.getSelectionModel().select(alarm);
         }
 
         window.setMinWidth(610);
 
         if (primaryScreenBounds.getWidth() - x < window.getMinWidth()) {
-            if (primaryScreenBounds.getHeight() - y < window.getMinHeight() - 50) {
-                window.setY(y - window.getMinHeight());
+            if (primaryScreenBounds.getHeight() - y < window.getMinHeight()) {
+                window.setY(Math.abs(y - window.getMinHeight()+30));
                 window.setX(x - window.getMinWidth());
             } else {
                 window.setY(y);
                 window.setX(x - window.getMinWidth());
             }
         } else {
-            if (primaryScreenBounds.getHeight() - y < window.getMinHeight() - 50) {
-                window.setY(y - window.getMinHeight());
+            if (primaryScreenBounds.getHeight() - y < window.getMinHeight()) {
+                window.setY(Math.abs(y - window.getMinHeight()+30));
                 window.setX(x);
             } else {
                 window.setY(y);
