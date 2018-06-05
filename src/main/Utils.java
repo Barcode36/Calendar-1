@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 public class Utils {
     public static void playSound(String path) {
-        Media m = new Media("file:///" + System.getProperty("user.dir").replace('\\', '/') + "/" + path);
+        Media m = new Media("file:///" + path);
         MediaPlayer player = new MediaPlayer(m);
         player.play();
     }

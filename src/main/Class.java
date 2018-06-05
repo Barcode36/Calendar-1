@@ -5,22 +5,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Course {
+public class Class {
     private int courseid;
+    private int dateid;
     private String title;
+    private Long notifyTime;
     private String teacher;
     private String faculty;
     private String subject;
     private String classid;
     private String room;
-    private int dateid;
     private int startTime;
     private int endTime;
-    private Long notifyTime;
     private Long courseTime;
-    private String url;
 
-//    public Course(String title, String timeOfNotify, String teacher, String faculty, String subject, String aClass, String room, String timeOfCourse) {
+
+//    public Class(String title, String timeOfNotify, String teacher, String faculty, String subject, String aClass, String room, String timeOfCourse) {
 //        Title = title;
 //        TimeOfNotify = timeOfNotify;
 //        Teacher = teacher;
@@ -130,10 +130,6 @@ public class Course {
         return teacher;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -178,7 +174,4 @@ public class Course {
         this.teacher = teacher;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

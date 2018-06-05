@@ -2,6 +2,7 @@ package main;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
@@ -10,9 +11,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -179,6 +182,82 @@ public class Settings {
         HBox.setMargin(imageViewAmBaoSinhNhat, new Insets(10, 0, 0, 50));
         HBox.setMargin(comboBoxAmBaoSinhNhat, new Insets(10, 0, 0, 38));
 
+        Label labelThongBaoOEP = new Label();
+        labelThongBaoOEP.setText("Thông báo chung OEP:");
+        labelThongBaoOEP.setFont(new Font("System", 20));
+        labelThongBaoOEP.setPadding(new Insets(20, 0, 0, 20));
+
+        ImageView imageViewMauThongBaoOEP = makeImageView("colorchooser", "Chọn màu sự kiện", 0, 0, 0, 0);
+        ColorPicker colorPickerThongBaoOEP = new ColorPicker();
+        colorPickerThongBaoOEP.setValue(Color.valueOf(colorConnection.getDefaultColor("oepnews")));
+        colorPickerThongBaoOEP.setStyle("-fx-font: 20px \"System\";");
+
+        HBox hBoxMauThongBaoOEP = new HBox();
+        hBoxMauThongBaoOEP.getChildren().addAll(imageViewMauThongBaoOEP, colorPickerThongBaoOEP);
+        HBox.setMargin(imageViewMauThongBaoOEP, new Insets(0, 0, 0, 50));
+        HBox.setMargin(colorPickerThongBaoOEP, new Insets(0, 0, 0, 30));
+
+        ImageView imageViewAmBaoThongBaoOEP = makeImageView("notifyicon", "Thời gian thông báo", 30, 0, 0, 0);
+        ComboBox<Alarm> comboBoxAmBaoThongBaoOEP = new ComboBox<Alarm>();
+        comboBoxAmBaoThongBaoOEP.setItems(FXCollections.observableArrayList(colorConnection.getAlarmList()));
+        comboBoxAmBaoThongBaoOEP.setStyle("-fx-font: 20px \"System\";");
+        comboBoxAmBaoThongBaoOEP.setConverter(new StringConverter<Alarm>() {
+            @Override
+            public String toString(Alarm object) {
+                return object.getName();
+            }
+
+            @Override
+            public Alarm fromString(String string) {
+                return null;
+            }
+        });
+        Alarm defaultOEPNewsAlarm = colorConnection.getAlarm(colorConnection.getDefaultAlarm("oepnews"));
+        comboBoxAmBaoThongBaoOEP.getSelectionModel().select(defaultOEPNewsAlarm); //Cần sửa lại
+
+        HBox hBoxAmBaoThongBaoOEP = new HBox();
+        hBoxAmBaoThongBaoOEP.getChildren().addAll(imageViewAmBaoThongBaoOEP, comboBoxAmBaoThongBaoOEP);
+        HBox.setMargin(imageViewAmBaoThongBaoOEP, new Insets(10, 0, 0, 50));
+        HBox.setMargin(comboBoxAmBaoThongBaoOEP, new Insets(10, 0, 0, 38));
+
+        Label labelThongBaoNghiBuOEP = new Label();
+        labelThongBaoNghiBuOEP.setText("Thông báo nghỉ bù OEP:");
+        labelThongBaoNghiBuOEP.setFont(new Font("System", 20));
+        labelThongBaoNghiBuOEP.setPadding(new Insets(20, 0, 0, 20));
+
+        ImageView imageViewMauThongBaoNghiBuOEP = makeImageView("colorchooser", "Chọn màu sự kiện", 0, 0, 0, 0);
+        ColorPicker colorPickerThongBaoNghiBuOEP = new ColorPicker();
+        colorPickerThongBaoNghiBuOEP.setValue(Color.valueOf(colorConnection.getDefaultColor("oepcoursenews")));
+        colorPickerThongBaoNghiBuOEP.setStyle("-fx-font: 20px \"System\";");
+
+        HBox hBoxMauThongBaoNghiBuOEP = new HBox();
+        hBoxMauThongBaoNghiBuOEP.getChildren().addAll(imageViewMauThongBaoNghiBuOEP, colorPickerThongBaoNghiBuOEP);
+        HBox.setMargin(imageViewMauThongBaoNghiBuOEP, new Insets(0, 0, 0, 50));
+        HBox.setMargin(colorPickerThongBaoNghiBuOEP, new Insets(0, 0, 0, 30));
+
+        ImageView imageViewAmBaoThongBaoNghiBuOEP = makeImageView("notifyicon", "Thời gian thông báo", 30, 0, 0, 0);
+        ComboBox<Alarm> comboBoxAmBaoThongBaoNghiBuOEP = new ComboBox<Alarm>();
+        comboBoxAmBaoThongBaoNghiBuOEP.setItems(FXCollections.observableArrayList(colorConnection.getAlarmList()));
+        comboBoxAmBaoThongBaoNghiBuOEP.setStyle("-fx-font: 20px \"System\";");
+        comboBoxAmBaoThongBaoNghiBuOEP.setConverter(new StringConverter<Alarm>() {
+            @Override
+            public String toString(Alarm object) {
+                return object.getName();
+            }
+
+            @Override
+            public Alarm fromString(String string) {
+                return null;
+            }
+        });
+        Alarm defaultOEPCourseNewsAlarm = colorConnection.getAlarm(colorConnection.getDefaultAlarm("oepcoursenews"));
+        comboBoxAmBaoThongBaoNghiBuOEP.getSelectionModel().select(defaultOEPCourseNewsAlarm); //Cần sửa lại
+
+        HBox hBoxAmBaoThongBaoNghiBuOEP = new HBox();
+        hBoxAmBaoThongBaoNghiBuOEP.getChildren().addAll(imageViewAmBaoThongBaoNghiBuOEP, comboBoxAmBaoThongBaoNghiBuOEP);
+        HBox.setMargin(imageViewAmBaoThongBaoNghiBuOEP, new Insets(10, 0, 0, 50));
+        HBox.setMargin(comboBoxAmBaoThongBaoNghiBuOEP, new Insets(10, 0, 0, 38));
+
         // Nhóm button
         Button buttonThietLap = new Button();
         buttonThietLap.setText("Thiết lập");
@@ -189,6 +268,19 @@ public class Settings {
                 colorConnection.setDefaultColor("event", Utils.toRGBCode(colorPickerSuKien.getValue()));
                 colorConnection.setDefaultColor("holiday", Utils.toRGBCode(colorPickerNgayLe.getValue()));
                 colorConnection.setDefaultColor("birthday", Utils.toRGBCode(colorPickerSinhNhat.getValue()));
+                colorConnection.setDefaultColor("oepnews", Utils.toRGBCode(colorPickerThongBaoOEP.getValue()));
+                colorConnection.setDefaultColor("oepcoursenews", Utils.toRGBCode(colorPickerThongBaoNghiBuOEP.getValue()));
+
+                Alarm defaultAlarm = comboBoxAmBaoSuKien.getSelectionModel().getSelectedItem();
+                colorConnection.setDefaultAlarm("event", defaultAlarm.getAlarmid());
+                defaultAlarm = comboBoxAmBaoNgayLe.getSelectionModel().getSelectedItem();
+                colorConnection.setDefaultAlarm("holiday", defaultAlarm.getAlarmid());
+                defaultAlarm = comboBoxAmBaoSinhNhat.getSelectionModel().getSelectedItem();
+                colorConnection.setDefaultAlarm("birthday", defaultAlarm.getAlarmid());
+                defaultAlarm = comboBoxAmBaoThongBaoOEP.getSelectionModel().getSelectedItem();
+                colorConnection.setDefaultAlarm("oepnews", defaultAlarm.getAlarmid());
+                defaultAlarm = comboBoxAmBaoThongBaoNghiBuOEP.getSelectionModel().getSelectedItem();
+                colorConnection.setDefaultAlarm("oepcoursenews", defaultAlarm.getAlarmid());
 
                 //Cập nhật âm báo cho sự kiện, ngày lễ, sinh nhật vào CSDL
 
@@ -215,9 +307,78 @@ public class Settings {
         vBoxSettings.getChildren().addAll(hBoxSuKienNhom1, hBoxSuKienNhom2, hBoxSuKienNhom3,
                 hBoxNgayLeNhom1, hBoxNgayLeNhom2, hBoxNgayLeNhom3,
                 hBoxSinhNhatNhom1, hBoxSinhNhatNhom2, hBoxSinhNhatNhom3,
-                hBoxButton);
+                labelThongBaoOEP, hBoxMauThongBaoOEP, hBoxAmBaoThongBaoOEP,
+                labelThongBaoNghiBuOEP, hBoxMauThongBaoNghiBuOEP, hBoxAmBaoThongBaoNghiBuOEP);
 
-        Scene scene = new Scene(vBoxSettings);
+        ScrollPane scrollPane = new ScrollPane(vBoxSettings);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+
+        TabPane tabPane = new TabPane();
+        Tab tab1 = new Tab("Màu & âm báo");
+        tab1.setContent(scrollPane);
+
+        ListView<String> listView = new ListView<String>();
+        List<String> classIDList = colorConnection.getClassList();
+        listView.setItems(FXCollections.observableArrayList(classIDList));
+
+        TextField classIDTextField = new TextField();
+        classIDTextField.setPromptText("Nhập mã lỡp cần đăng ký thông báo nghỉ, bù");
+        classIDTextField.setStyle("-fx-font: 20px \"System\";");
+
+        Button addClassID = new Button("Thêm");
+        addClassID.setStyle("-fx-font: 20px \"System\";");
+        addClassID.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                colorConnection.addClassID(classIDTextField.getText());
+                List<String> classIDList = colorConnection.getClassList();
+                listView.setItems(FXCollections.observableArrayList(classIDList));
+            }
+        });
+
+        Button removeClassID = new Button("Xóa");
+        removeClassID.setStyle("-fx-font: 20px \"System\";");
+        removeClassID.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                colorConnection.removeClassID(classIDTextField.getText());
+                List<String> classIDList = colorConnection.getClassList();
+                listView.setItems(FXCollections.observableArrayList(classIDList));
+            }
+        });
+
+        HBox controlClassIDHBox = new HBox();
+        HBox.setMargin(addClassID, new Insets(0, 10, 0, 0));
+        controlClassIDHBox.getChildren().addAll(addClassID, removeClassID);
+
+        VBox classIDControlVBox = new VBox();
+        classIDControlVBox.getChildren().addAll(listView, classIDTextField, controlClassIDHBox);
+
+        Tab tab2 = new Tab("Danh sách mã lớp");
+        tab2.setContent(classIDControlVBox);
+
+        tab1.setOnCloseRequest(new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+                event.consume();
+            }
+        });
+        tab2.setOnCloseRequest(new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+                event.consume();
+            }
+        });
+
+        tabPane.getTabs().addAll(tab1, tab2);
+
+        VBox vBoxSettings2 = new VBox();
+        vBoxSettings2.setFillWidth(true);
+        vBoxSettings2.setPadding(new Insets(0,10,10,10));
+        vBoxSettings2.getChildren().addAll(tabPane, hBoxButton);
+
+        Scene scene = new Scene(vBoxSettings2);
         window.setScene(scene);
     }
 

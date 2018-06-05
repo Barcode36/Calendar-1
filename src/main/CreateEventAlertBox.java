@@ -248,6 +248,7 @@ public class CreateEventAlertBox {
                         window.close();
                     } else {
                         alert.close();
+                        event.consume();
                     }
                 }
             }
@@ -263,6 +264,7 @@ public class CreateEventAlertBox {
         titleTextField.clear();
         eventDescriptionTextArea.clear();
         optionCombobox.setDisable(false);
+        isChanged = false;
 
         if (update) {
             window.setTitle("Cập nhật sự kiện");

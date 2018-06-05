@@ -67,7 +67,7 @@ public class DbConnection {
 
     private void createOEPCourseYearTable(int year, long lastTime) {
         boolean result = true;
-        String query = "CREATE TABLE `OEP_CourseNews_"+year+"` ( `courseid` INTEGER PRIMARY KEY AUTOINCREMENT, `dateid` INTEGER, `title` TEXT, `notifytime` INTEGER, `teacher` TEXT, `faculty` TEXT, `subject` TEXT, `room` TEXT, `starttime` INTEGER, `endtime` INTEGER )";
+        String query = "CREATE TABLE `OEP_CourseNews_"+year+"` ( `courseid` INTEGER PRIMARY KEY AUTOINCREMENT, `dateid` INTEGER, `title` TEXT, `notifytime` INTEGER, `teacher` TEXT, `faculty` TEXT, `subject` TEXT, `classid` TEXT, `room` TEXT, `starttime` INTEGER, `endtime` INTEGER )";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.executeUpdate();
@@ -76,17 +76,16 @@ public class DbConnection {
             System.out.println(e.getMessage());
         }
         if (result) {
-            Course course = new Course();
-            course.setTitle("");
-            course.setNotifyTime(lastTime);
-            course.setTeacher("");
-            course.setFaculty("");
-            course.setSubject("");
-            course.setRoom("");
-            course.setStartTime(0);
-            course.setEndTime(0);
-            course.setUrl("");
-            addOEPCourseNews(course, 1, 1, year);
+            Class aClass = new Class();
+            aClass.setTitle("");
+            aClass.setNotifyTime(lastTime);
+            aClass.setTeacher("");
+            aClass.setFaculty("");
+            aClass.setSubject("");
+            aClass.setRoom("");
+            aClass.setStartTime(0);
+            aClass.setEndTime(0);
+            addOEPCourseNews(aClass, 1, 1, year);
         }
     }
 
@@ -161,21 +160,21 @@ public class DbConnection {
         return true;
     }
 
-    public boolean addOEPCourseNews(Course course, int day, int month, int year) {
-        createOEPCourseYearTable(year, course.getNotifyTime());
-        String query = "INSERT INTO `OEP_CourseNews_" + year + "`(dateid, title, notifytime, teacher, faculty, subject, room, starttime, endtime, url) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    public boolean addOEPCourseNews(Class aClass, int day, int month, int year) {
+        createOEPCourseYearTable(year, aClass.getNotifyTime());
+        String query = "INSERT INTO `OEP_CourseNews_" + year + "`(dateid, title, notifytime, teacher, faculty, subject, classid, room, starttime, endtime) VALUES (?,?,?,?,?,?,?,?,?,?)";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, getDateId(day, month));
-            pstmt.setString(2, course.getTitle());
-            pstmt.setLong(3, course.getNotifyTime());
-            pstmt.setString(4, course.getTeacher());
-            pstmt.setString(5, course.getFaculty());
-            pstmt.setString(6, course.getSubject());
-            pstmt.setString(7, course.getRoom());
-            pstmt.setLong(8, course.getStartTime());
-            pstmt.setLong(9, course.getEndTime());
-            pstmt.setString(10, course.getUrl());
+            pstmt.setString(2, aClass.getTitle());
+            pstmt.setLong(3, aClass.getCourseTime());
+            pstmt.setString(4, aClass.getTeacher());
+            pstmt.setString(5, aClass.getFaculty());
+            pstmt.setString(6, aClass.getSubject());
+            pstmt.setString(7, aClass.getClassid());
+            pstmt.setString(8, aClass.getRoom());
+            pstmt.setLong(9, aClass.getStartTime());
+            pstmt.setLong(10, aClass.getEndTime());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -367,7 +366,6 @@ public class DbConnection {
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.isBeforeFirst()) {
                 List<Event> events = new ArrayList<Event>();
-                int i = 0;
                 while (resultSet.next()) {
                     Event newEvent = new Event();
                     newEvent.setEventid(resultSet.getInt("eventid"));
@@ -380,7 +378,6 @@ public class DbConnection {
                     newEvent.setColor(resultSet.getString("color"));
                     newEvent.setAlarmID(resultSet.getInt("alarmid"));
                     events.add(newEvent);
-                    i++;
                 }
                 sortEventTimeDesc(events);
                 return events;
@@ -408,7 +405,6 @@ public class DbConnection {
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.isBeforeFirst()) {
                 List<Event> events = new ArrayList<Event>();
-                int i = 0;
                 while (resultSet.next()) {
                     Event newEvent = new Event();
                     newEvent.setEventid(resultSet.getInt("eventid"));
@@ -421,10 +417,80 @@ public class DbConnection {
                     newEvent.setColor(resultSet.getString("color"));
                     newEvent.setAlarmID(resultSet.getInt("alarmid"));
                     events.add(newEvent);
-                    i++;
                 }
                 sortEventTimeDesc(events);
                 return events;
+            }
+
+        } catch (SQLException e) {
+            if (e.toString().contains("no such table"))
+                System.out.println("error");
+            //System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public List<OEPNews> getOEPNewsList(int day, int month, int year) {
+        int dateid = getDateId(day, month);
+        if (dateid == -1)
+            return null;
+
+        String query = "SELECT * FROM `OEP_News_" + year + "` WHERE dateid = ? and newsid != 1";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, dateid);
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.isBeforeFirst()) {
+                List<OEPNews> oepNewsList = new ArrayList<OEPNews>();
+                while (resultSet.next()) {
+                    OEPNews oepNews = new OEPNews();
+                    oepNews.setDateid(resultSet.getInt("dateid"));
+                    oepNews.setNotifyTime(resultSet.getLong("notifytime"));
+                    oepNews.setTitle(resultSet.getString("title"));
+                    oepNews.setUrl(resultSet.getString("url"));
+                    oepNewsList.add(oepNews);
+                }
+                return oepNewsList;
+            }
+
+        } catch (SQLException e) {
+            if (e.toString().contains("no such table"))
+                System.out.println("error");
+            //System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public List<Class> getOEPCourseNewsList(int day, int month, int year) {
+        int dateid = getDateId(day, month);
+        if (dateid == -1)
+            return null;
+
+        String query = "SELECT * FROM `OEP_CourseNews_" + year + "` WHERE dateid = ? and courseid != 1";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, dateid);
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.isBeforeFirst()) {
+                List<Class> classes = new ArrayList<Class>();
+                while (resultSet.next()) {
+                    Class courseClass = new Class();
+                    courseClass.setDateid(dateid);
+                    courseClass.setTitle(resultSet.getString("title"));
+                    courseClass.setNotifyTime(resultSet.getLong("notifytime"));
+                    courseClass.setTeacher(resultSet.getString("teacher"));
+                    courseClass.setFaculty(resultSet.getString("faculty"));
+                    courseClass.setSubject(resultSet.getString("subject"));
+                    courseClass.setClassid(resultSet.getString("classid"));
+                    courseClass.setRoom(resultSet.getString("room"));
+                    courseClass.setStartTime(resultSet.getInt("starttime"));
+                    courseClass.setCourseTime(resultSet.getLong("notifytime"));
+                    courseClass.setEndTime(resultSet.getInt("endtime"));
+                    classes.add(courseClass);
+                }
+                return classes;
             }
 
         } catch (SQLException e) {
@@ -447,8 +513,6 @@ public class DbConnection {
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.isBeforeFirst()) {
                 List<Holiday> holidays = new ArrayList<Holiday>();
-
-                int i = 0;
                 while (resultSet.next()) {
                     Holiday newHoliday = new Holiday();
                     newHoliday.setHolidayid(resultSet.getInt("holidayid"));
@@ -460,7 +524,6 @@ public class DbConnection {
                     else
                         newHoliday.setDeleted(false);
                     holidays.add(newHoliday);
-                    i++;
                 }
                 return holidays;
             }
@@ -483,7 +546,6 @@ public class DbConnection {
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.isBeforeFirst()) {
                 List<Birthday> birthdays = new ArrayList<Birthday>();
-                int i = 0;
                 while (resultSet.next()) {
                     Birthday newBirthday = new Birthday();
                     newBirthday.setBirthdayid(resultSet.getInt("birthdayid"));
@@ -496,7 +558,6 @@ public class DbConnection {
                     else
                         newBirthday.setDeleted(false);
                     birthdays.add(newBirthday);
-                    i++;
                 }
                 return birthdays;
             }
@@ -508,18 +569,16 @@ public class DbConnection {
         return null;
     }
 
-    public List<String> getCourseList() {
+    public List<String> getClassList() {
         List<String> courses = new ArrayList<String>();
-        String query = "SELECT * FROM `Course`";
+        String query = "SELECT * FROM `Class`";
         try (Connection conn = this.connect();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.isBeforeFirst()) {
-                int i = 0;
                 while (resultSet.next()) {
-                    String course = resultSet.getString("courseid");
+                    String course = resultSet.getString("classid");
                     courses.add(course);
-                    i++;
                 }
             }
 
@@ -528,6 +587,32 @@ public class DbConnection {
         }
 
         return courses;
+    }
+
+    public boolean addClassID(String classID) {
+        String query = "INSERT INTO `Class`(classid) VALUES (?)";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, classID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean removeClassID(String classID) {
+        String query = "DELETE FROM `Class` WHERE classid = ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, classID);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     public long getLastOEPNewsTime(int year) {
@@ -574,7 +659,19 @@ public class DbConnection {
         return true;
     }
 
-    //public addCourse()
+    public boolean updateLastOEPCourseNewsTime(long lastTime, int year) {
+        String query = "UPDATE `OEP_CourseNews_" + year + "` SET notifytime = ? WHERE courseid = 1";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setLong(1, lastTime);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+        return true;
+    }
 
     public String getDefaultColor(String type) {
         String query = "SELECT * FROM `DefaultSettings` WHERE type = ?";
@@ -655,14 +752,12 @@ public class DbConnection {
             ResultSet resultSet = pstmt.executeQuery();
             if (resultSet.isBeforeFirst()) {
                 List<Alarm> alarms = new ArrayList<Alarm>();
-                int i = 0;
                 while (resultSet.next()) {
                     Alarm newAlarm = new Alarm();
                     newAlarm.setAlarmid(resultSet.getInt("alarmid"));
                     newAlarm.setName(resultSet.getString("name"));
                     newAlarm.setPath(resultSet.getString("path"));
                     alarms.add(newAlarm);
-                    i++;
                 }
                 return alarms;
             }

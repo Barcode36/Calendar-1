@@ -61,7 +61,6 @@ public class EventDetailAlertBox {
         window.initModality(Modality.APPLICATION_MODAL);
         window.setResizable(true);
         window.initStyle(StageStyle.UTILITY);
-        window.setAlwaysOnTop(true);
         window.setMinWidth(600);
         window.setWidth(600);
         window.setHeight(350);
@@ -159,6 +158,7 @@ public class EventDetailAlertBox {
         editImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                window.setAlwaysOnTop(false);
                 Calendar calendar = Calendar.getInstance();
                 resultEvent = createEventAlertBox.display(0, null, x, y, true, object);
                 window.close();
@@ -343,36 +343,20 @@ public class EventDetailAlertBox {
             layout.getChildren().addAll(eventSubtitleLabel, eventTitleLabel, eventTimeHBox);
             window.setMinWidth(650);
             window.setMinHeight(400);
-        } else if (object instanceof Course) {
-            menuBarHBox.getChildren().add(openInBrowserImageView);
-
+        } else if (object instanceof Class) {
             eventSubtitleLabel.setText("Thông báo nghỉ, học bù OEP");
-            Course course = (Course) object;
-
-            openInBrowserImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    try {
-                        Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start chrome " + course.getUrl()});
-                    } catch (IOException e) {
-
-                    }
-                }
-            });
+            Class aClass = (Class) object;
 
             Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(course.getNotifyTime() * 1000);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
-            eventTimeLabel.setText(formatter.format(calendar.getTime()));
-            if (course.getTitle().isEmpty()) {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            if (aClass.getTitle().isEmpty()) {
                 eventTitleLabel.setText("Không có tiêu đề");
             } else {
-                eventTitleLabel.setText(course.getTitle());
+                eventTitleLabel.setText(aClass.getTitle());
             }
-            SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy");
-            calendar.setTimeInMillis(course.getCourseTime() * 1000);
-            eventDescriptionLabel.setText("Giáo viên: " + course.getTeacher() + "\n" + "Khoa/Bộ môn: " + course.getFaculty() + "\n" + "Môn học: " + course.getSubject() + "\n" + "Lớp: " + course.getClassid() + "\n" + "Phòng: " + course.getRoom() + "\n" + "Tiết bắt đầu: " + course.getStartTime() + "\n" + "Tiết kết thúc: " + course.getEndTime() + "\n" + "ngày " + formatter.format(calendar.getTime()));
-            layout.getChildren().addAll(eventSubtitleLabel, eventTitleLabel, eventTimeHBox);
+            calendar.setTimeInMillis(aClass.getCourseTime() * 1000);
+            eventDescriptionLabel.setText("Giáo viên: " + aClass.getTeacher() + "\n" + "Khoa/Bộ môn: " + aClass.getFaculty() + "\n" + "Môn học: " + aClass.getSubject() + "\n" + "Lớp: " + aClass.getClassid() + "\n" + "Phòng: " + aClass.getRoom() + "\n" + "Tiết bắt đầu: " + aClass.getStartTime() + "\n" + "Tiết kết thúc: " + aClass.getEndTime() + "\n" + "ngày " + formatter.format(calendar.getTime()));
+            layout.getChildren().addAll(eventSubtitleLabel, eventTitleLabel, eventDescriptionHBox);
             window.setMinWidth(650);
             window.setMinHeight(600);
         }
@@ -398,6 +382,7 @@ public class EventDetailAlertBox {
         } else {
             window.setY(y);
             window.setX(x);
+            window.setAlwaysOnTop(true);
         }
         window.showAndWait();
         return resultEvent;
@@ -469,14 +454,13 @@ public class EventDetailAlertBox {
             Event event = (Event) object;
             return event.getColor();
         } else if (object instanceof Holiday) {
-            dbConnection = new DbConnection();
             return dbConnection.getDefaultColor("holiday");
         } else if (object instanceof Birthday) {
-            dbConnection = new DbConnection();
             return dbConnection.getDefaultColor("birthday");
         } else if (object instanceof OEPNews) {
-            dbConnection = new DbConnection();
             return dbConnection.getDefaultColor("oepnews");
+        } else if (object instanceof Class){
+            return dbConnection.getDefaultColor("oepcoursenews");
         }
         return "";
     }
