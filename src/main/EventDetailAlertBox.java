@@ -67,7 +67,7 @@ public class EventDetailAlertBox {
         window.setMinHeight(350);
 
         eventTitleLabel = new Label();
-        eventTitleLabel.setFont(new Font("System", 32));
+        eventTitleLabel.setFont(new Font("System", 24));
         eventTitleLabel.setMaxWidth(Double.MAX_VALUE);
         eventTitleLabel.setPrefWidth(600f);
         eventTitleLabel.setPadding(new Insets(15, 8, 30, 15));
@@ -75,7 +75,7 @@ public class EventDetailAlertBox {
         eventTitleLabel.setTextFill(Color.WHITE);
 
         eventSubtitleLabel = new Label();
-        eventSubtitleLabel.setFont(new Font("System", 22));
+        eventSubtitleLabel.setFont(new Font("System", 16));
         eventSubtitleLabel.setMaxWidth(Double.MAX_VALUE);
         eventSubtitleLabel.setPadding(new Insets(10, 8, 10, 8));
         VBox.setVgrow(eventSubtitleLabel, Priority.ALWAYS);
@@ -102,7 +102,7 @@ public class EventDetailAlertBox {
                 0, 10, 0, 8);
 
         eventTimeLabel = new Label();
-        eventTimeLabel.setFont(new Font("System", 22));
+        eventTimeLabel.setFont(new Font("System", 18));
         eventTimeLabel.setTextFill(Color.BLACK);
 
         eventTimeHBox.getChildren().addAll(eventTimeImageView, eventTimeLabel);
@@ -116,7 +116,7 @@ public class EventDetailAlertBox {
 
         eventNotifyTimeLabel = new Label();
         eventNotifyTimeLabel.setPadding(new Insets(5, 0, 0, 0));
-        eventNotifyTimeLabel.setFont(new Font("System", 22));
+        eventNotifyTimeLabel.setFont(new Font("System", 18));
         eventNotifyTimeLabel.setTextFill(Color.BLACK);
         eventNotifyTimeHBox.getChildren().addAll(eventNotifyTimeImageView, eventNotifyTimeLabel);
 
@@ -127,7 +127,7 @@ public class EventDetailAlertBox {
         ImageView eventDescriptionImageView = makeImageView("description", "Mô tả sự kiện", 0, 10, 0, 8);
 
         eventDescriptionLabel = new Label();
-        eventDescriptionLabel.setFont(new Font("System", 22));
+        eventDescriptionLabel.setFont(new Font("System", 18));
         eventDescriptionLabel.setTextFill(Color.BLACK);
 
         eventDescriptionHBox.getChildren().addAll(eventDescriptionImageView, eventDescriptionLabel);

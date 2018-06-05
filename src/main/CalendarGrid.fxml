@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="RootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1368.0" prefHeight="768.0" prefWidth="1368.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.CalendarGridController">
+<AnchorPane fx:id="RootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="768.0" minWidth="1368.0" prefHeight="768.0" prefWidth="1368.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.CalendarGridController">
    <children>
       <GridPane fx:id="calendarGridPane" gridLinesVisible="true" layoutY="108.0" minHeight="444.0" minWidth="1098.0" prefHeight="444.0" prefWidth="1258.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="108.0">
         <columnConstraints>
@@ -316,7 +316,7 @@
             <Font size="20.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="monthComboBox" layoutX="158.0" layoutY="29.0" prefHeight="31.0" prefWidth="171.0" AnchorPane.leftAnchor="158.0" AnchorPane.topAnchor="29.0" />
+      <ComboBox fx:id="monthComboBox" layoutX="223.0" layoutY="16.0" prefHeight="75.0" prefWidth="94.0" AnchorPane.leftAnchor="223.0" AnchorPane.topAnchor="16.0" />
       <Button fx:id="prevYearButton" layoutX="358.0" layoutY="30.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="43.0" style="-fx-background-color: #f5f5f5;" text="&lt;" AnchorPane.leftAnchor="358.0" AnchorPane.topAnchor="30.0">
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -325,11 +325,19 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <TextField fx:id="mmhTextField" layoutX="720.0" layoutY="43.0" />
-      <Button fx:id="updateButton" layoutX="913.0" layoutY="43.0" mnemonicParsing="false" text="Cập nhật thông báo" />
       <Button fx:id="SettingsButton" layoutX="1249.0" layoutY="26.0" mnemonicParsing="false" text="Thiết lập" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="26.0">
          <font>
             <Font size="20.0" />
          </font></Button>
+      <Label layoutX="166.0" layoutY="38.0" text="Tháng" AnchorPane.bottomAnchor="702.8" AnchorPane.rightAnchor="1152.4">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="401.0" layoutY="2.0" text="Năm" AnchorPane.bottomAnchor="738.8" AnchorPane.rightAnchor="928.6">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

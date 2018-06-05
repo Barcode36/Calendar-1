@@ -10,6 +10,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.StringConverter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -73,22 +74,17 @@ public class CalendarGridController implements Initializable {
     public VBox vBox46;
     public VBox vBox56;
     public VBox vBox66;
-    public AnchorPane sampleroot;
     public Button currentDayButton;
     public TextField yearTextField;
     public ComboBox monthComboBox;
     public Button prevYearButton;
     public Button nextYearButton;
-    public Button updateButton;
-    public TextField mmhTextField;
     private CreateEventAlertBox createEventAlertBox;
     private EventDetailAlertBox eventDetailAlertBox;
     private Settings settings;
     private Calendar c = Calendar.getInstance();
     private DbConnection dbConnection;
     private AlarmModel alarmModel;
-    private OEPNewsAlarmModel oepNewsAlarmModel;
-    private OEPCourseNewsAlarmModel oepCourseNewsAlarmModel;
     private SimpleDateFormat HHmmFormatter;
 
     @Override
@@ -154,9 +150,9 @@ public class CalendarGridController implements Initializable {
                 yearTextField.setText("" + c.get(Calendar.YEAR));
             }
         });
-        monthComboBox.getItems().addAll("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+        monthComboBox.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12);
         monthComboBox.getSelectionModel().select(c.get(Calendar.MONTH));
-        monthComboBox.setStyle("-fx-font: 20px \"System\";");
+        monthComboBox.setStyle("-fx-font: 18px \"System\";");
         monthComboBox.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -188,10 +184,10 @@ public class CalendarGridController implements Initializable {
         alarmModel = new AlarmModel();
         alarmModel.start();
 
-        oepNewsAlarmModel = new OEPNewsAlarmModel();
-        //oepNewsAlarmModel.start();
+        OEPNewsAlarmModel oepNewsAlarmModel = new OEPNewsAlarmModel();
+        oepNewsAlarmModel.start();
 
-        oepCourseNewsAlarmModel = new OEPCourseNewsAlarmModel();
+        OEPCourseNewsAlarmModel oepCourseNewsAlarmModel = new OEPCourseNewsAlarmModel();
         oepCourseNewsAlarmModel.start();
     }
 

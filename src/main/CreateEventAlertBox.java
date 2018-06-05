@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -184,7 +185,9 @@ public class CreateEventAlertBox {
 
         controlHBox = new HBox();
         controlHBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        controlHBox.setPadding(new Insets(0, 0, 10, 10));
+        controlHBox.setPadding(new Insets(0, 20, 10, 10));
+        controlHBox.setAlignment(Pos.CENTER_RIGHT);
+        VBox.setVgrow(controlHBox, Priority.ALWAYS);
         controlHBox.getChildren().addAll(acceptButton);
 
         layout = new VBox(0);
@@ -233,7 +236,7 @@ public class CreateEventAlertBox {
                 }
             }
         });
-        layout.getChildren().add(0, optionCombobox);
+        //layout.getChildren().add(0, optionCombobox);
 
         window.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -593,7 +596,7 @@ public class CreateEventAlertBox {
         Label start = new Label("Từ");
         HBox.setMargin(start, new Insets(8, 32, 0, 5));
         start.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        start.setStyle("-fx-font: 20px \"System\";");
+        start.setStyle("-fx-font: 18px \"System\";");
 
         startDatePicker = makeDatePicker();
 
@@ -601,7 +604,7 @@ public class CreateEventAlertBox {
 
         startTimeTextField = new TextField();
         startTimeTextField.setMaxWidth(100);
-        startTimeTextField.setFont(new Font("System", 20));
+        startTimeTextField.setFont(new Font("System", 18));
         Calendar current = Calendar.getInstance();
         oldStartTime = (current.get(Calendar.HOUR_OF_DAY) >= 10 ? "" + current.get(Calendar.HOUR_OF_DAY) : "0" + current.get(Calendar.HOUR_OF_DAY))
                 + ":" +
@@ -641,7 +644,7 @@ public class CreateEventAlertBox {
         Label end = new Label("Đến");
         HBox.setMargin(end, new Insets(8, 20, 0, 5));
         end.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        end.setStyle("-fx-font: 20px \"System\";");
+        end.setStyle("-fx-font: 18px \"System\";");
 
         endDatePicker = makeDatePicker();
 
@@ -649,7 +652,7 @@ public class CreateEventAlertBox {
 
         endTimeTextField = new TextField();
         endTimeTextField.setMaxWidth(100);
-        endTimeTextField.setFont(new Font("System", 20));
+        endTimeTextField.setFont(new Font("System", 18));
         Calendar current = Calendar.getInstance();
         current.add(Calendar.MINUTE, 30);
         oldEndTime = (current.get(Calendar.HOUR_OF_DAY) >= 10 ? "" + current.get(Calendar.HOUR_OF_DAY) : "0" + current.get(Calendar.HOUR_OF_DAY))
@@ -697,7 +700,7 @@ public class CreateEventAlertBox {
                 "Tùy chọn",
                 "Không thông báo"
         );
-        notifyTimeComboBox.setStyle("-fx-font: 20px \"System\";");
+        notifyTimeComboBox.setStyle("-fx-font: 18px \"System\";");
         notifyTimeComboBox.getSelectionModel().selectFirst();
 
         notifyTimeTextField = new TextField();
@@ -721,7 +724,7 @@ public class CreateEventAlertBox {
                 "giờ",
                 "ngày"
         );
-        notifyTimeUnitComboBox.setStyle("-fx-font: 20px \"System\";");
+        notifyTimeUnitComboBox.setStyle("-fx-font: 18px \"System\";");
         notifyTimeUnitComboBox.setMaxWidth(120);
         notifyTimeUnitComboBox.getSelectionModel().selectFirst();
         notifyTimeUnitComboBox.setVisible(false);
@@ -751,7 +754,7 @@ public class CreateEventAlertBox {
 
         alarmComboBox = new ComboBox<Alarm>();
         alarmComboBox.setItems(FXCollections.observableArrayList(dbConnection.getAlarmList()));
-        alarmComboBox.setStyle("-fx-font: 20px \"System\";");
+        alarmComboBox.setStyle("-fx-font: 18px \"System\";");
         alarmComboBox.setPadding(new Insets(7, 0, 0, 0));
         alarmComboBox.setConverter(new StringConverter<Alarm>() {
             @Override
@@ -787,7 +790,7 @@ public class CreateEventAlertBox {
             }
         });
         HBox.setMargin(eventDescriptionTextArea, new Insets(0, 10, 0, 0));
-        eventDescriptionTextArea.setFont(new Font("System", 20));
+        eventDescriptionTextArea.setFont(new Font("System", 18));
         HBox.setHgrow(eventDescriptionTextArea, Priority.ALWAYS);
 
         HBox eventDescriptionHBox = new HBox();
@@ -802,7 +805,7 @@ public class CreateEventAlertBox {
     private HBox makeColorChooseHBox() {
         ImageView colorChooser = makeImageView("colorchooser", "Chọn màu sự kiện", 5, 10, 0, 8);
         colorPicker = new ColorPicker();
-        colorPicker.setStyle("-fx-font: 20px \"System\";");
+        colorPicker.setStyle("-fx-font: 18px \"System\";");
         DbConnection dbConnection = new DbConnection();
         colorPicker.setValue(Color.web(dbConnection.getDefaultColor("event")));
 
@@ -881,7 +884,7 @@ public class CreateEventAlertBox {
                 comboBox.setVisible(false);
         });
         ;
-        comboBox.setStyle("-fx-font: 20px \"System\";");
+        comboBox.setStyle("-fx-font: 18px \"System\";");
         comboBox.setVisible(false);
         return comboBox;
     }
@@ -889,7 +892,7 @@ public class CreateEventAlertBox {
     private DatePicker makeDatePicker() {
         DatePicker datePicker = new DatePicker();
         datePicker.setMaxWidth(200);
-        datePicker.setStyle("-fx-font: 20px \"System\";");
+        datePicker.setStyle("-fx-font: 18px \"System\";");
         datePicker.setConverter(new StringConverter<LocalDate>() {
             private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
