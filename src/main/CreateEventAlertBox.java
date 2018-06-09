@@ -140,45 +140,45 @@ public class CreateEventAlertBox {
                         }
                     }
                 } else if (optionCombobox.getSelectionModel().getSelectedItem().equals("Ngày sinh nhật")) {
-                    if (acceptButton.getText().equals("Thêm")) {
-                        if (addNewBirthday(day, calendar.get(Calendar.MONTH))) {
-                            isChanged = false;
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle("Xác nhận");
-                            alert.setContentText("Thêm thành công!");
-                            alert.showAndWait();
-                            window.close();
-                        }
-                    }else if (acceptButton.getText().equals("Cập nhật")){
-                        if (updateBirthday()) {
-                            isChanged = false;
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle("Xác nhận");
-                            alert.setContentText("Cập nhật thành công!");
-                            alert.showAndWait();
-                            window.close();
-                        }
-                    }
+//                    if (acceptButton.getText().equals("Thêm")) {
+//                        if (addNewBirthday(day, calendar.get(Calendar.MONTH))) {
+//                            isChanged = false;
+//                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                            alert.setTitle("Xác nhận");
+//                            alert.setContentText("Thêm thành công!");
+//                            alert.showAndWait();
+//                            window.close();
+//                        }
+//                    }else if (acceptButton.getText().equals("Cập nhật")){
+//                        if (updateBirthday()) {
+//                            isChanged = false;
+//                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                            alert.setTitle("Xác nhận");
+//                            alert.setContentText("Cập nhật thành công!");
+//                            alert.showAndWait();
+//                            window.close();
+//                        }
+//                    }
                 } else if (optionCombobox.getSelectionModel().getSelectedItem().equals("Ngày lễ")) {
-                    if (acceptButton.getText().equals("Thêm")) {
-                        if (addNewHoliday(day, calendar.get(Calendar.MONTH))) {
-                            isChanged = false;
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle("Xác nhận");
-                            alert.setContentText("Thêm thành công!");
-                            alert.showAndWait();
-                            window.close();
-                        }
-                    }else if (acceptButton.getText().equals("Cập nhật")){
-                        if (updateHoliday()) {
-                            isChanged = false;
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle("Xác nhận");
-                            alert.setContentText("Cập nhật thành công!");
-                            alert.showAndWait();
-                            window.close();
-                        }
-                    }
+//                    if (acceptButton.getText().equals("Thêm")) {
+//                        if (addNewHoliday(day, calendar.get(Calendar.MONTH))) {
+//                            isChanged = false;
+//                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                            alert.setTitle("Xác nhận");
+//                            alert.setContentText("Thêm thành công!");
+//                            alert.showAndWait();
+//                            window.close();
+//                        }
+//                    }else if (acceptButton.getText().equals("Cập nhật")){
+//                        if (updateHoliday()) {
+//                            isChanged = false;
+//                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                            alert.setTitle("Xác nhận");
+//                            alert.setContentText("Cập nhật thành công!");
+//                            alert.showAndWait();
+//                            window.close();
+//                        }
+//                    }
                 }
             }
         });
@@ -538,18 +538,18 @@ public class CreateEventAlertBox {
         return result;
     }
 
-    private boolean addNewBirthday(int day, int month) {
-        Birthday newBirthday = new Birthday();
-        if (!titleTextField.getText().isEmpty()) {
-            newBirthday.setName(titleTextField.getText());
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Vui lòng nhập tên! ", ButtonType.OK);
-            alert.setTitle("Lỗi");
-            alert.showAndWait();
-            return false;
-        }
-        return dbConnection.addBirthday(newBirthday, day, month);
-    }
+//    private boolean addNewBirthday(int day, int month) {
+//        Birthday newBirthday = new Birthday();
+//        if (!titleTextField.getText().isEmpty()) {
+//            newBirthday.setName(titleTextField.getText());
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.WARNING, "Vui lòng nhập tên! ", ButtonType.OK);
+//            alert.setTitle("Lỗi");
+//            alert.showAndWait();
+//            return false;
+//        }
+//        return dbConnection.addBirthday(newBirthday, day, month);
+//    }
 
     private boolean updateBirthday() {
         Birthday newBirthday = new Birthday();
@@ -565,18 +565,18 @@ public class CreateEventAlertBox {
         return dbConnection.updateBirthday(newBirthday);
     }
 
-    private boolean addNewHoliday(int day, int month) {
-        Holiday newHoliday = new Holiday();
-        if (!titleTextField.getText().isEmpty()) {
-            newHoliday.setName(titleTextField.getText());
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Vui lòng nhập tên ngày lễ! ", ButtonType.OK);
-            alert.setTitle("Lỗi");
-            alert.showAndWait();
-            return false;
-        }
-        return dbConnection.addHoliday(newHoliday, day, month);
-    }
+//    private boolean addNewHoliday(int day, int month) {
+//        Holiday newHoliday = new Holiday();
+//        if (!titleTextField.getText().isEmpty()) {
+//            newHoliday.setName(titleTextField.getText());
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.WARNING, "Vui lòng nhập tên ngày lễ! ", ButtonType.OK);
+//            alert.setTitle("Lỗi");
+//            alert.showAndWait();
+//            return false;
+//        }
+//        return dbConnection.addHoliday(newHoliday, day, month);
+//    }
 
     private boolean updateHoliday() {
         Holiday newHoliday = new Holiday();

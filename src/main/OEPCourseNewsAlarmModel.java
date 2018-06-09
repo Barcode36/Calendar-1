@@ -31,7 +31,7 @@ public class OEPCourseNewsAlarmModel {
         Calendar calendar = Calendar.getInstance();
         lastTime = dbConnection.getLastOEPCourseNewsTime(calendar.get(Calendar.YEAR));
         eventDetailAlertBox = new EventDetailAlertBox();
-        executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.MINUTES);
+        executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.SECONDS);
     }
 
     public void stop() {
@@ -39,8 +39,9 @@ public class OEPCourseNewsAlarmModel {
     }
 
     private void tick() {
-        Alarm alarm = dbConnection.getAlarm(dbConnection.getDefaultAlarm("oepcoursenews"));
         Calendar calendar = Calendar.getInstance();
+        //lastTime = dbConnection.getLastOEPCourseNewsTime(calendar.get(Calendar.YEAR));
+        Alarm alarm = dbConnection.getAlarm(dbConnection.getDefaultAlarm("oepcoursenews"));
         List<Class> cours = getUpdate(dbConnection.getClassList());
         Platform.runLater(() -> {
             for (Class aClass : cours) {
@@ -59,6 +60,7 @@ public class OEPCourseNewsAlarmModel {
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-nghi-hoc-hoc-bu");
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-nghi-hoc-hoc-bu?page=1");
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-nghi-hoc-hoc-bu?page=2");
+        arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-nghi-hoc-hoc-bu?page=3");
         for (int i = 0; i < arrayListMMH.size(); i++) {//arrayListMMH.size(); i++) {
             for (int j = 0; j < arrayListURL.size(); j++) {
                 try {

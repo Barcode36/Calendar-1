@@ -31,7 +31,7 @@ public class OEPNewsAlarmModel {
         Calendar calendar = Calendar.getInstance();
         lastTime = dbConnection.getLastOEPNewsTime(calendar.get(Calendar.YEAR));
         eventDetailAlertBox = new EventDetailAlertBox();
-        executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.MINUTES);
+        executorService.scheduleAtFixedRate(this::tick, 3, 30, TimeUnit.MINUTES);
     }
 
     public void stop() {
@@ -39,8 +39,9 @@ public class OEPNewsAlarmModel {
     }
 
     private void tick() {
-        Alarm alarm = dbConnection.getAlarm(dbConnection.getDefaultAlarm("oepnews"));
         Calendar calendar = Calendar.getInstance();
+        //lastTime = dbConnection.getLastOEPNewsTime(calendar.get(Calendar.YEAR));
+        Alarm alarm = dbConnection.getAlarm(dbConnection.getDefaultAlarm("oepnews"));
         List<OEPNews> oepNewsList = getUpdateDAA();
         Platform.runLater(() -> {
             for (OEPNews oepNews : oepNewsList){

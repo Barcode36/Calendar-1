@@ -311,7 +311,14 @@ public class Settings {
                 if (selectedFiles != null) {
                     Alarm music = new Alarm();
                     music.setName(selectedFiles.getName());
-                    music.setPath(selectedFiles.getPath());
+                    if(selectedFiles.getPath().contains(" ")){
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Lỗi");
+                        alert.setContentText("Tên file không được chưa dấu cách");
+                        alert.showAndWait();
+                        return;
+                    }
+                    music.setPath(selectedFiles.getPath().replaceAll("\\\\", "/"));
                     colorConnection.addAlarm(music);
                     alarms = colorConnection.getAlarmList();
                     comboBoxAmBaoSuKien.setItems(FXCollections.observableArrayList(alarms));

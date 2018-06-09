@@ -264,14 +264,14 @@ public class CalendarGridController implements Initializable {
                     }
                 }
 
-                List<Birthday> birthdays = dbConnection.getDayBirthday(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
-                if (birthdays != null) {
-                    for (Birthday k : birthdays) {
-                        Label label = makeLabel(k);
-                        VBox.setMargin(label, new Insets(0, 0, 2, 0));
-                        dayGrid[i][j].getChildren().add(label);
-                    }
-                }
+//                List<Birthday> birthdays = dbConnection.getDayBirthday(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
+//                if (birthdays != null) {
+//                    for (Birthday k : birthdays) {
+//                        Label label = makeLabel(k);
+//                        VBox.setMargin(label, new Insets(0, 0, 2, 0));
+//                        dayGrid[i][j].getChildren().add(label);
+//                    }
+//                }
 
                 List<Event> events = dbConnection.getDayEvent(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
                 if (events != null) {
