@@ -184,11 +184,11 @@ public class CalendarGridController implements Initializable {
         alarmModel = new AlarmModel();
         alarmModel.start();
 
-        OEPNewsAlarmModel oepNewsAlarmModel = new OEPNewsAlarmModel();
-        oepNewsAlarmModel.start();
-
-        OEPCourseNewsAlarmModel oepCourseNewsAlarmModel = new OEPCourseNewsAlarmModel();
-        oepCourseNewsAlarmModel.start();
+//        OEPNewsAlarmModel oepNewsAlarmModel = new OEPNewsAlarmModel();
+//        oepNewsAlarmModel.start();
+//
+//        OEPCourseNewsAlarmModel oepCourseNewsAlarmModel = new OEPCourseNewsAlarmModel();
+//        oepCourseNewsAlarmModel.start();
     }
 
     private void refreshCalendarGrid(int maxDay, int dayOfWeek) {
@@ -353,9 +353,10 @@ public class CalendarGridController implements Initializable {
             public void handle(MouseEvent event) {
                 event.consume();
                 Event resultEvent = eventDetailAlertBox.display(object, event.getSceneX(), event.getSceneY(), false);
+                alarmModel.addAlarm(resultEvent);
                 if (resultEvent != null) {
                     System.out.println("resultEvent: not null");
-                    alarmModel.addAlarm(resultEvent);
+
                 } else {
                     System.out.println("resultEvent: null");
                 }

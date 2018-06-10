@@ -320,16 +320,16 @@ public class CreateEventAlertBox {
                 alarmComboBox.getSelectionModel().select(alarm);
             } else if (object instanceof Holiday) {
                 optionCombobox.getSelectionModel().select("Ngày lễ");
-                Holiday holiday = (Holiday)object;
+                Holiday holiday = (Holiday) object;
                 titleTextField.setUserData(holiday.getHolidayid());
-                if (!holiday.getName().isEmpty()){
+                if (!holiday.getName().isEmpty()) {
                     titleTextField.setText(holiday.getName());
                 }
-            } else if (object instanceof Birthday){
+            } else if (object instanceof Birthday) {
                 optionCombobox.getSelectionModel().select("Ngày sinh nhật");
-                Birthday birthday = (Birthday)object;
+                Birthday birthday = (Birthday) object;
                 titleTextField.setUserData(birthday.getBirthdayid());
-                if (!birthday.getName().isEmpty()){
+                if (!birthday.getName().isEmpty()) {
                     titleTextField.setText(birthday.getName());
                 }
             }
@@ -350,7 +350,7 @@ public class CreateEventAlertBox {
 
         if (primaryScreenBounds.getWidth() - x < window.getMinWidth()) {
             if (primaryScreenBounds.getHeight() - y < window.getMinHeight()) {
-                window.setY(Math.abs(y - window.getMinHeight()+30));
+                window.setY(Math.abs(y - window.getMinHeight() + 30));
                 window.setX(x - window.getMinWidth());
             } else {
                 window.setY(y);
@@ -358,7 +358,7 @@ public class CreateEventAlertBox {
             }
         } else {
             if (primaryScreenBounds.getHeight() - y < window.getMinHeight()) {
-                window.setY(Math.abs(y - window.getMinHeight()+30));
+                window.setY(Math.abs(y - window.getMinHeight() + 30));
                 window.setX(x);
             } else {
                 window.setY(y);
@@ -447,6 +447,7 @@ public class CreateEventAlertBox {
         newEvent.setColor(Utils.toRGBCode(colorPicker.getValue()));
 
         newEvent.setAlarmID(alarmComboBox.getSelectionModel().getSelectedItem().getAlarmid());
+        calendar.setTimeInMillis(newEvent.getStartTime()*1000);
         boolean result = dbConnection.addEventToYearEventTable(newEvent, calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
         if (result) {
             resultEvent = dbConnection.getLastEvent(year);
@@ -553,7 +554,7 @@ public class CreateEventAlertBox {
 
     private boolean updateBirthday() {
         Birthday newBirthday = new Birthday();
-        newBirthday.setBirthdayid((int)titleTextField.getUserData());
+        newBirthday.setBirthdayid((int) titleTextField.getUserData());
         if (!titleTextField.getText().isEmpty()) {
             newBirthday.setName(titleTextField.getText());
         } else {
@@ -580,7 +581,7 @@ public class CreateEventAlertBox {
 
     private boolean updateHoliday() {
         Holiday newHoliday = new Holiday();
-        newHoliday.setHolidayid((int)titleTextField.getUserData());
+        newHoliday.setHolidayid((int) titleTextField.getUserData());
         if (!titleTextField.getText().isEmpty()) {
             newHoliday.setName(titleTextField.getText());
         } else {
@@ -611,11 +612,10 @@ public class CreateEventAlertBox {
                 (current.get(Calendar.MINUTE) >= 10 ? "" + current.get(Calendar.MINUTE) : "0" + current.get(Calendar.MINUTE));
         startTimeTextField.setText(oldStartTime);
         startTimeTextField.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-            if (!newValue) { //when focus lost
+            if (!newValue) {//when focus lost
+                startTimeComboBox.setVisible(false);
                 if (!startTimeTextField.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")) {
                     startTimeTextField.setText(oldStartTime);
-                    if (!startTimeComboBox.isFocused())
-                        startTimeComboBox.setVisible(false);
                 } else {
                     oldStartTime = startTimeTextField.getText();
                 }
@@ -660,11 +660,10 @@ public class CreateEventAlertBox {
                 (current.get(Calendar.MINUTE) >= 10 ? "" + current.get(Calendar.MINUTE) : "0" + current.get(Calendar.MINUTE));
         endTimeTextField.setText(oldEndTime);
         endTimeTextField.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-            if (!newValue) { //when focus lost
+            if (!newValue) {//when focus lost
+                endTimeComboBox.setVisible(false);
                 if (!endTimeTextField.getText().matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")) {
                     endTimeTextField.setText(oldEndTime);
-                    if (!endTimeComboBox.isFocused())
-                        endTimeComboBox.setVisible(false);
                 } else {
                     oldEndTime = endTimeTextField.getText();
                 }

@@ -25,24 +25,31 @@
       <file leaf-file-name="CalendarGridController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/CalendarGridController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5678">
-              <caret line="354" column="52" selection-start-line="354" selection-start-column="47" selection-end-line="354" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/settings.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="CalendarGrid.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/CalendarGrid.fxml">
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+            <state relative-caret-position="229">
+              <caret line="355" column="49" selection-start-line="355" selection-start-column="49" selection-end-line="355" selection-end-column="49" />
+              <folding>
+                <element signature="e#2527#7544#0" />
+                <element signature="e#2731#2784#0" />
+                <element signature="class#2857:3020" />
+                <element signature="class#3829:4063" />
+                <element signature="method#handle#0;class#3829:4063" />
+                <element signature="class#4107:5088" />
+                <element signature="method#handle#0;class#4107:5088" />
+                <element signature="class#5132:5670" />
+                <element signature="method#handle#0;class#5132:5670" />
+                <element signature="class#5915:6293" />
+                <element signature="method#handle#0;class#5915:6293" />
+                <element signature="class#6393:6786" />
+                <element signature="method#handle#0;class#6393:6786" />
+                <element signature="class#6828:7220" />
+                <element signature="method#handle#0;class#6828:7220" />
+                <element signature="e#7292#7364#0" />
+                <element signature="e#10603#10735#0" />
+                <element signature="e#15299#17017#0" />
+                <element signature="e#17697#17899#0" />
+                <element signature="e#17905#19067#0" />
+                <element signature="e#19073#20081#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -50,8 +57,8 @@
       <file leaf-file-name="OEPCourseNewsAlarmModel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/OEPCourseNewsAlarmModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-119">
-              <caret line="52" column="8" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
+            <state relative-caret-position="204">
+              <caret line="49" column="13" lean-forward="true" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,8 +69,8 @@
       <file leaf-file-name="OEPNewsAlarmModel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/OEPNewsAlarmModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-221">
-              <caret line="35" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="551">
+              <caret line="52" column="48" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -71,13 +78,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Settings.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/Settings.java">
+      <file leaf-file-name="AlarmModel.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/AlarmModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="287" column="57" lean-forward="true" selection-start-line="287" selection-start-column="17" selection-end-line="287" selection-end-column="57" />
+            <state relative-caret-position="175">
+              <caret line="51" column="76" lean-forward="true" selection-start-line="51" selection-start-column="76" selection-end-line="51" selection-end-column="76" />
               <folding>
-                <element signature="method#makeImageView#0;class#Settings#0" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#1871#1872#0" expanded="true" />
+                <element signature="e#1907#1908#0" expanded="true" />
+                <element signature="e#2393#2394#0" expanded="true" />
+                <element signature="e#2438#2439#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,21 +97,19 @@
       <file leaf-file-name="DbConnection.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/DbConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="229" column="23" selection-start-line="229" selection-start-column="23" selection-end-line="229" selection-end-column="23" />
+            <state relative-caret-position="123">
+              <caret line="294" selection-start-line="294" selection-end-line="294" />
               <folding>
                 <element signature="method#connect#0;class#DbConnection#0" />
                 <element signature="method#createYearTable#0;class#DbConnection#0" />
                 <element signature="method#createOEPNewsYearTable#0;class#DbConnection#0" />
                 <element signature="method#createOEPCourseYearTable#0;class#DbConnection#0" />
-                <element signature="method#addEventToYearEventTable#0;class#DbConnection#0" />
                 <element signature="method#addHoliday#0;class#DbConnection#0" />
                 <element signature="method#addBirthday#0;class#DbConnection#0" />
                 <element signature="method#addOEPNews#0;class#DbConnection#0" />
                 <element signature="method#addOEPCourseNews#0;class#DbConnection#0" />
                 <element signature="method#updateBirthday#0;class#DbConnection#0" />
                 <element signature="method#updateHoliday#0;class#DbConnection#0" />
-                <element signature="method#getDateId#0;class#DbConnection#0" />
                 <element signature="method#getHolidayDateId#0;class#DbConnection#0" />
                 <element signature="method#getBirthdayDateId#0;class#DbConnection#0" />
                 <element signature="method#getDate#0;class#DbConnection#0" />
@@ -131,15 +140,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AlarmModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/AlarmModel.java">
+      <file leaf-file-name="CreateEventAlertBox.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/CreateEventAlertBox.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="952">
-              <caret line="71" selection-start-line="71" selection-end-line="71" />
+            <state relative-caret-position="1791">
+              <caret line="688" column="5" lean-forward="true" selection-start-line="688" selection-start-column="5" selection-end-line="688" selection-end-column="5" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1850#1851#0" expanded="true" />
-                <element signature="e#1895#1896#0" expanded="true" />
+                <element signature="class#2807:2962" />
+                <element signature="e#5423#5489#0" />
+                <element signature="e#6604#6670#0" />
+                <element signature="class#8884:10922" />
+                <element signature="method#changed#0;class#8884:10922" />
+                <element signature="class#11018:11711" />
+                <element signature="method#handle#0;class#11018:11711" />
+                <element signature="e#11834#17095#0" />
+                <element signature="e#21196#25187#0" />
+                <element signature="e#25189#25247#0" />
+                <element signature="e#25725#26270#0" />
+                <element signature="e#26272#26329#0" />
+                <element signature="e#26809#27345#0" />
+                <element signature="e#27351#29601#0" />
+                <element signature="e#28364#28881#0" />
+                <element signature="class#28927:29210" />
+                <element signature="method#handle#0;class#28927:29210" />
+                <element signature="e#29607#31830#0" />
+                <element signature="e#30635#31138#0" />
+                <element signature="class#31182:31457" />
+                <element signature="method#handle#0;class#31182:31457" />
+                <element signature="e#31836#34456#0" />
+                <element signature="class#32703:33072" />
+                <element signature="method#changed#0;class#32703:33072" />
+                <element signature="class#33537:34057" />
+                <element signature="method#handle#0;class#33537:34057" />
+                <element signature="e#34462#35495#0" />
+                <element signature="class#34898:35181" />
+                <element signature="e#35501#36742#0" />
+                <element signature="class#35927:36082" />
+                <element signature="e#36748#37461#0" />
+                <element signature="e#37467#39824#0" />
+                <element signature="class#39227:39507" />
+                <element signature="e#39557#39688#0" />
+                <element signature="e#39830#40832#0" />
+                <element signature="class#40050:40709" />
+                <element signature="method#toString#0;class#40050:40709" />
+                <element signature="method#fromString#0;class#40050:40709" />
+                <element signature="e#40838#41392#0" />
               </folding>
             </state>
           </provider>
@@ -148,51 +193,11 @@
       <file leaf-file-name="EventDetailAlertBox.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/EventDetailAlertBox.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="175" column="72" selection-start-line="175" selection-start-column="60" selection-end-line="175" selection-end-column="72" />
+            <state relative-caret-position="-979">
+              <caret line="182" column="44" selection-start-line="182" selection-start-column="44" selection-end-line="182" selection-end-column="44" />
               <folding>
                 <element signature="method#getDateOfWeek#0;class#EventDetailAlertBox#0" />
                 <element signature="method#getMonthString#0;class#EventDetailAlertBox#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CreateEventAlertBox.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/CreateEventAlertBox.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="768" column="11" lean-forward="true" selection-start-line="755" selection-start-column="8" selection-end-line="768" selection-end-column="11" />
-              <folding>
-                <element signature="e#2903#2904#0" expanded="true" />
-                <element signature="e#2951#2952#0" expanded="true" />
-                <element signature="e#5423#5489#0" />
-                <element signature="e#6604#6670#0" />
-                <element signature="e#11834#17086#0" />
-                <element signature="e#21187#25178#0" />
-                <element signature="e#25180#25238#0" />
-                <element signature="e#25716#26260#0" />
-                <element signature="e#26262#26319#0" />
-                <element signature="e#26799#27334#0" />
-                <element signature="e#27340#29655#0" />
-                <element signature="e#28353#28935#0" />
-                <element signature="e#29661#31947#0" />
-                <element signature="e#30689#31255#0" />
-                <element signature="e#31953#34573#0" />
-                <element signature="class#35015:35298" />
-                <element signature="e#35618#36859#0" />
-                <element signature="e#36140#36141#0" expanded="true" />
-                <element signature="e#36188#36189#0" expanded="true" />
-                <element signature="e#36865#37578#0" />
-                <element signature="e#37584#39941#0" />
-                <element signature="e#37674#37680#0" expanded="true" />
-                <element signature="class#39344:39624" />
-                <element signature="e#39674#39805#0" />
-                <element signature="e#39947#40949#0" />
-                <element signature="class#40167:40826" />
-                <element signature="method#toString#0;class#40167:40826" />
-                <element signature="method#fromString#0;class#40167:40826" />
-                <element signature="e#40955#41509#0" />
               </folding>
             </state>
           </provider>
@@ -253,17 +258,17 @@
         <option value="$PROJECT_DIR$/src/main/Daa.java" />
         <option value="$PROJECT_DIR$/src/main/OEPNews.java" />
         <option value="$PROJECT_DIR$/src/main/CalendarGrid.fxml" />
-        <option value="$PROJECT_DIR$/src/main/AlarmModel.java" />
         <option value="$PROJECT_DIR$/src/main/Course.java" />
         <option value="$PROJECT_DIR$/src/main/Utils.java" />
         <option value="$PROJECT_DIR$/src/main/Class.java" />
         <option value="$PROJECT_DIR$/src/main/DbConnection.java" />
-        <option value="$PROJECT_DIR$/src/main/EventDetailAlertBox.java" />
-        <option value="$PROJECT_DIR$/src/main/CalendarGridController.java" />
-        <option value="$PROJECT_DIR$/src/main/CreateEventAlertBox.java" />
         <option value="$PROJECT_DIR$/src/main/Settings.java" />
-        <option value="$PROJECT_DIR$/src/main/OEPCourseNewsAlarmModel.java" />
         <option value="$PROJECT_DIR$/src/main/OEPNewsAlarmModel.java" />
+        <option value="$PROJECT_DIR$/src/main/OEPCourseNewsAlarmModel.java" />
+        <option value="$PROJECT_DIR$/src/main/CreateEventAlertBox.java" />
+        <option value="$PROJECT_DIR$/src/main/CalendarGridController.java" />
+        <option value="$PROJECT_DIR$/src/main/EventDetailAlertBox.java" />
+        <option value="$PROJECT_DIR$/src/main/AlarmModel.java" />
       </list>
     </option>
   </component>
@@ -274,7 +279,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
+    <option name="x" value="315" />
+    <option name="y" value="10" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
@@ -284,7 +290,7 @@
     </navigator>
     <panes>
       <pane id="AndroidView" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -312,7 +318,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -427,24 +433,24 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.20827587" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50130206" side_tool="true" weight="0.27724138" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986979" weight="0.12137931" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986979" weight="0.3586207" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11263021" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11263021" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49934897" weight="0.25241378" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49934897" weight="0.17793104" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.20827587" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" x="0" y="0" width="337" height="638" id="Documentation" order="4" side_tool="true" weight="0.3294271" />
@@ -462,12 +468,12 @@
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49934897" visible="true" weight="0.011034483" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1829427" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -478,13 +484,13 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49934897" weight="0.16275862" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50065106" side_tool="true" visible="true" weight="0.011034483" />
       <window_info id="Capture Tool" order="5" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.13241379" />
       <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.3294271" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1829427" />
+      <window_info id="Favorites" order="6" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -510,17 +516,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/EventDetailAlertBox.java</url>
-          <line>347</line>
+          <line>348</line>
           <properties />
           <option name="timeStamp" value="94" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/CreateEventAlertBox.java</url>
+          <line>386</line>
+          <properties />
+          <option name="timeStamp" value="108" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/DbConnection.java</url>
+          <line>97</line>
+          <properties />
+          <option name="timeStamp" value="110" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="100" />
+      <option name="time" value="111" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/Main.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/CreateEventAlertBox.java" />
     <entry file="file://$PROJECT_DIR$/src/main/CalendarGridController.java" />
     <entry file="file://$PROJECT_DIR$/src/main/Main.java" />
     <entry file="file://$PROJECT_DIR$/src/main/CreateEventAlertBox.java" />
@@ -548,13 +564,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="5" selection-start-column="5" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
         </state>
       </provider>
     </entry>
@@ -599,13 +608,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/event/Event.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="197" selection-start-line="197" selection-end-line="197" />
         </state>
       </provider>
     </entry>
@@ -656,42 +658,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/AlarmModel.java">
+    <entry file="file://$PROJECT_DIR$/src/main/Settings.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
+        <state relative-caret-position="4318">
+          <caret line="287" column="57" selection-start-line="287" selection-start-column="17" selection-end-line="287" selection-end-column="57" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1850#1851#0" expanded="true" />
-            <element signature="e#1895#1896#0" expanded="true" />
+            <element signature="method#makeImageView#0;class#Settings#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/CalendarGridController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/Event.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5678">
-          <caret line="354" column="52" selection-start-line="354" selection-start-column="47" selection-end-line="354" selection-end-column="52" />
+        <state relative-caret-position="408">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="e#640#641#0" expanded="true" />
+            <element signature="e#873#874#0" expanded="true" />
+            <element signature="e#903#904#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/OEPNewsAlarmModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="52" column="48" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/OEPCourseNewsAlarmModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="49" column="13" lean-forward="true" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/event/Event.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="197" selection-start-line="197" selection-end-line="197" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/scene/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="8413" selection-start-line="8413" selection-end-line="8413" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/javafx-src.zip!/javafx/application/Platform.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="82" selection-start-line="82" selection-end-line="82" />
+          <folding>
+            <element signature="e#2704#2705#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/DbConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="229" column="23" selection-start-line="229" selection-start-column="23" selection-end-line="229" selection-end-column="23" />
+        <state relative-caret-position="123">
+          <caret line="294" selection-start-line="294" selection-end-line="294" />
           <folding>
             <element signature="method#connect#0;class#DbConnection#0" />
             <element signature="method#createYearTable#0;class#DbConnection#0" />
             <element signature="method#createOEPNewsYearTable#0;class#DbConnection#0" />
             <element signature="method#createOEPCourseYearTable#0;class#DbConnection#0" />
-            <element signature="method#addEventToYearEventTable#0;class#DbConnection#0" />
             <element signature="method#addHoliday#0;class#DbConnection#0" />
             <element signature="method#addBirthday#0;class#DbConnection#0" />
             <element signature="method#addOEPNews#0;class#DbConnection#0" />
             <element signature="method#addOEPCourseNews#0;class#DbConnection#0" />
             <element signature="method#updateBirthday#0;class#DbConnection#0" />
             <element signature="method#updateHoliday#0;class#DbConnection#0" />
-            <element signature="method#getDateId#0;class#DbConnection#0" />
             <element signature="method#getHolidayDateId#0;class#DbConnection#0" />
             <element signature="method#getBirthdayDateId#0;class#DbConnection#0" />
             <element signature="method#getDate#0;class#DbConnection#0" />
@@ -721,40 +768,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Settings.java">
+    <entry file="file://$PROJECT_DIR$/src/main/CreateEventAlertBox.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="287" column="57" lean-forward="true" selection-start-line="287" selection-start-column="17" selection-end-line="287" selection-end-column="57" />
+        <state relative-caret-position="1791">
+          <caret line="688" column="5" lean-forward="true" selection-start-line="688" selection-start-column="5" selection-end-line="688" selection-end-column="5" />
           <folding>
-            <element signature="method#makeImageView#0;class#Settings#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/OEPNewsAlarmModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-221">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/OEPCourseNewsAlarmModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-119">
-          <caret line="52" column="8" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="class#2807:2962" />
+            <element signature="e#5423#5489#0" />
+            <element signature="e#6604#6670#0" />
+            <element signature="class#8884:10922" />
+            <element signature="method#changed#0;class#8884:10922" />
+            <element signature="class#11018:11711" />
+            <element signature="method#handle#0;class#11018:11711" />
+            <element signature="e#11834#17095#0" />
+            <element signature="e#21196#25187#0" />
+            <element signature="e#25189#25247#0" />
+            <element signature="e#25725#26270#0" />
+            <element signature="e#26272#26329#0" />
+            <element signature="e#26809#27345#0" />
+            <element signature="e#27351#29601#0" />
+            <element signature="e#28364#28881#0" />
+            <element signature="class#28927:29210" />
+            <element signature="method#handle#0;class#28927:29210" />
+            <element signature="e#29607#31830#0" />
+            <element signature="e#30635#31138#0" />
+            <element signature="class#31182:31457" />
+            <element signature="method#handle#0;class#31182:31457" />
+            <element signature="e#31836#34456#0" />
+            <element signature="class#32703:33072" />
+            <element signature="method#changed#0;class#32703:33072" />
+            <element signature="class#33537:34057" />
+            <element signature="method#handle#0;class#33537:34057" />
+            <element signature="e#34462#35495#0" />
+            <element signature="class#34898:35181" />
+            <element signature="e#35501#36742#0" />
+            <element signature="class#35927:36082" />
+            <element signature="e#36748#37461#0" />
+            <element signature="e#37467#39824#0" />
+            <element signature="class#39227:39507" />
+            <element signature="e#39557#39688#0" />
+            <element signature="e#39830#40832#0" />
+            <element signature="class#40050:40709" />
+            <element signature="method#toString#0;class#40050:40709" />
+            <element signature="method#fromString#0;class#40050:40709" />
+            <element signature="e#40838#41392#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/EventDetailAlertBox.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="175" column="72" selection-start-line="175" selection-start-column="60" selection-end-line="175" selection-end-column="72" />
+        <state relative-caret-position="-979">
+          <caret line="182" column="44" selection-start-line="182" selection-start-column="44" selection-end-line="182" selection-end-column="44" />
           <folding>
             <element signature="method#getDateOfWeek#0;class#EventDetailAlertBox#0" />
             <element signature="method#getMonthString#0;class#EventDetailAlertBox#0" />
@@ -762,40 +827,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/CreateEventAlertBox.java">
+    <entry file="file://$PROJECT_DIR$/src/main/CalendarGridController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="768" column="11" lean-forward="true" selection-start-line="755" selection-start-column="8" selection-end-line="768" selection-end-column="11" />
+        <state relative-caret-position="229">
+          <caret line="355" column="49" selection-start-line="355" selection-start-column="49" selection-end-line="355" selection-end-column="49" />
           <folding>
-            <element signature="e#2903#2904#0" expanded="true" />
-            <element signature="e#2951#2952#0" expanded="true" />
-            <element signature="e#5423#5489#0" />
-            <element signature="e#6604#6670#0" />
-            <element signature="e#11834#17086#0" />
-            <element signature="e#21187#25178#0" />
-            <element signature="e#25180#25238#0" />
-            <element signature="e#25716#26260#0" />
-            <element signature="e#26262#26319#0" />
-            <element signature="e#26799#27334#0" />
-            <element signature="e#27340#29655#0" />
-            <element signature="e#28353#28935#0" />
-            <element signature="e#29661#31947#0" />
-            <element signature="e#30689#31255#0" />
-            <element signature="e#31953#34573#0" />
-            <element signature="class#35015:35298" />
-            <element signature="e#35618#36859#0" />
-            <element signature="e#36140#36141#0" expanded="true" />
-            <element signature="e#36188#36189#0" expanded="true" />
-            <element signature="e#36865#37578#0" />
-            <element signature="e#37584#39941#0" />
-            <element signature="e#37674#37680#0" expanded="true" />
-            <element signature="class#39344:39624" />
-            <element signature="e#39674#39805#0" />
-            <element signature="e#39947#40949#0" />
-            <element signature="class#40167:40826" />
-            <element signature="method#toString#0;class#40167:40826" />
-            <element signature="method#fromString#0;class#40167:40826" />
-            <element signature="e#40955#41509#0" />
+            <element signature="e#2527#7544#0" />
+            <element signature="e#2731#2784#0" />
+            <element signature="class#2857:3020" />
+            <element signature="class#3829:4063" />
+            <element signature="method#handle#0;class#3829:4063" />
+            <element signature="class#4107:5088" />
+            <element signature="method#handle#0;class#4107:5088" />
+            <element signature="class#5132:5670" />
+            <element signature="method#handle#0;class#5132:5670" />
+            <element signature="class#5915:6293" />
+            <element signature="method#handle#0;class#5915:6293" />
+            <element signature="class#6393:6786" />
+            <element signature="method#handle#0;class#6393:6786" />
+            <element signature="class#6828:7220" />
+            <element signature="method#handle#0;class#6828:7220" />
+            <element signature="e#7292#7364#0" />
+            <element signature="e#10603#10735#0" />
+            <element signature="e#15299#17017#0" />
+            <element signature="e#17697#17899#0" />
+            <element signature="e#17905#19067#0" />
+            <element signature="e#19073#20081#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/AlarmModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="51" column="76" lean-forward="true" selection-start-line="51" selection-start-column="76" selection-end-line="51" selection-end-column="76" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1871#1872#0" expanded="true" />
+            <element signature="e#1907#1908#0" expanded="true" />
+            <element signature="e#2393#2394#0" expanded="true" />
+            <element signature="e#2438#2439#0" expanded="true" />
           </folding>
         </state>
       </provider>

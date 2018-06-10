@@ -31,7 +31,7 @@ public class OEPCourseNewsAlarmModel {
         Calendar calendar = Calendar.getInstance();
         lastTime = dbConnection.getLastOEPCourseNewsTime(calendar.get(Calendar.YEAR));
         eventDetailAlertBox = new EventDetailAlertBox();
-        executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.MINUTES);
     }
 
     public void stop() {

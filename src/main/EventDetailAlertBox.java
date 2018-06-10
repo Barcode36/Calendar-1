@@ -180,6 +180,7 @@ public class EventDetailAlertBox {
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK) {
                         event.setIsdeleted(true);
+                        resultEvent = event;
                         dbConnection.updateEvent(event);
                         window.close();
                     } else {

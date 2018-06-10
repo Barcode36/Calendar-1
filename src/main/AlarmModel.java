@@ -25,12 +25,26 @@ public class AlarmModel {
     public void addAlarm(Event event) {
         if (event.isIsnotified())
             return;
-        isUpdating = true;
-        int pos = 0;
         Event temp;
+        isUpdating = true;
+        if (event.isIsdeleted()) {
+            for (int i = 0; i < events.size(); i++) {
+                temp = events.get(i);
+                if (temp.getEventid() == event.getEventid()) {
+                    events.remove(temp);
+                    return;
+                }
+            }
+        }
+
+        int pos = 0;
+
         for (int i = 0; i < events.size(); i++) {
             temp = events.get(i);
-            if ((temp.getStartTime() - temp.getNotifyTime()) > (event.getStartTime() - event.getNotifyTime())) {
+            if (temp.getEventid() == event.getEventid()) {
+                events.remove(temp);
+                i--;
+            } else if ((temp.getStartTime() - temp.getNotifyTime()) < (event.getStartTime() - event.getNotifyTime())) {
                 pos = i;
             }
         }
@@ -52,7 +66,7 @@ public class AlarmModel {
         if (temp != null) {
             events.addAll(temp);
         }
-        executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::tick, 0, 10, TimeUnit.SECONDS);
     }
 
     public void stop() {
@@ -70,9 +84,9 @@ public class AlarmModel {
                     event.setIsnotified(true);
                     dbConnection.updateEvent(event);
                     Utils.playSound(dbConnection.getAlarm(event.getAlarmID()).getPath());
+                    removeAlarm(event);
                     EventDetailAlertBox eventDetailAlertBox = new EventDetailAlertBox();
                     eventDetailAlertBox.display(event, primaryScreenBounds.getWidth() - eventDetailAlertBox.getStageWidth(), primaryScreenBounds.getHeight() - eventDetailAlertBox.getStageHeight(), true);
-                    removeAlarm(event);
                 }
             }
         });
