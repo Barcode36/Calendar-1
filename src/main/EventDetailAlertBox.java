@@ -344,6 +344,37 @@ public class EventDetailAlertBox {
             layout.getChildren().addAll(eventSubtitleLabel, eventTitleLabel, eventTimeHBox);
             window.setMinWidth(650);
             window.setMinHeight(400);
+            window.setHeight(400);
+        } else if (object instanceof CTSVNews) {
+            menuBarHBox.getChildren().add(openInBrowserImageView);
+
+            eventSubtitleLabel.setText("Thông báo CTSV");
+            CTSVNews ctsvNews = (CTSVNews) object;
+
+            openInBrowserImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        Runtime.getRuntime().exec(new String[]{"cmd", "/c", "start chrome " + ctsvNews.getUrl()});
+                    } catch (IOException e) {
+
+                    }
+                }
+            });
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(ctsvNews.getNotifyTime() * 1000);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
+            eventTimeLabel.setText(formatter.format(calendar.getTime()));
+            if (ctsvNews.getTitle().isEmpty()) {
+                eventTitleLabel.setText("Không có tiêu đề");
+            } else {
+                eventTitleLabel.setText(ctsvNews.getTitle());
+            }
+            layout.getChildren().addAll(eventSubtitleLabel, eventTitleLabel, eventTimeHBox);
+            window.setMinWidth(650);
+            window.setMinHeight(400);
+            window.setHeight(400);
         } else if (object instanceof Class) {
             eventSubtitleLabel.setText("Thông báo nghỉ, học bù OEP");
             Class aClass = (Class) object;
@@ -359,7 +390,8 @@ public class EventDetailAlertBox {
             eventDescriptionLabel.setText("Giáo viên: " + aClass.getTeacher() + "\n" + "Khoa/Bộ môn: " + aClass.getFaculty() + "\n" + "Môn học: " + aClass.getSubject() + "\n" + "Lớp: " + aClass.getClassid() + "\n" + "Phòng: " + aClass.getRoom() + "\n" + "Tiết bắt đầu: " + aClass.getStartTime() + "\n" + "Tiết kết thúc: " + aClass.getEndTime() + "\n" + "ngày " + formatter.format(calendar.getTime()));
             layout.getChildren().addAll(eventSubtitleLabel, eventTitleLabel, eventDescriptionHBox);
             window.setMinWidth(650);
-            window.setMinHeight(600);
+            window.setMinHeight(450);
+            window.setHeight(450);
         }
 
         if (!notify) {
@@ -460,7 +492,9 @@ public class EventDetailAlertBox {
             return dbConnection.getDefaultColor("birthday");
         } else if (object instanceof OEPNews) {
             return dbConnection.getDefaultColor("oepnews");
-        } else if (object instanceof Class){
+        } else if (object instanceof CTSVNews) {
+            return dbConnection.getDefaultColor("ctsvnews");
+        } else if (object instanceof Class) {
             return dbConnection.getDefaultColor("oepcoursenews");
         }
         return "";

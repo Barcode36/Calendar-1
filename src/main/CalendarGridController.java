@@ -105,7 +105,6 @@ public class CalendarGridController implements Initializable {
         eventDetailAlertBox = new EventDetailAlertBox();
 
         dbConnection = new DbConnection();
-        //DbConnection.connectToDB();
         dayGrid = new VBox[][]{
                 {vBox01, vBox11, vBox21, vBox31, vBox41, vBox51, vBox61},
                 {vBox02, vBox12, vBox22, vBox32, vBox42, vBox52, vBox62},
@@ -150,7 +149,7 @@ public class CalendarGridController implements Initializable {
                 yearTextField.setText("" + c.get(Calendar.YEAR));
             }
         });
-        monthComboBox.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12);
+        monthComboBox.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
         monthComboBox.getSelectionModel().select(c.get(Calendar.MONTH));
         monthComboBox.setStyle("-fx-font: 18px \"System\";");
         monthComboBox.setOnAction(new EventHandler<ActionEvent>() {
@@ -184,17 +183,29 @@ public class CalendarGridController implements Initializable {
         alarmModel = new AlarmModel();
         alarmModel.start();
 
-//        OEPNewsAlarmModel oepNewsAlarmModel = new OEPNewsAlarmModel();
-//        oepNewsAlarmModel.start();
-//
-//        OEPCourseNewsAlarmModel oepCourseNewsAlarmModel = new OEPCourseNewsAlarmModel();
-//        oepCourseNewsAlarmModel.start();
+        OEPNewsAlarmModel oepNewsAlarmModel = new OEPNewsAlarmModel();
+        oepNewsAlarmModel.start();
+
+        CTSVNewsAlarmModel ctsvNewsAlarmModel = new CTSVNewsAlarmModel();
+        ctsvNewsAlarmModel.start();
+
+        OEPCourseNewsAlarmModel oepCourseNewsAlarmModel = new OEPCourseNewsAlarmModel();
+        oepCourseNewsAlarmModel.start();
     }
 
+    /**
+     * Hàm dùng để cập nhật lại giao diện lịch chính
+     *
+     * @param maxDay    số ngày tối đa của thánh được chọn
+     * @param dayOfWeek thứ của ngày 1 của tháng
+     */
     private void refreshCalendarGrid(int maxDay, int dayOfWeek) {
         System.out.println("refreshing");
-        showLastRow(); // Hiện hàng cuối của lịch cho các tháng hiện đủ 6 dòng
-        removeDayVBoxContent(); // Xóa các ngày đang hiển thị trong lịch
+        // Hiện hàng cuối của lịch cho các tháng hiện đủ 6 dòng
+        showLastRow();
+
+        // Xóa các ngày đang hiển thị trong lịch
+        removeDayVBoxContent();
         removeVBoxEvent();
         int j = -1;
         switch (dayOfWeek) {
@@ -228,6 +239,7 @@ public class CalendarGridController implements Initializable {
                 Label day = new Label("" + dayCount);
                 VBox.setMargin(day, new Insets(5, 0, 0, 5));
                 day.setPickOnBounds(false);
+                // tô màu xanh cho ngày hiện tại
                 if (dayCount == current.get(Calendar.DAY_OF_MONTH) && (current.get(Calendar.MONTH) == c.get(Calendar.MONTH)) && (current.get(Calendar.YEAR) == c.get(Calendar.YEAR))) {
                     day.setBackground(new Background(new BackgroundFill(Color.rgb(66, 133, 244), CornerRadii.EMPTY, Insets.EMPTY)));
                     day.setTextFill(Color.WHITE);
@@ -237,8 +249,11 @@ public class CalendarGridController implements Initializable {
                 dayGrid[i][j].setUserData(dayCount);
                 addMouseClickEvent(dayGrid[i][j]);
 
+                // lấy danh sách các thông báo chung OEP của ngày dayCount trong tháng được chọn
                 List<OEPNews> oepnews = dbConnection.getOEPNewsList(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
                 if (oepnews != null) {
+                    // với từng thông báo, 1 lable sẽ được tạo chứa tiêu đề của thông báo
+                    // và được thêm vào vbox ngày tương ứng
                     for (OEPNews k : oepnews) {
                         Label label = makeLabel(k);
                         VBox.setMargin(label, new Insets(0, 0, 2, 0));
@@ -246,8 +261,23 @@ public class CalendarGridController implements Initializable {
                     }
                 }
 
+                // lấy danh sách các thông báo chung OEP của ngày dayCount trong tháng được chọn
+                List<CTSVNews> ctsvNewsList = dbConnection.getCTSVNewsList(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
+                if (ctsvNewsList != null) {
+                    // với từng thông báo, 1 lable sẽ được tạo chứa tiêu đề của thông báo
+                    // và được thêm vào vbox ngày tương ứng
+                    for (CTSVNews k : ctsvNewsList) {
+                        Label label = makeLabel(k);
+                        VBox.setMargin(label, new Insets(0, 0, 2, 0));
+                        dayGrid[i][j].getChildren().add(label);
+                    }
+                }
+
+                // lấy danh sách các thông báo nghỉ, bù OEP của ngày dayCount trong tháng được chọn
                 List<Class> classes = dbConnection.getOEPCourseNewsList(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
                 if (classes != null) {
+                    // với từng thông báo, 1 lable sẽ được tạo chứa tiêu đề của thông báo
+                    // và được thêm vào vbox ngày tương ứng
                     for (Class k : classes) {
                         Label label = makeLabel(k);
                         VBox.setMargin(label, new Insets(0, 0, 2, 0));
@@ -255,8 +285,11 @@ public class CalendarGridController implements Initializable {
                     }
                 }
 
+                // lấy danh sách các ngày lễ của ngày dayCount trong tháng được chọn
                 List<Holiday> holidays = dbConnection.getDayHoliday(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
                 if (holidays != null) {
+                    // với từng ngày lễ, 1 lable sẽ được tạo chứa tiêu đề của thông báo
+                    // và được thêm vào vbox ngày tương ứng
                     for (Holiday k : holidays) {
                         Label label = makeLabel(k);
                         VBox.setMargin(label, new Insets(0, 0, 2, 0));
@@ -264,17 +297,23 @@ public class CalendarGridController implements Initializable {
                     }
                 }
 
-//                List<Birthday> birthdays = dbConnection.getDayBirthday(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
-//                if (birthdays != null) {
-//                    for (Birthday k : birthdays) {
-//                        Label label = makeLabel(k);
-//                        VBox.setMargin(label, new Insets(0, 0, 2, 0));
-//                        dayGrid[i][j].getChildren().add(label);
-//                    }
-//                }
+                // lấy danh sách các ngày sinh nhật của ngày dayCount trong tháng được chọn
+                List<Birthday> birthdays = dbConnection.getDayBirthday(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
+                if (birthdays != null) {
+                    // với từng ngày sinh nhật, 1 lable sẽ được tạo chứa tiêu đề của thông báo
+                    // và được thêm vào vbox ngày tương ứng
+                    for (Birthday k : birthdays) {
+                        Label label = makeLabel(k);
+                        VBox.setMargin(label, new Insets(0, 0, 2, 0));
+                        dayGrid[i][j].getChildren().add(label);
+                    }
+                }
 
+                // lấy danh sách các sự kiện của ngày dayCount trong tháng được chọn
                 List<Event> events = dbConnection.getDayEvent(dayCount, c.get(Calendar.MONTH) + 1, c.get(Calendar.YEAR));
                 if (events != null) {
+                    // với từng sự kiện, 1 lable sẽ được tạo chứa tiêu đề của thông báo
+                    // và được thêm vào vbox ngày tương ứng
                     for (Event k : events) {
                         Label label = makeLabel(k);
                         VBox.setMargin(label, new Insets(0, 0, 2, 0));
@@ -290,10 +329,19 @@ public class CalendarGridController implements Initializable {
                 break;
             j = 0;
         }
+
+        // nếu tháng được chọn không dùng hết 5 hàng vbox ngày
+        // thì giấu hàng vbox ngày cuối đi
         if (i == 4)
             hideLastRow();
     }
 
+    /**
+     * Hàm dùng để tạo label cho các sự kiện
+     *
+     * @param object truyền vào 1 đối tượng event, holiday, birthday, oepnews, hoặc class
+     * @return label chứa thông tin của sự kiện truyền vào
+     */
     private Label makeLabel(Object object) {
         Label label = new Label();
         label.setFont(new Font("System", 15));
@@ -325,7 +373,7 @@ public class CalendarGridController implements Initializable {
             } else {
                 label.setText("Ngày sinh nhật của " + birthday.getName());
             }
-        } else if (object instanceof OEPNews){
+        } else if (object instanceof OEPNews) {
             OEPNews oepNews = (OEPNews) object;
             label.setBackground(new Background(new BackgroundFill(Color.web(dbConnection.getDefaultColor("oepnews")), CornerRadii.EMPTY, Insets.EMPTY)));
             java.util.Date eventStartTime = new java.util.Date((long) oepNews.getNotifyTime() * 1000);
@@ -335,7 +383,17 @@ public class CalendarGridController implements Initializable {
             } else {
                 label.setText(HHmmFormatter.format(eventStartTime) + "  " + oepNews.getTitle());
             }
-        }else if (object instanceof Class){
+        } else if (object instanceof CTSVNews) {
+            CTSVNews ctsvNews = (CTSVNews) object;
+            label.setBackground(new Background(new BackgroundFill(Color.web(dbConnection.getDefaultColor("ctsvnews")), CornerRadii.EMPTY, Insets.EMPTY)));
+            java.util.Date eventStartTime = new java.util.Date((long) ctsvNews.getNotifyTime() * 1000);
+
+            if (ctsvNews.getTitle().isEmpty()) {
+                label.setText(HHmmFormatter.format(eventStartTime) + "  Không có tiêu đề");
+            } else {
+                label.setText(HHmmFormatter.format(eventStartTime) + "  " + ctsvNews.getTitle());
+            }
+        } else if (object instanceof Class) {
             Class aClass = (Class) object;
             label.setBackground(new Background(new BackgroundFill(Color.web(dbConnection.getDefaultColor("oepcoursenews")), CornerRadii.EMPTY, Insets.EMPTY)));
             java.util.Date eventStartTime = new java.util.Date((long) aClass.getNotifyTime() * 1000);
@@ -367,6 +425,10 @@ public class CalendarGridController implements Initializable {
         return label;
     }
 
+    /**
+     * Hàm dùng để bỏ các event handler tạo sự kiện của các vbox ngày
+     * sau khi giao diện lịch chính được refresh
+     */
     private void removeVBoxEvent() {
         vBox01.setOnMouseClicked(null);
         vBox02.setOnMouseClicked(null);
@@ -412,6 +474,12 @@ public class CalendarGridController implements Initializable {
         vBox66.setOnMouseClicked(null);
     }
 
+    /**
+     * Hàm dùng để thêm các event handler tạo sự kiện của các vbox ngày
+     * vsau khi giao diện lịch chính được refresh
+     *
+     * @param vBox vbox cần được thêm eventhandler tạo sự kiện
+     */
     private void addMouseClickEvent(VBox vBox) {
         vBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -419,7 +487,6 @@ public class CalendarGridController implements Initializable {
                 event.consume();
                 Event resultEvent = createEventAlertBox.display((int) vBox.getUserData(), c, event.getScreenX(), event.getScreenY(), false, null);
                 c.set(Calendar.DAY_OF_MONTH, 1);
-                //refreshCalendarGrid(c.getActualMaximum(Calendar.DAY_OF_MONTH), c.get(Calendar.DAY_OF_WEEK));
                 if (resultEvent != null) {
                     alarmModel.addAlarm(resultEvent);
                 }
@@ -427,6 +494,10 @@ public class CalendarGridController implements Initializable {
         });
     }
 
+    /**
+     * Hàm dùng để loại tất cả các node trong vbox ngày
+     * sau khi giao diện lịch chính được refresh
+     */
     private void removeDayVBoxContent() {
         for (int i = 0; i <= 5; i++) {
             for (int j = 0; j <= 6; j++) {
@@ -435,6 +506,10 @@ public class CalendarGridController implements Initializable {
         }
     }
 
+    /**
+     * Hàm dùng để hiện hàng chứa các vbox ngày dưới cùng của giao diện lịch chính
+     * Các tháng nếu phân bố ngày dùng trên 5 hàng sẽ dùng hàm này
+     */
     private void showLastRow() {
         for (int i = 5; i <= 5; i++) {
             for (int j = 0; j <= 6; j++) {
@@ -461,6 +536,10 @@ public class CalendarGridController implements Initializable {
         calendarGridPane.getRowConstraints().get(6).setMaxHeight(calendarGridPane.getRowConstraints().get(1).getMaxHeight());
     }
 
+    /**
+     * Hàm dùng để giấu hàng chứa các vbox ngày dưới cùng của giao diện lịch chính
+     * Dùng khi tháng được chọn có sự phân bố ngày dùng chỉ 4 dòng
+     */
     private void hideLastRow() {
         for (int i = 5; i <= 5; i++) {
             for (int j = 0; j <= 6; j++) {

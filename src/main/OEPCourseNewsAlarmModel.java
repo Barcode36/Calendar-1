@@ -26,33 +26,62 @@ public class OEPCourseNewsAlarmModel {
 
     private long lastTime;
 
+    /**
+     * Hàm này dùng để bắt đầu thread kiểm tra và thông báo các thông báo nghỉ, học bù từ OEP
+     */
     public void start() {
         dbConnection = new DbConnection();
         Calendar calendar = Calendar.getInstance();
+
+        // lấy thời gian quét kiểm tra thông báo gần nhất từ csdl
         lastTime = dbConnection.getLastOEPCourseNewsTime(calendar.get(Calendar.YEAR));
+
         eventDetailAlertBox = new EventDetailAlertBox();
-        executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.MINUTES);
+        executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.SECONDS);
     }
 
+    /**
+     * Hàm để dừng thread thông báo
+     */
     public void stop() {
         executorService.shutdownNow();
     }
 
+    /**
+     * Hàm này được chạy mỗi khoảng thời gian được quy định trong hàm start
+     */
     private void tick() {
+        // Nếu người dùng tắt chức năng thông báo nghỉ bù OEP
+        // thì không kiểm tra
+        if (!dbConnection.getOEPCourseNewsNotifyStatus())
+            return;
+
         Calendar calendar = Calendar.getInstance();
-        //lastTime = dbConnection.getLastOEPCourseNewsTime(calendar.get(Calendar.YEAR));
         Alarm alarm = dbConnection.getAlarm(dbConnection.getDefaultAlarm("oepcoursenews"));
+
+        // tạo hàng đợi chứa các thông báo nghỉ học bù mới từ OEP
+        // qua hàm getUpdate và truyền vào danh sách lớp đăng ký lấy từ csdl
         List<Class> cours = getUpdate(dbConnection.getClassList());
         Platform.runLater(() -> {
+            // với mỗi thông báo mới thì bật nhạc chuông và hiển thị thông báo
             for (Class aClass : cours) {
                 Utils.playSound(alarm.getPath());
-                eventDetailAlertBox.display(aClass, primaryScreenBounds.getWidth() - eventDetailAlertBox.getStageWidth(), primaryScreenBounds.getHeight() - 600, true);
+                eventDetailAlertBox.display(aClass, primaryScreenBounds.getWidth() - eventDetailAlertBox.getStageWidth(),
+                        primaryScreenBounds.getHeight() - 450, true);
             }
         });
+
+        // lưu lại thời gian quét kiểm tra thông báo gần nhất
+        // vào csdl
         lastTime = System.currentTimeMillis() / 1000;
         dbConnection.updateLastOEPCourseNewsTime(lastTime, calendar.get(Calendar.YEAR));
     }
 
+    /**
+     * Hàm này dùng để lấy các thông báo nghỉ, học bù OEP
+     * @param arrayListMMH: danh sách các mã lớp mà người dùng nhật
+     * @return danh sách các thông báo nghỉ, học bù mới
+     */
     private List<Class> getUpdate(List<String> arrayListMMH) {
         List<Class> classes = new ArrayList<Class>();
 
@@ -61,6 +90,7 @@ public class OEPCourseNewsAlarmModel {
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-nghi-hoc-hoc-bu?page=1");
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-nghi-hoc-hoc-bu?page=2");
         arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-nghi-hoc-hoc-bu?page=3");
+        arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-nghi-hoc-hoc-bu?page=4");
         for (int i = 0; i < arrayListMMH.size(); i++) {//arrayListMMH.size(); i++) {
             for (int j = 0; j < arrayListURL.size(); j++) {
                 try {
@@ -109,7 +139,8 @@ public class OEPCourseNewsAlarmModel {
 
                                     Calendar calendar = convertDDMMYYYYToCalendarObject(courseTime);
 
-                                    dbConnection.addOEPCourseNews(aClass, calendar.get(Calendar.DATE), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+                                    dbConnection.addOEPCourseNews(aClass, calendar.get(Calendar.DATE),
+                                            calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
 
                                     classes.add(aClass);
                                 }
@@ -124,6 +155,10 @@ public class OEPCourseNewsAlarmModel {
         return classes;
     }
 
+    /**
+     * @param time Chuỗi ký tự thời gian dạng "dd/MM/yyyy - HH:mm"
+     * @return Số miligiây của chuổi ký tự thời gian
+     */
     private long convertTimeToMili(String time) {
         Calendar calendar = Calendar.getInstance();
         try {
@@ -135,6 +170,10 @@ public class OEPCourseNewsAlarmModel {
         return calendar.getTimeInMillis() / 1000;
     }
 
+    /**
+     * @param time Chuỗi ký tự thời gian dạng "dd/MM/yyyy"
+     * @return Số miligiây của chuổi ký tự thời gian
+     */
     private long convertDDMMYYYYToMili(String time) {
         Calendar calendar = Calendar.getInstance();
         try {
@@ -146,23 +185,16 @@ public class OEPCourseNewsAlarmModel {
         return calendar.getTimeInMillis() / 1000;
     }
 
+    /**
+     * @param time - Chuỗi ký tự thời gian dạng "dd/MM/yyyy"
+     * @return Đối tượng Calendar được tạo từ thông tin của chuỗi ký tự thời gian
+     */
     private Calendar convertDDMMYYYYToCalendarObject(String time) {
         Calendar calendar = Calendar.getInstance();
         try {
             calendar.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(time));
         } catch (ParseException e) {
             System.out.println("error converting time to mili");
-        }
-        return calendar;
-    }
-
-    private Calendar convertTimeToCalendarObject(String time) {
-        Calendar calendar = Calendar.getInstance();
-        try {
-            calendar.setTime(new SimpleDateFormat("dd/MM/yyyy - HH:mm").parse(time));
-        } catch (ParseException e) {
-            System.out.println("error converting time to mili");
-            return null;
         }
         return calendar;
     }

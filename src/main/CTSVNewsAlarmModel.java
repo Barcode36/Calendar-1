@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class OEPNewsAlarmModel {
+public class CTSVNewsAlarmModel {
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     private Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
@@ -34,7 +34,7 @@ public class OEPNewsAlarmModel {
         Calendar calendar = Calendar.getInstance();
 
         // lấy thời gian quét kiểm tra thông báo gần nhất từ csdl
-        lastTime = dbConnection.getLastOEPNewsTime(calendar.get(Calendar.YEAR));
+        lastTime = dbConnection.getLastCTSVNewsTime(calendar.get(Calendar.YEAR));
 
         eventDetailAlertBox = new EventDetailAlertBox();
         executorService.scheduleAtFixedRate(this::tick, 0, 30, TimeUnit.SECONDS);
@@ -53,20 +53,20 @@ public class OEPNewsAlarmModel {
     private void tick() {
         // Nếu người dùng tắt chức năng thông báo chung OEP
         // thì không kiểm tra
-        if (!dbConnection.getOEPNewsNotifyStatus())
+        if (!dbConnection.getCTSVNewsNotifyStatus())
             return;
 
         Calendar calendar = Calendar.getInstance();
-        Alarm alarm = dbConnection.getAlarm(dbConnection.getDefaultAlarm("oepnews"));
+        Alarm alarm = dbConnection.getAlarm(dbConnection.getDefaultAlarm("ctsvnews"));
 
         // tạo hàng đợi chứa các thông báo chung mới từ OEP
         // qua hàm getUpdateDAA
-        List<OEPNews> oepNewsList = getUpdateDAA();
+        List<CTSVNews> ctsvNewsList = getUpdateCTSV();
         Platform.runLater(() -> {
             // với mỗi thông báo mới thì bật nhạc chuông và hiển thị thông báo
-            for (OEPNews oepNews : oepNewsList) {
+            for (CTSVNews ctsvNews : ctsvNewsList) {
                 Utils.playSound(alarm.getPath());
-                eventDetailAlertBox.display(oepNews, primaryScreenBounds.getWidth() - eventDetailAlertBox.getStageWidth(),
+                eventDetailAlertBox.display(ctsvNews, primaryScreenBounds.getWidth() - eventDetailAlertBox.getStageWidth(),
                         primaryScreenBounds.getHeight() - eventDetailAlertBox.getStageHeight(), true);
             }
         });
@@ -74,7 +74,7 @@ public class OEPNewsAlarmModel {
         // lưu lại thời gian quét kiểm tra thông báo gần nhất
         // vào csdl
         lastTime = System.currentTimeMillis() / 1000;
-        dbConnection.updateLastOEPNewsTime(lastTime, calendar.get(Calendar.YEAR));
+        dbConnection.updateLastCTSVNewsTime(lastTime, calendar.get(Calendar.YEAR));
     }
 
     /**
@@ -82,13 +82,13 @@ public class OEPNewsAlarmModel {
      *
      * @return danh sách các thông báo chung mới
      */
-    private List<OEPNews> getUpdateDAA() {
-        List<OEPNews> oepNewsList = new ArrayList<OEPNews>();
+    private List<CTSVNews> getUpdateCTSV() {
+        List<CTSVNews> ctsvNewsList = new ArrayList<CTSVNews>();
 
         ArrayList<String> arrayListURL = new ArrayList<String>();
-        arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung");
-        arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung?page=1");
-        arrayListURL.add("https://oep.uit.edu.vn/vi/thong-bao-chung?page=2");
+        arrayListURL.add("https://ctsv.uit.edu.vn/thong-bao");
+        arrayListURL.add("https://ctsv.uit.edu.vn/thong-bao?page=1");
+        arrayListURL.add("https://ctsv.uit.edu.vn/thong-bao?page=2");
 
         // Duyệt qua từng trang web
         for (int j = 0; j < arrayListURL.size(); j++) {
@@ -118,21 +118,21 @@ public class OEPNewsAlarmModel {
                             // nếu thời gian đăng lớn hơn thì lấy thông báo
                             if (!(convertTimeToMili(tempTime) < lastTime)) {
                                 Element contentElement = contentElements.get(i).getAllElements().first();
-                                OEPNews oepNews = new OEPNews();
+                                CTSVNews ctsvNews = new CTSVNews();
 
                                 // lấy đường link của thông báo
-                                oepNews.setUrl(contentElement.attr("abs:href"));
+                                ctsvNews.setUrl(contentElement.attr("abs:href"));
 
                                 // lấy tiêu đề của thông báo
-                                oepNews.setTitle(contentElement.text());
+                                ctsvNews.setTitle(contentElement.text());
 
                                 // lấy thời gian đăng của thông báo
-                                oepNews.setNotifyTime(convertTimeToMili(tempTime));
-                                oepNewsList.add(oepNews);
+                                ctsvNews.setNotifyTime(convertTimeToMili(tempTime));
+                                ctsvNewsList.add(ctsvNews);
                                 Calendar calendar = convertTimeToCalendarObject(tempTime);
                                 if (calendar != null) {
                                     // thêm thông báo mới lấy vào csdl
-                                    dbConnection.addOEPNews(oepNews, calendar.get(Calendar.DATE),
+                                    dbConnection.addCTSVNews(ctsvNews, calendar.get(Calendar.DATE),
                                             calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
                                 }
                             }
@@ -143,7 +143,7 @@ public class OEPNewsAlarmModel {
 
             }
         }
-        return oepNewsList;
+        return ctsvNewsList;
     }
 
 
@@ -176,5 +176,4 @@ public class OEPNewsAlarmModel {
         }
         return calendar;
     }
-
 }
